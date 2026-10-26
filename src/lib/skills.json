@@ -1,0 +1,747 @@
+[
+  {
+    "id": "engineering",
+    "name": "Engineering",
+    "branch": "Core",
+    "region": "Engineering",
+    "x": 0,
+    "y": 0,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [],
+    "initialLevel": 1,
+    "description": "The art of turning ideas into systems. Every great creation begins with a single learned skill."
+  },
+  {
+    "id": "html",
+    "name": "HTML",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -210,
+    "y": -160,
+    "icon": "html5",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 7,
+    "description": "Develop a deep understanding of HTML. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "css",
+    "name": "CSS",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -370,
+    "y": -275,
+    "icon": "css3",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "html",
+        "level": 3
+      }
+    ],
+    "initialLevel": 6,
+    "description": "Develop a deep understanding of CSS. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "javascript",
+    "name": "JavaScript",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -170,
+    "y": -330,
+    "icon": "javascript",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "html",
+        "level": 3
+      }
+    ],
+    "initialLevel": 5,
+    "description": "Develop a deep understanding of JavaScript. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -415,
+    "y": -460,
+    "icon": "typescript",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "javascript",
+        "level": 3
+      }
+    ],
+    "initialLevel": 2,
+    "description": "Develop a deep understanding of TypeScript. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "react",
+    "name": "React",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -170,
+    "y": -510,
+    "icon": "react",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "javascript",
+        "level": 4
+      }
+    ],
+    "initialLevel": 3,
+    "description": "Develop a deep understanding of React. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "nextjs",
+    "name": "Next.js",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": 40,
+    "y": -480,
+    "icon": "nextjs",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "react",
+        "level": 5
+      },
+      {
+        "id": "typescript",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Next.js. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "nodejs",
+    "name": "Node.js",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": 230,
+    "y": -150,
+    "icon": "nodejs",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 3,
+    "description": "Develop a deep understanding of Node.js. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "express",
+    "name": "Express",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": 385,
+    "y": -265,
+    "icon": "express",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "nodejs",
+        "level": 3
+      }
+    ],
+    "initialLevel": 2,
+    "description": "Develop a deep understanding of Express. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "api",
+    "name": "API Design",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": 230,
+    "y": -340,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "express",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of API Design. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "auth",
+    "name": "Authentication",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": 540,
+    "y": -370,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "api",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Authentication. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "services",
+    "name": "Microservices",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": 400,
+    "y": -505,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "auth",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Microservices. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "sql",
+    "name": "SQL",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 320,
+    "y": 45,
+    "icon": "postgresql",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 3,
+    "description": "Develop a deep understanding of SQL. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "postgres",
+    "name": "PostgreSQL",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 510,
+    "y": -30,
+    "icon": "postgresql",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "sql",
+        "level": 3
+      }
+    ],
+    "initialLevel": 1,
+    "description": "Develop a deep understanding of PostgreSQL. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "redis",
+    "name": "Redis",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 540,
+    "y": 145,
+    "icon": "redis",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "postgres",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Redis. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "modeling",
+    "name": "Data Modeling",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 715,
+    "y": 50,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "redis",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Data Modeling. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "networks",
+    "name": "Networking",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 200,
+    "y": 220,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 2,
+    "description": "Develop a deep understanding of Networking. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "docker",
+    "name": "Docker",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 390,
+    "y": 315,
+    "icon": "docker",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "networks",
+        "level": 3
+      }
+    ],
+    "initialLevel": 1,
+    "description": "Develop a deep understanding of Docker. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "distributed",
+    "name": "Distributed Systems",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 205,
+    "y": 425,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "docker",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Distributed Systems. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "architecture",
+    "name": "System Architect",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 395,
+    "y": 510,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "distributed",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of System Architect. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "python",
+    "name": "Python",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": -140,
+    "y": 235,
+    "icon": "python",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 2,
+    "description": "Develop a deep understanding of Python. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "numpy",
+    "name": "NumPy",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": -290,
+    "y": 345,
+    "icon": "numpy",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "python",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of NumPy. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "ml",
+    "name": "Machine Learning",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": -105,
+    "y": 460,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "numpy",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Machine Learning. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "neural",
+    "name": "Neural Networks",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": -340,
+    "y": 520,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "ml",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Neural Networks. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "structures",
+    "name": "Data Structures",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -335,
+    "y": 45,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 3,
+    "description": "Develop a deep understanding of Data Structures. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "algorithms",
+    "name": "Algorithms",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -510,
+    "y": -20,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "structures",
+        "level": 3
+      }
+    ],
+    "initialLevel": 1,
+    "description": "Develop a deep understanding of Algorithms. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "complexity",
+    "name": "Complexity",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -520,
+    "y": 160,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "algorithms",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Complexity. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "dsa-mastery",
+    "name": "Algorithm Master",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -715,
+    "y": 70,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "complexity",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Algorithm Master. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "logic",
+    "name": "Logical Thinking",
+    "branch": "Problem Solving",
+    "region": "Problem Solving",
+    "x": 2200,
+    "y": 0,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [],
+    "initialLevel": 1,
+    "description": "Develop a deep understanding of Logical Thinking. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "decomposition",
+    "name": "Decomposition",
+    "branch": "Problem Solving",
+    "region": "Problem Solving",
+    "x": 2550,
+    "y": 0,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "logic",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Decomposition. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "patterns",
+    "name": "Pattern Recognition",
+    "branch": "Problem Solving",
+    "region": "Problem Solving",
+    "x": 2375,
+    "y": 303,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "logic",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Pattern Recognition. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "research",
+    "name": "Research",
+    "branch": "Problem Solving",
+    "region": "Problem Solving",
+    "x": 2025,
+    "y": 303,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "logic",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Research. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "critical",
+    "name": "Critical Thinking",
+    "branch": "Problem Solving",
+    "region": "Problem Solving",
+    "x": 1850,
+    "y": 0,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "logic",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Critical Thinking. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "systems",
+    "name": "Systems Thinking",
+    "branch": "Problem Solving",
+    "region": "Problem Solving",
+    "x": 2025,
+    "y": -303,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "logic",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Systems Thinking. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "problem-master",
+    "name": "The Strategist",
+    "branch": "Problem Solving",
+    "region": "Problem Solving",
+    "x": 2375,
+    "y": -303,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "logic",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of The Strategist. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "communication",
+    "name": "Communication",
+    "branch": "Personal Skills",
+    "region": "Personal Skills",
+    "x": -2200,
+    "y": 0,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [],
+    "initialLevel": 1,
+    "description": "Develop a deep understanding of Communication. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "writing",
+    "name": "Writing",
+    "branch": "Personal Skills",
+    "region": "Personal Skills",
+    "x": -1850,
+    "y": 0,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "communication",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Writing. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "speaking",
+    "name": "Public Speaking",
+    "branch": "Personal Skills",
+    "region": "Personal Skills",
+    "x": -2025,
+    "y": 303,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "communication",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Public Speaking. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "focus",
+    "name": "Deep Work",
+    "branch": "Personal Skills",
+    "region": "Personal Skills",
+    "x": -2375,
+    "y": 303,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "communication",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Deep Work. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "learning",
+    "name": "Learning to Learn",
+    "branch": "Personal Skills",
+    "region": "Personal Skills",
+    "x": -2550,
+    "y": 0,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "communication",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Learning to Learn. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "leadership",
+    "name": "Leadership",
+    "branch": "Personal Skills",
+    "region": "Personal Skills",
+    "x": -2375,
+    "y": -303,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "communication",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of Leadership. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "polymath",
+    "name": "The Polymath",
+    "branch": "Personal Skills",
+    "region": "Personal Skills",
+    "x": -2025,
+    "y": -303,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "communication",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Develop a deep understanding of The Polymath. Turn knowledge into reliable, real-world practice."
+  }
+]
