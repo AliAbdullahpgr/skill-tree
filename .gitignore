@@ -7,3 +7,5 @@ out/
 playwright-report/
 test-results/
 .openai/*.local.*
+
+.artifacts/
