@@ -115,3 +115,15 @@ Performance changes:
 To reproduce the browser comparison, serve `out/`, then run `node scripts/performance-check.mjs current`. It runs three cold browser pages, performs the same 80-step drag, and writes per-run and median metrics to `.artifacts/`. Measurements are specific to this machine/browser and are not universal speed guarantees. The initial comparison measured 851 KB versus 714 KB decoded JavaScript (16% less) with the larger graph. A focused 22,800-check prerequisite benchmark measured 68.72 ms for the former recursive lookup versus 4.11 ms for cached evaluation.
 
 A second optimization pass removes backdrop blurring behind persistent controls and limits continuous rune animation to the selected node. On the same 228-node graph, an isolated three-run Chromium comparison measured median node-ready time of 882 → 677 ms, pan JavaScript of 124 → 61 ms, total pan CPU of 954 → 672 ms, and sampled JS heap of 15 → 9 MB. These local headless measurements are indicative, not guarantees for every device or network; font transfer is measured separately from decoded JavaScript.
+
+## Guided progression (priorities 6 → 5 → 1 → 2 → 3)
+
+- **Zoom readability:** semantic zoom progressively reveals labels and node detail; overview connections fade so branch summaries stay readable. At the widest phone zoom, tap the Engineering summary to enter the branches.
+- **Goal paths:** the floating goal control offers Frontend, Backend, and AI Engineer routes. Each includes explicit target levels and the full prerequisite closure. Other skills remain visible. Goals persist locally and in version-1 backup exports; older backups safely load without a goal.
+- **Level milestones:** every skill has a distinct practice task plus a cumulative 1–10 assessment rubric. The guide follows the level editor and loads on demand. Level 10 asks for sustained, peer-reviewed impact rather than completion of one exercise. These are suggested self-assessment standards, not credentials.
+- **Next skills:** the Next control lists three reachable suggestions with a reason and a target level. Gold dots mark them on the board. Recommendations favor concrete unlocks and respect the active goal; saving levels recomputes them. Completed goals display an explicit completion message.
+- **Prerequisite tracing:** selecting a locked skill highlights all ancestors and dims unrelated paths. The inspector lists the strongest required level for each ancestor, exact deficits, and blocked saved levels. Inspecting ancestors retains the original target. Fit the entire path or clear it using the floating chip; Escape also clears it.
+
+Configuration: `src/lib/goals.ts` defines role targets; `src/lib/milestone-tasks.json` defines skill-specific practice tasks; `src/lib/milestones.ts` defines the shared assessment rubric. `src/lib/recommendations.ts` and `src/lib/dependencies.ts` contain deterministic, tested graph logic. No external AI service or account is needed.
+
+Run `node scripts/priorities-check.mjs` against the production preview to exercise the complete guided progression flow in addition to the existing browser checks.

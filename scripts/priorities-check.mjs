@@ -1,6 +1,6 @@
 import { chromium } from '@playwright/test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 const local='/root/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome';
 const browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:existsSync(local)?{executablePath:local}:{}),args:['--no-sandbox']});
 const page=await browser.newPage({viewport:{width:1366,height:900},reducedMotion:'reduce'});
@@ -28,6 +28,12 @@ try {
  assert.ok(await page.locator('.rune-node.off-goal').count()>0);
  assert.ok(await page.locator('.connection-goal').count()>0);
  await page.reload();await page.getByRole('button',{name:'Choose learning goal'}).filter({hasText:'Frontend Engineer'}).waitFor();
+ await page.getByRole('button',{name:'Settings',exact:true}).click();
+ const downloading=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup'}).click();const backup=await downloading;
+ const backupBytes=readFileSync(await backup.path());assert.equal(JSON.parse(backupBytes).goalId,'frontend');
+ await page.locator('input[type=file]').setInputFiles({name:'goal-backup.json',mimeType:'application/json',buffer:backupBytes});
+ await page.getByRole('status').filter({hasText:'restored'}).waitFor();
+ await page.getByRole('button',{name:'Close dialog'}).click();
  await page.getByRole('button',{name:'Suggested next skills',exact:true}).click();
  assert.equal(await page.locator('.next-steps .goal-option').count(),3);
  const suggested=await page.locator('.next-steps .goal-option strong').first().evaluate(e=>e.firstChild.textContent);
@@ -37,5 +43,22 @@ try {
  await page.keyboard.press('Escape');
  await page.getByRole('button',{name:'Choose learning goal'}).click();await page.getByRole('button',{name:'Clear goal · explore freely'}).click();
  assert.equal(await page.locator('.rune-node.on-goal').count(),0);
- assert.deepEqual(errors,[]);console.log('PASS: semantic zoom, overview summaries, connection decluttering, readable focused skill, goal routes, persistence, and clear goal.');
+ await page.getByRole('textbox',{name:'Find a skill'}).fill('Next.js');await page.locator('.search-results button').first().click();
+ await page.getByRole('region',{name:'Full prerequisite path'}).waitFor();
+ assert.ok(await page.locator('.connection-path').count()>2);
+ assert.ok(await page.locator('.connection-muted').count()>0);
+ assert.match(await page.locator('.dependency-guide').innerText(),/Raise by 2 levels/);
+ await page.locator('.dependency-guide li button').filter({hasText:'React'}).click();
+ assert.equal(await page.locator('.inspector-hero h2').innerText(),'React');
+ assert.match(await page.locator('.path-chip').innerText(),/Next.js/);
+ await page.getByRole('button',{name:'Increase skill level'}).click();await page.getByRole('button',{name:'Increase skill level'}).click();await page.getByRole('button',{name:'Save level',exact:true}).click();
+ if(await page.getByRole('button',{name:'Continue your journey'}).isVisible()) await page.getByRole('button',{name:'Continue your journey'}).click();
+ await page.locator('.dependency-guide li button').filter({hasText:'TypeScript'}).click();
+ await page.getByRole('button',{name:'Increase skill level'}).click();await page.getByRole('button',{name:'Save level',exact:true}).click();
+ if(await page.getByRole('button',{name:'Continue your journey'}).isVisible()) await page.getByRole('button',{name:'Continue your journey'}).click();
+ assert.match(await page.locator('.path-chip').innerText(),/Requirements met/);
+ await page.getByRole('button',{name:'Fit prerequisite path'}).click();assert.equal(await page.locator('.inspector').count(),0);
+ assert.ok(await page.locator('.connection-path').count()>0);
+ await page.getByRole('button',{name:'Clear prerequisite path'}).click();assert.equal(await page.locator('.connection-path').count(),0);
+ assert.deepEqual(errors,[]);console.log('PASS: all five priorities, goal persistence, milestones, suggestions, full dependency chain, exact gaps, retained target while editing, unlocking, fitting and clearing.');
 } finally {await browser.close();}
