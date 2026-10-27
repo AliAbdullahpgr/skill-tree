@@ -29,7 +29,7 @@ try {
  await page.getByRole('button',{name:'Increase skill level'}).click();
  await page.getByRole('button',{name:'Save level',exact:true}).click();
  await page.getByRole('button',{name:'Continue your journey'}).click();
- assert.equal(JSON.parse(await page.evaluate(()=>localStorage.getItem('arcana-progress-v1'))).levels.react,4);
+ assert.equal(JSON.parse(await page.evaluate(()=>localStorage.getItem('skillweave-progress-v1'))).levels.react,4);
  await page.reload();await page.waitForSelector('.react-flow__node');
  await find('React'); assert.match(await page.locator('.current-level').innerText(),/4/);
  await find('TypeScript');await page.getByRole('button',{name:'Increase skill level'}).click();await page.getByRole('button',{name:'Save level',exact:true}).click();
@@ -37,20 +37,20 @@ try {
  await page.getByRole('dialog',{name:'Skill awakening'}).waitFor();assert.match(await page.locator('.cinematic h2').innerText(),/Next.js/);
  await page.getByRole('button',{name:'Continue your journey'}).click();
  await find('Next.js');assert.equal(await page.getByRole('button',{name:'Increase skill level'}).isEnabled(),true);
- await page.getByRole('button',{name:'Chronicle',exact:true}).click();assert.equal(await page.locator('.chronicle-list h3').count(),3);
- await page.getByRole('button',{name:'The codex',exact:true}).click();assert.equal(await page.locator('.codex-grid>button').count(),definitions.length);
+ await page.getByRole('button',{name:'Chronicle',exact:true}).click();assert.deepEqual((await page.locator('.chronicle-list h3').allInnerTexts()).slice(0,3),['React','TypeScript','React']);
+ await page.getByRole('button',{name:'The codex',exact:true}).click();assert.equal(await page.locator('.codex-grid>button').count(),definitions.filter(skill=>skill.branch!=='Core').length);
  await page.locator('.codex-grid>button').filter({hasText:'Logical Thinking'}).click();assert.equal(await page.locator('.inspector-hero h2').innerText(),'Logical Thinking');
  await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('button',{name:'Moonstone',exact:false}).click();assert.equal(await page.locator('.theme-moonstone').count(),1);
  const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup'}).click();const download=await downloadPromise;assert.equal(download.suggestedFilename(),'skillweave-progress.json');
  await page.locator('input[type=file]').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{"nope":true}')});await page.getByRole('status').filter({hasText:'not a valid'}).waitFor();
  await page.locator('input[type=file]').setInputFiles({name:'valid.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,levels:{engineering:1,html:9},history:[]}))});
- await page.getByRole('status').filter({hasText:'restored'}).waitFor();assert.equal(JSON.parse(await page.evaluate(()=>localStorage.getItem('arcana-progress-v1'))).levels.html,9);
+ await page.getByRole('status').filter({hasText:'restored'}).waitFor();assert.equal(JSON.parse(await page.evaluate(()=>localStorage.getItem('skillweave-progress-v1'))).levels.html,9);
  await page.getByRole('button',{name:'Midnight',exact:false}).click();await page.getByRole('button',{name:'Close dialog'}).click();
  await page.getByRole('button',{name:'Choose realm or branch'}).click();
  await page.locator('.realm-menu').getByRole('button',{name:'Engineering',exact:true}).click();
  const oldZoom=await page.locator('.canvas-controls>span').innerText();await page.getByRole('button',{name:'Zoom in',exact:true}).click();await page.waitForTimeout(400);assert.notEqual(await page.locator('.canvas-controls>span').innerText(),oldZoom);
  // Restore representative demo for the final visual capture.
- await page.evaluate(()=>localStorage.removeItem('arcana-progress-v1'));await page.reload();await page.waitForTimeout(1200);await page.screenshot({path:'.artifacts/desktop.png',fullPage:true});
+ await page.evaluate(()=>localStorage.removeItem('skillweave-progress-v1'));await page.reload();await page.waitForTimeout(1200);await page.screenshot({path:'.artifacts/desktop.png',fullPage:true});
  const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});mobile.on('pageerror',e=>errors.push(e.message));await mobile.goto(base);await mobile.waitForSelector('.react-flow__node');await mobile.waitForTimeout(1000);
  assert.equal(await mobile.locator('.inspector').count(),0);assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);
  const mobileBoard=await mobile.locator('.atlas-area').boundingBox();assert.ok(mobileBoard.height/844>=.9);
