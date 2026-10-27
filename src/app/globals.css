@@ -83,3 +83,20 @@
 .atlas-area[data-moving="true"] .particles{animation-play-state:paused}
 @keyframes ambient-drift{0%{transform:translateY(30px);opacity:0}15%,85%{opacity:1}100%{transform:translateY(-30px);opacity:0}}
 @media(prefers-reduced-motion:reduce){.particles{animation:none;will-change:auto}}
+
+/* Semantic zoom: show structure at distance, detail as the camera approaches. */
+.constellation-label small{display:block;font:11px var(--sans);color:#b4c6dc;margin-top:5px}
+.world-label{display:none;position:absolute;transform:translate(-50%,-100%);pointer-events:auto;white-space:nowrap;color:var(--gold);font-family:var(--serif)}
+.world-label span{display:block;font-family:var(--sans);color:var(--muted)}
+.atlas-area[data-detail="world"] .constellation-label{visibility:hidden}
+.atlas-area[data-detail="world"] .world-label{display:block;font-size:calc(15px * var(--overview-scale, 10))}
+.atlas-area[data-detail="world"] .world-label span{font-size:calc(10px * var(--overview-scale, 10))}
+.atlas-area[data-overview="true"] .constellation-label small{font-size:calc(9px * var(--overview-scale, 3))}
+.atlas-area[data-overview="true"] .constellation-label{background:#090c12db;border-radius:9px}
+.atlas-area[data-overview="true"] .connection-detail{opacity:.055!important}
+.atlas-area[data-detail="region"] .connection-detail{opacity:.12!important}
+.atlas-area[data-detail="region"] .node-caption,.atlas-area[data-detail="region"] .node-level{display:none}
+.atlas-area[data-detail="region"] .rune-node:is(:hover,.chosen) .node-caption{display:block;font-size:24px;background:#101722;padding:4px 8px;border-radius:6px;z-index:2}
+.atlas-area[data-detail="detail"] .node-caption{font-size:20px;max-width:185px;text-align:center;white-space:normal;line-height:1.2;width:max-content}
+.atlas-area[data-moving="true"] .node-tooltip{display:none}
+@media(max-width:700px){.atlas-area[data-overview="true"] .constellation-label small{display:none}}

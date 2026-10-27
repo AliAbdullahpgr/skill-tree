@@ -20,6 +20,6 @@ function pathFor(edge: Edge) {
 
 export default memo(function Connections({ edges }: { edges: Edge[] }) {
   return <svg className="skill-connections" aria-hidden="true" width="1" height="1">
-    {edges.map(edge => <path key={edge.id} data-edge-id={edge.id} d={pathFor(edge)} style={edge.style} fill="none" />)}
+    {edges.map(edge => <path key={edge.id} data-edge-id={edge.id} className={edge.className} d={pathFor(edge)} style={edge.style} fill="none" />)}
   </svg>;
 });
