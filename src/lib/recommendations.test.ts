@@ -30,3 +30,11 @@ test('saving a suggestion removes its completed step from the result', () => {
   const changed = { ...initialLevels, [first.id]: first.target };
   assert.ok(!recommendSkills(changed, 'frontend').some(item => item.id === first.id && item.target === first.target));
 });
+test('without a goal, suggestions from the branch on screen come first', () => {
+  for (const branch of ['Frontend', 'Backend', 'DevOps']) {
+    const inBranch = recommendSkills(initialLevels, '', 3, { region: 'Engineering', branch }).map(item => skills.find(skill => skill.id === item.id)!.branch === branch);
+    assert.equal(inBranch[0], true);
+    assert.deepEqual(inBranch, [...inBranch].sort((a, b) => Number(b) - Number(a)));
+  }
+  assert.deepEqual(recommendSkills(initialLevels, 'frontend', 3, { region: 'Engineering', branch: 'DevOps' }), recommendSkills(initialLevels, 'frontend'));
+});
