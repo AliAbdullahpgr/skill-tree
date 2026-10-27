@@ -3,7 +3,9 @@ export type Skill = typeof definitions[number];
 export type Levels = Record<string, number>;
 export const skills: Skill[] = definitions;
 export const initialLevels: Levels = Object.fromEntries(skills.map(s => [s.id, s.initialLevel]));
-export const STORAGE_KEY = 'arcana-progress-v1';
+export const STORAGE_KEY = 'skillweave-progress-v1';
+// Saves written before the SkillWeave rename. Read once, then rewritten under STORAGE_KEY.
+export const LEGACY_STORAGE_KEY = 'arcana-progress-v1';
 export const skillById = new Map(skills.map(skill => [skill.id, skill]));
 // Levels are immutable snapshots. Cache each snapshot without retaining old saves.
 const unlockCache = new WeakMap<Levels, ReadonlyMap<string, boolean>>();
@@ -37,4 +39,4 @@ export function updateLevel(levels: Levels, id: string, level: number): Levels {
   if (!Number.isFinite(level) || !isUnlocked(id, levels)) return levels;
   return { ...levels, [id]: Math.min(10, Math.max(0, Math.round(level))) };
 }
-export const rank = (level: number) => level === 10 ? 'Transcendent' : level >= 8 ? 'Master' : level >= 5 ? 'Adept' : level >= 3 ? 'Apprentice' : level > 0 ? 'Initiate' : 'Undiscovered';
+export const rank = (level: number) => level === 10 ? 'Transcendent' : level >= 8 ? 'Master' : level >= 5 ? 'Adept' : level >= 3 ? 'Apprentice' : level > 0 ? 'Initiate' : 'Untrained';
