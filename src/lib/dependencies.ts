@@ -20,7 +20,8 @@ export function dependencyPath(target: string, levels: Levels): DependencyPath {
     ordered.push(id);
   }
   visit(target);
-  const requirements = ordered.filter(id => id !== target && required.has(id)).map(id => {
+  // The realm root is a structural gate, not a skill to train: list it only when it is the blocker.
+  const requirements = ordered.filter(id => id !== target && required.has(id) && (skillById.get(id)!.branch !== 'Core' || (levels[id] || 0) < required.get(id)!)).map(id => {
     const current = levels[id] || 0, targetLevel = required.get(id)!;
     const blocked = !isUnlocked(id, levels);
     return { id, required: targetLevel, current, missing: Math.max(0, targetLevel - current), blocked, met: !blocked && current >= targetLevel };

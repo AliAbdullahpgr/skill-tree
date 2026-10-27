@@ -22,7 +22,14 @@ test('shared ancestors use their strongest requirement and preserve blocked save
 });
 test('meeting every ancestor clears gaps; roots have an empty chain', () => {
   const path = dependencyPath('nextjs', initialLevels);
-  const completed = normalizeLevels(Object.fromEntries(path.requirements.map(item => [item.id, item.required])));
+  const completed = normalizeLevels({ ...initialLevels, ...Object.fromEntries(path.requirements.map(item => [item.id, item.required])) });
   assert.equal(dependencyPath('nextjs', completed).gaps.length, 0);
   assert.equal(dependencyPath('engineering', initialLevels).requirements.length, 0);
+});
+test('the realm root is drawn on the path but never listed as a requirement', () => {
+  const path = dependencyPath('kubernetes', initialLevels);
+  assert.ok(path.ids.has('engineering'));
+  assert.ok(!path.requirements.some(item => item.id === 'engineering'));
+  // When the root itself is the blocker, it must be listed.
+  assert.ok(dependencyPath('kubernetes', { ...initialLevels, engineering: 0 }).gaps.some(item => item.id === 'engineering'));
 });
