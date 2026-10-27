@@ -41,7 +41,7 @@ try {
  await page.getByRole('button',{name:'The codex',exact:true}).click();assert.equal(await page.locator('.codex-grid>button').count(),definitions.length);
  await page.locator('.codex-grid>button').filter({hasText:'Logical Thinking'}).click();assert.equal(await page.locator('.inspector-hero h2').innerText(),'Logical Thinking');
  await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('button',{name:'Moonstone',exact:false}).click();assert.equal(await page.locator('.theme-moonstone').count(),1);
- const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup'}).click();const download=await downloadPromise;assert.equal(download.suggestedFilename(),'arcana-progress.json');
+ const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup'}).click();const download=await downloadPromise;assert.equal(download.suggestedFilename(),'skillweave-progress.json');
  await page.locator('input[type=file]').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{"nope":true}')});await page.getByRole('status').filter({hasText:'not a valid'}).waitFor();
  await page.locator('input[type=file]').setInputFiles({name:'valid.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,levels:{engineering:1,html:9},history:[]}))});
  await page.getByRole('status').filter({hasText:'restored'}).waitFor();assert.equal(JSON.parse(await page.evaluate(()=>localStorage.getItem('arcana-progress-v1'))).levels.html,9);

@@ -1,4 +1,4 @@
-# Arcana — Skill Tree RPG
+# SkillWeave — Skill Tree RPG
 
 A personal skill atlas inspired by ancient sigil trees and dark fantasy MMORPGs. Explore 228 interconnected skills across Engineering, Problem Solving, and Personal Skills. Engineering includes 214 skills across Frontend, Backend, Databases, System Design, AI, DSA, DevOps, Security, Testing, and Mobile.
 
@@ -127,3 +127,7 @@ A second optimization pass removes backdrop blurring behind persistent controls 
 Configuration: `src/lib/goals.ts` defines role targets; `src/lib/milestone-tasks.json` defines skill-specific practice tasks; `src/lib/milestones.ts` defines the shared assessment rubric. `src/lib/recommendations.ts` and `src/lib/dependencies.ts` contain deterministic, tested graph logic. No external AI service or account is needed.
 
 Run `node scripts/priorities-check.mjs` against the production preview to exercise the complete guided progression flow in addition to the existing browser checks.
+
+## SkillWeave identity
+
+The custom tree-and-stars logo was generated with the built-in imagegen tool. The original is `public/brand/skillweave-original.png`; the optimized header logo is `public/brand/skillweave-logo.webp` and the browser/touch icon is `public/brand/skillweave-icon.png`. The existing storage key is retained so the rename preserves saved progress. See `BRAND.md` for the generation prompt.
