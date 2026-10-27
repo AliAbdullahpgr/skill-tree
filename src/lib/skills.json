@@ -6,7 +6,7 @@
     "region": "Engineering",
     "x": 0,
     "y": 0,
-    "icon": "",
+    "icon": "lucide-compass",
     "kind": "legendary",
     "prerequisites": [],
     "initialLevel": 1,
@@ -100,7 +100,7 @@
       }
     ],
     "initialLevel": 3,
-    "description": "Develop a deep understanding of React. Turn knowledge into reliable, real-world practice."
+    "description": "Weave interfaces from reusable components. Build interactive applications with state, hooks, and composition."
   },
   {
     "id": "nextjs",
@@ -167,7 +167,7 @@
     "region": "Engineering",
     "x": -1620.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-plug",
     "kind": "normal",
     "prerequisites": [
       {
@@ -185,7 +185,7 @@
     "region": "Engineering",
     "x": -1820.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-key-round",
     "kind": "normal",
     "prerequisites": [
       {
@@ -203,7 +203,7 @@
     "region": "Engineering",
     "x": -1890.0,
     "y": -650,
-    "icon": "",
+    "icon": "lucide-boxes",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -275,7 +275,7 @@
     "region": "Engineering",
     "x": -370.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-drafting-compass",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -293,7 +293,7 @@
     "region": "Engineering",
     "x": 1010.0,
     "y": -1850,
-    "icon": "",
+    "icon": "lucide-network",
     "kind": "normal",
     "prerequisites": [
       {
@@ -329,7 +329,7 @@
     "region": "Engineering",
     "x": 1280.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-share-2",
     "kind": "normal",
     "prerequisites": [
       {
@@ -347,7 +347,7 @@
     "region": "Engineering",
     "x": 1080.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-building-2",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -401,7 +401,7 @@
     "region": "Engineering",
     "x": 2460.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-brain-circuit",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -419,7 +419,7 @@
     "region": "Engineering",
     "x": 3070.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-circuit-board",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -437,7 +437,7 @@
     "region": "Engineering",
     "x": -3340.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-blocks",
     "kind": "normal",
     "prerequisites": [
       {
@@ -455,7 +455,7 @@
     "region": "Engineering",
     "x": -3070.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-square-function",
     "kind": "normal",
     "prerequisites": [
       {
@@ -473,7 +473,7 @@
     "region": "Engineering",
     "x": -3340.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-trending-up",
     "kind": "normal",
     "prerequisites": [
       {
@@ -491,7 +491,7 @@
     "region": "Engineering",
     "x": -2530.0,
     "y": 1450,
-    "icon": "",
+    "icon": "lucide-trophy",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -509,7 +509,7 @@
     "region": "Problem Solving",
     "x": 6100,
     "y": 0,
-    "icon": "",
+    "icon": "lucide-brain",
     "kind": "normal",
     "prerequisites": [],
     "initialLevel": 1,
@@ -522,7 +522,7 @@
     "region": "Problem Solving",
     "x": 6450,
     "y": 0,
-    "icon": "",
+    "icon": "lucide-split",
     "kind": "normal",
     "prerequisites": [
       {
@@ -540,7 +540,7 @@
     "region": "Problem Solving",
     "x": 6275,
     "y": 303,
-    "icon": "",
+    "icon": "lucide-shapes",
     "kind": "normal",
     "prerequisites": [
       {
@@ -558,7 +558,7 @@
     "region": "Problem Solving",
     "x": 5925,
     "y": 303,
-    "icon": "",
+    "icon": "lucide-book-open",
     "kind": "normal",
     "prerequisites": [
       {
@@ -576,7 +576,7 @@
     "region": "Problem Solving",
     "x": 5750,
     "y": 0,
-    "icon": "",
+    "icon": "lucide-scale",
     "kind": "normal",
     "prerequisites": [
       {
@@ -594,7 +594,7 @@
     "region": "Problem Solving",
     "x": 5925,
     "y": -303,
-    "icon": "",
+    "icon": "lucide-workflow",
     "kind": "normal",
     "prerequisites": [
       {
@@ -612,7 +612,7 @@
     "region": "Problem Solving",
     "x": 6275,
     "y": -303,
-    "icon": "",
+    "icon": "lucide-gem",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -630,7 +630,7 @@
     "region": "Personal Skills",
     "x": -6100,
     "y": 0,
-    "icon": "",
+    "icon": "lucide-messages-square",
     "kind": "normal",
     "prerequisites": [],
     "initialLevel": 1,
@@ -643,7 +643,7 @@
     "region": "Personal Skills",
     "x": -5750,
     "y": 0,
-    "icon": "",
+    "icon": "lucide-pen-line",
     "kind": "normal",
     "prerequisites": [
       {
@@ -661,7 +661,7 @@
     "region": "Personal Skills",
     "x": -5925,
     "y": 303,
-    "icon": "",
+    "icon": "lucide-mic",
     "kind": "normal",
     "prerequisites": [
       {
@@ -679,7 +679,7 @@
     "region": "Personal Skills",
     "x": -6275,
     "y": 303,
-    "icon": "",
+    "icon": "lucide-focus",
     "kind": "normal",
     "prerequisites": [
       {
@@ -697,7 +697,7 @@
     "region": "Personal Skills",
     "x": -6450,
     "y": 0,
-    "icon": "",
+    "icon": "lucide-graduation-cap",
     "kind": "normal",
     "prerequisites": [
       {
@@ -715,7 +715,7 @@
     "region": "Personal Skills",
     "x": -6275,
     "y": -303,
-    "icon": "",
+    "icon": "lucide-flag",
     "kind": "normal",
     "prerequisites": [
       {
@@ -733,7 +733,7 @@
     "region": "Personal Skills",
     "x": -5925,
     "y": -303,
-    "icon": "",
+    "icon": "lucide-infinity",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -751,7 +751,7 @@
     "region": "Engineering",
     "x": -2530.0,
     "y": -1850,
-    "icon": "",
+    "icon": "lucide-file-code",
     "kind": "normal",
     "prerequisites": [
       {
@@ -769,7 +769,7 @@
     "region": "Engineering",
     "x": -2460.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-monitor-smartphone",
     "kind": "normal",
     "prerequisites": [
       {
@@ -787,7 +787,7 @@
     "region": "Engineering",
     "x": -3340.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-columns-3",
     "kind": "normal",
     "prerequisites": [
       {
@@ -805,7 +805,7 @@
     "region": "Engineering",
     "x": -3070.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-layout-grid",
     "kind": "normal",
     "prerequisites": [
       {
@@ -823,7 +823,7 @@
     "region": "Engineering",
     "x": -3270.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-accessibility",
     "kind": "normal",
     "prerequisites": [
       {
@@ -841,7 +841,7 @@
     "region": "Engineering",
     "x": -2800.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-mouse-pointer-click",
     "kind": "normal",
     "prerequisites": [
       {
@@ -859,7 +859,7 @@
     "region": "Engineering",
     "x": -2530.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-timer",
     "kind": "normal",
     "prerequisites": [
       {
@@ -877,7 +877,7 @@
     "region": "Engineering",
     "x": -2800.0,
     "y": -1050,
-    "icon": "",
+    "icon": "react",
     "kind": "normal",
     "prerequisites": [
       {
@@ -895,7 +895,7 @@
     "region": "Engineering",
     "x": -2530.0,
     "y": -1050,
-    "icon": "",
+    "icon": "redux",
     "kind": "normal",
     "prerequisites": [
       {
@@ -913,7 +913,7 @@
     "region": "Engineering",
     "x": -3270.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-gauge",
     "kind": "normal",
     "prerequisites": [
       {
@@ -931,7 +931,7 @@
     "region": "Engineering",
     "x": -3000.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-app-window",
     "kind": "normal",
     "prerequisites": [
       {
@@ -949,7 +949,7 @@
     "region": "Engineering",
     "x": -3270.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-text-cursor-input",
     "kind": "normal",
     "prerequisites": [
       {
@@ -967,7 +967,7 @@
     "region": "Engineering",
     "x": -2800.0,
     "y": -650,
-    "icon": "",
+    "icon": "lucide-server-cog",
     "kind": "normal",
     "prerequisites": [
       {
@@ -985,7 +985,7 @@
     "region": "Engineering",
     "x": -3000.0,
     "y": -850,
-    "icon": "",
+    "icon": "storybook",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -1003,7 +1003,7 @@
     "region": "Engineering",
     "x": -2730.0,
     "y": -850,
-    "icon": "",
+    "icon": "webcomponentsdotorg",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1075,7 +1075,7 @@
     "region": "Engineering",
     "x": -3340.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-wand-sparkles",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1093,7 +1093,7 @@
     "region": "Engineering",
     "x": -3340.0,
     "y": -650,
-    "icon": "",
+    "icon": "pwa",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1111,7 +1111,7 @@
     "region": "Engineering",
     "x": -3070.0,
     "y": -650,
-    "icon": "",
+    "icon": "lucide-languages",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1129,7 +1129,7 @@
     "region": "Engineering",
     "x": -2530.0,
     "y": -650,
-    "icon": "",
+    "icon": "lucide-crown",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -1151,7 +1151,7 @@
     "region": "Engineering",
     "x": -1620.0,
     "y": -1850,
-    "icon": "",
+    "icon": "lucide-globe",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1169,7 +1169,7 @@
     "region": "Engineering",
     "x": -1010.0,
     "y": -1650,
-    "icon": "",
+    "icon": "openapi",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1205,7 +1205,7 @@
     "region": "Engineering",
     "x": -1890.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-arrow-left-right",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1223,7 +1223,7 @@
     "region": "Engineering",
     "x": -1620.0,
     "y": -1450,
-    "icon": "",
+    "icon": "nodejs",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1241,7 +1241,7 @@
     "region": "Engineering",
     "x": -1350.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-waves",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1259,7 +1259,7 @@
     "region": "Engineering",
     "x": -1080.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-clock",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1277,7 +1277,7 @@
     "region": "Engineering",
     "x": -1350.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-hourglass",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1295,7 +1295,7 @@
     "region": "Engineering",
     "x": -1080.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-list-ordered",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1313,7 +1313,7 @@
     "region": "Engineering",
     "x": -1280.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-git-branch",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1331,7 +1331,7 @@
     "region": "Engineering",
     "x": -1820.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-webhook",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1475,7 +1475,7 @@
     "region": "Engineering",
     "x": -1010.0,
     "y": -850,
-    "icon": "",
+    "icon": "grpc",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1493,7 +1493,7 @@
     "region": "Engineering",
     "x": -1890.0,
     "y": -1050,
-    "icon": "",
+    "icon": "json",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1511,7 +1511,7 @@
     "region": "Engineering",
     "x": -1620.0,
     "y": -650,
-    "icon": "",
+    "icon": "lucide-server",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -1533,7 +1533,7 @@
     "region": "Engineering",
     "x": 370.0,
     "y": -1850,
-    "icon": "",
+    "icon": "lucide-table-2",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1551,7 +1551,7 @@
     "region": "Engineering",
     "x": -370.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-rows-3",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1569,7 +1569,7 @@
     "region": "Engineering",
     "x": -370.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-book-marked",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1587,7 +1587,7 @@
     "region": "Engineering",
     "x": -100.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-scan-search",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -1605,7 +1605,7 @@
     "region": "Engineering",
     "x": -100.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-arrow-right-left",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1623,7 +1623,7 @@
     "region": "Engineering",
     "x": 170.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-lock",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1641,7 +1641,7 @@
     "region": "Engineering",
     "x": 170.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-arrow-up-from-line",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1659,7 +1659,7 @@
     "region": "Engineering",
     "x": 440.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-database-backup",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1677,7 +1677,7 @@
     "region": "Engineering",
     "x": -440.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-copy",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1695,7 +1695,7 @@
     "region": "Engineering",
     "x": -170.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-panels-top-left",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1785,7 +1785,7 @@
     "region": "Engineering",
     "x": -170.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-radar",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1803,7 +1803,7 @@
     "region": "Engineering",
     "x": -100.0,
     "y": -850,
-    "icon": "",
+    "icon": "redis",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1821,7 +1821,7 @@
     "region": "Engineering",
     "x": 100.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-repeat-2",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1839,7 +1839,7 @@
     "region": "Engineering",
     "x": 370.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-warehouse",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1857,7 +1857,7 @@
     "region": "Engineering",
     "x": 100.0,
     "y": -1450,
-    "icon": "",
+    "icon": "apacheairflow",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1875,7 +1875,7 @@
     "region": "Engineering",
     "x": 440.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-database-zap",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -1897,7 +1897,7 @@
     "region": "Engineering",
     "x": 1550.0,
     "y": -1850,
-    "icon": "",
+    "icon": "lucide-signpost",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1915,7 +1915,7 @@
     "region": "Engineering",
     "x": 1820.0,
     "y": -1850,
-    "icon": "",
+    "icon": "lucide-handshake",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1933,7 +1933,7 @@
     "region": "Engineering",
     "x": 1080.0,
     "y": -1650,
-    "icon": "",
+    "icon": "nginx",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1951,7 +1951,7 @@
     "region": "Engineering",
     "x": 1350.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-earth",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1969,7 +1969,7 @@
     "region": "Engineering",
     "x": 1620.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-zap",
     "kind": "normal",
     "prerequisites": [
       {
@@ -1987,7 +1987,7 @@
     "region": "Engineering",
     "x": 1890.0,
     "y": -1650,
-    "icon": "",
+    "icon": "rabbitmq",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2005,7 +2005,7 @@
     "region": "Engineering",
     "x": 1550.0,
     "y": -1450,
-    "icon": "",
+    "icon": "apachekafka",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2023,7 +2023,7 @@
     "region": "Engineering",
     "x": 1350.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-equal",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2041,7 +2041,7 @@
     "region": "Engineering",
     "x": 1620.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-triangle",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2059,7 +2059,7 @@
     "region": "Engineering",
     "x": 1890.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-vote",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -2077,7 +2077,7 @@
     "region": "Engineering",
     "x": 1010.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-grid-3x3",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2095,7 +2095,7 @@
     "region": "Engineering",
     "x": 1010.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-repeat",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2113,7 +2113,7 @@
     "region": "Engineering",
     "x": 1280.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-power",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2131,7 +2131,7 @@
     "region": "Engineering",
     "x": 1550.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-list-checks",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2149,7 +2149,7 @@
     "region": "Engineering",
     "x": 1820.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-columns-2",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2167,7 +2167,7 @@
     "region": "Engineering",
     "x": 1820.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-chart-column",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2185,7 +2185,7 @@
     "region": "Engineering",
     "x": 1080.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-telescope",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2203,7 +2203,7 @@
     "region": "Engineering",
     "x": 1350.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-anchor",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2221,7 +2221,7 @@
     "region": "Engineering",
     "x": 1620.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-map-pinned",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2239,7 +2239,7 @@
     "region": "Engineering",
     "x": 1890.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-building",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -2261,7 +2261,7 @@
     "region": "Engineering",
     "x": 2730.0,
     "y": -1850,
-    "icon": "",
+    "icon": "lucide-sigma",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2279,7 +2279,7 @@
     "region": "Engineering",
     "x": 3000.0,
     "y": -1850,
-    "icon": "",
+    "icon": "lucide-dices",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2297,7 +2297,7 @@
     "region": "Engineering",
     "x": 2530.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-chart-bar",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2333,7 +2333,7 @@
     "region": "Engineering",
     "x": 2730.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-sliders-horizontal",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2351,7 +2351,7 @@
     "region": "Engineering",
     "x": 3340.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-target",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2369,7 +2369,7 @@
     "region": "Engineering",
     "x": 2460.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-tags",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2387,7 +2387,7 @@
     "region": "Engineering",
     "x": 2730.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-chart-scatter",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2423,7 +2423,7 @@
     "region": "Engineering",
     "x": 2530.0,
     "y": -850,
-    "icon": "",
+    "icon": "huggingface",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2441,7 +2441,7 @@
     "region": "Engineering",
     "x": 3070.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-orbit",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2459,7 +2459,7 @@
     "region": "Engineering",
     "x": 3270.0,
     "y": -1450,
-    "icon": "",
+    "icon": "lucide-book-open-text",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -2477,7 +2477,7 @@
     "region": "Engineering",
     "x": 3340.0,
     "y": -1650,
-    "icon": "",
+    "icon": "lucide-message-square-text",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2495,7 +2495,7 @@
     "region": "Engineering",
     "x": 2530.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-wrench",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2513,7 +2513,7 @@
     "region": "Engineering",
     "x": 3000.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-bot",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2531,7 +2531,7 @@
     "region": "Engineering",
     "x": 2800.0,
     "y": -1250,
-    "icon": "",
+    "icon": "lucide-clipboard-check",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2549,7 +2549,7 @@
     "region": "Engineering",
     "x": 3340.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-sliders-vertical",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2567,7 +2567,7 @@
     "region": "Engineering",
     "x": 2800.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-factory",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2585,7 +2585,7 @@
     "region": "Engineering",
     "x": 3070.0,
     "y": -850,
-    "icon": "",
+    "icon": "lucide-heart-handshake",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2603,7 +2603,7 @@
     "region": "Engineering",
     "x": 3270.0,
     "y": -1050,
-    "icon": "",
+    "icon": "lucide-sparkles",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -2625,7 +2625,7 @@
     "region": "Engineering",
     "x": -2800.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-brackets",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2643,7 +2643,7 @@
     "region": "Engineering",
     "x": -2530.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-link",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2661,7 +2661,7 @@
     "region": "Engineering",
     "x": -3270.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-hash",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2679,7 +2679,7 @@
     "region": "Engineering",
     "x": -3000.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-layers",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2697,7 +2697,7 @@
     "region": "Engineering",
     "x": -2730.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-tree-deciduous",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2715,7 +2715,7 @@
     "region": "Engineering",
     "x": -3070.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-pyramid",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2733,7 +2733,7 @@
     "region": "Engineering",
     "x": -2460.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-waypoints",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2751,7 +2751,7 @@
     "region": "Engineering",
     "x": -2800.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-search-code",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2769,7 +2769,7 @@
     "region": "Engineering",
     "x": -2530.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-arrow-down-wide-narrow",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2787,7 +2787,7 @@
     "region": "Engineering",
     "x": -3270.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-refresh-cw",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2805,7 +2805,7 @@
     "region": "Engineering",
     "x": -3270.0,
     "y": 1650,
-    "icon": "",
+    "icon": "lucide-undo-2",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2823,7 +2823,7 @@
     "region": "Engineering",
     "x": -3000.0,
     "y": 1650,
-    "icon": "",
+    "icon": "lucide-table-properties",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -2841,7 +2841,7 @@
     "region": "Engineering",
     "x": -3000.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-coins",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2859,7 +2859,7 @@
     "region": "Engineering",
     "x": -2730.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-route",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2877,7 +2877,7 @@
     "region": "Engineering",
     "x": -2730.0,
     "y": 1650,
-    "icon": "",
+    "icon": "lucide-navigation",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2895,7 +2895,7 @@
     "region": "Engineering",
     "x": -2460.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-merge",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2913,7 +2913,7 @@
     "region": "Engineering",
     "x": -3340.0,
     "y": 1450,
-    "icon": "",
+    "icon": "lucide-list-tree",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2931,7 +2931,7 @@
     "region": "Engineering",
     "x": -3070.0,
     "y": 1450,
-    "icon": "",
+    "icon": "lucide-binary",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2949,7 +2949,7 @@
     "region": "Engineering",
     "x": -2800.0,
     "y": 1450,
-    "icon": "",
+    "icon": "lucide-rectangle-horizontal",
     "kind": "normal",
     "prerequisites": [
       {
@@ -2967,7 +2967,7 @@
     "region": "Engineering",
     "x": -2460.0,
     "y": 1650,
-    "icon": "",
+    "icon": "lucide-badge-check",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3039,7 +3039,7 @@
     "region": "Engineering",
     "x": -1080.0,
     "y": 650,
-    "icon": "",
+    "icon": "githubactions",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3111,7 +3111,7 @@
     "region": "Engineering",
     "x": -1280.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-cloud",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3165,7 +3165,7 @@
     "region": "Engineering",
     "x": -1890.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-scroll-text",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3183,7 +3183,7 @@
     "region": "Engineering",
     "x": -1080.0,
     "y": 1050,
-    "icon": "",
+    "icon": "opentelemetry",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3201,7 +3201,7 @@
     "region": "Engineering",
     "x": -1820.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-goal",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3219,7 +3219,7 @@
     "region": "Engineering",
     "x": -1890.0,
     "y": 1450,
-    "icon": "",
+    "icon": "lucide-siren",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3237,7 +3237,7 @@
     "region": "Engineering",
     "x": -1550.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-git-pull-request-arrow",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3255,7 +3255,7 @@
     "region": "Engineering",
     "x": -1280.0,
     "y": 1250,
-    "icon": "",
+    "icon": "vault",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3273,7 +3273,7 @@
     "region": "Engineering",
     "x": -1010.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-piggy-bank",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3291,7 +3291,7 @@
     "region": "Engineering",
     "x": -1620.0,
     "y": 1450,
-    "icon": "",
+    "icon": "lucide-life-buoy",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -3313,7 +3313,7 @@
     "region": "Engineering",
     "x": -440.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-shield",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3331,7 +3331,7 @@
     "region": "Engineering",
     "x": -170.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-shield-alert",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3349,7 +3349,7 @@
     "region": "Engineering",
     "x": 100.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-file-check",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3367,7 +3367,7 @@
     "region": "Engineering",
     "x": 370.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-shield-check",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3385,7 +3385,7 @@
     "region": "Engineering",
     "x": 440.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-scan-line",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3403,7 +3403,7 @@
     "region": "Engineering",
     "x": -440.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-syringe",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3421,7 +3421,7 @@
     "region": "Engineering",
     "x": -170.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-fingerprint",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3439,7 +3439,7 @@
     "region": "Engineering",
     "x": -370.0,
     "y": 850,
-    "icon": "",
+    "icon": "oauth",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -3457,7 +3457,7 @@
     "region": "Engineering",
     "x": -100.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-user-check",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3475,7 +3475,7 @@
     "region": "Engineering",
     "x": 170.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-key-square",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3493,7 +3493,7 @@
     "region": "Engineering",
     "x": 100.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-package",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3511,7 +3511,7 @@
     "region": "Engineering",
     "x": 370.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-heading",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3529,7 +3529,7 @@
     "region": "Engineering",
     "x": -370.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-clipboard-list",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3547,7 +3547,7 @@
     "region": "Engineering",
     "x": -100.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-shield-plus",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3565,7 +3565,7 @@
     "region": "Engineering",
     "x": 170.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-castle",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -3587,7 +3587,7 @@
     "region": "Engineering",
     "x": 1010.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-flask-conical",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3605,7 +3605,7 @@
     "region": "Engineering",
     "x": 1280.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-test-tube",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3623,7 +3623,7 @@
     "region": "Engineering",
     "x": 1550.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-puzzle",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3641,7 +3641,7 @@
     "region": "Engineering",
     "x": 1350.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-monitor-play",
     "kind": "mastery",
     "prerequisites": [
       {
@@ -3695,7 +3695,7 @@
     "region": "Engineering",
     "x": 1890.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-shuffle",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3713,7 +3713,7 @@
     "region": "Engineering",
     "x": 1010.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-file-pen-line",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3731,7 +3731,7 @@
     "region": "Engineering",
     "x": 1820.0,
     "y": 650,
-    "icon": "",
+    "icon": "k6",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3749,7 +3749,7 @@
     "region": "Engineering",
     "x": 1080.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-activity",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3767,7 +3767,7 @@
     "region": "Engineering",
     "x": 1080.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-ear",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3785,7 +3785,7 @@
     "region": "Engineering",
     "x": 1350.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-eye",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3803,7 +3803,7 @@
     "region": "Engineering",
     "x": 1280.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-file-spreadsheet",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3821,7 +3821,7 @@
     "region": "Engineering",
     "x": 1550.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-bomb",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3839,7 +3839,7 @@
     "region": "Engineering",
     "x": 1620.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-award",
     "kind": "legendary",
     "prerequisites": [
       {
@@ -3861,7 +3861,7 @@
     "region": "Engineering",
     "x": 2460.0,
     "y": 650,
-    "icon": "",
+    "icon": "lucide-smartphone",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3951,7 +3951,7 @@
     "region": "Engineering",
     "x": 2800.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-navigation-2",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3969,7 +3969,7 @@
     "region": "Engineering",
     "x": 3070.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-cloud-off",
     "kind": "normal",
     "prerequisites": [
       {
@@ -3987,7 +3987,7 @@
     "region": "Engineering",
     "x": 3340.0,
     "y": 850,
-    "icon": "",
+    "icon": "lucide-hard-drive",
     "kind": "normal",
     "prerequisites": [
       {
@@ -4005,7 +4005,7 @@
     "region": "Engineering",
     "x": 2460.0,
     "y": 1050,
-    "icon": "",
+    "icon": "firebase",
     "kind": "normal",
     "prerequisites": [
       {
@@ -4023,7 +4023,7 @@
     "region": "Engineering",
     "x": 2730.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-battery-charging",
     "kind": "normal",
     "prerequisites": [
       {
@@ -4041,7 +4041,7 @@
     "region": "Engineering",
     "x": 3000.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-person-standing",
     "kind": "normal",
     "prerequisites": [
       {
@@ -4059,7 +4059,7 @@
     "region": "Engineering",
     "x": 3270.0,
     "y": 1050,
-    "icon": "",
+    "icon": "lucide-store",
     "kind": "normal",
     "prerequisites": [
       {
@@ -4077,7 +4077,7 @@
     "region": "Engineering",
     "x": 2530.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-tablet-smartphone",
     "kind": "normal",
     "prerequisites": [
       {
@@ -4095,7 +4095,7 @@
     "region": "Engineering",
     "x": 2800.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-cable",
     "kind": "normal",
     "prerequisites": [
       {
@@ -4113,7 +4113,7 @@
     "region": "Engineering",
     "x": 3070.0,
     "y": 1250,
-    "icon": "",
+    "icon": "lucide-rocket",
     "kind": "legendary",
     "prerequisites": [
       {
