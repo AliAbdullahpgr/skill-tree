@@ -45,7 +45,7 @@ Edit `src/lib/skills.json` to add or rearrange skills:
 }
 ```
 
-Identifiers must be unique, prerequisite references must exist, and the prerequisite graph must remain acyclic. Local logos live in `public/icons/`. Regions and their UI labels are defined in `src/components/SkillAtlas.tsx`. Theme variables live in `src/app/globals.css`.
+Identifiers must be unique, prerequisite references must exist, and the prerequisite graph must remain acyclic. Every skill names an icon file in `public/icons/`: a technology logo, or a `lucide-<name>` concept glyph for skills with no logo. Regions and their UI labels are defined in `src/components/SkillAtlas.tsx`. Theme variables live in `src/app/globals.css`.
 
 ## Stack and structure
 
@@ -55,7 +55,7 @@ Next.js App Router + TypeScript, React 19, Tailwind CSS 4 with bespoke fantasy C
 - `src/lib/progression.ts`: pure progression rules and save validation.
 - `src/lib/skills.json`: configurable graph and demonstration levels.
 - `src/lib/progression.test.ts`: progression and graph integrity tests.
-- `public/art/`: generated background and character portrait.
+- `design/`: source artwork and the original logo render (not deployed; see ARTWORK.md and BRAND.md).
 - `scripts/browser-check.mjs`: production browser smoke test.
 
 ## Verification
@@ -69,7 +69,7 @@ npm run build
 For browser verification, serve the static output and run the smoke test in another terminal:
 
 ```sh
-python3 -m http.server 3091 --directory out
+python3 -m http.server 3091 --directory out   # `python` on Windows
 npx playwright install chromium
 node scripts/browser-check.mjs
 ```
@@ -78,7 +78,7 @@ node scripts/browser-check.mjs
 
 ## Artwork and attribution
 
-The celestial atlas and Wayfarer portrait were generated with the built-in image generation tool and optimized as WebP. These original assets remain available for future themes; the current board uses a quiet procedural backdrop for readability. See `ARTWORK.md` for exact prompts. Technology logos are bundled from Devicon; their license is in `public/icons/LICENSE`. Trademarks belong to their respective owners. Marcellus and Manrope fonts are self-hosted, with local system fallbacks. Font licenses are bundled in `public/fonts/`.
+The celestial atlas and Wayfarer portrait were generated with the built-in image generation tool and optimized as WebP. These original assets remain available for future themes; the current board uses a quiet procedural backdrop for readability. See `ARTWORK.md` for exact prompts. Technology logos are bundled from Devicon and Simple Icons, and concept glyphs from Lucide; sources and licenses are in `public/icons/NOTICE.md` and `public/icons/LICENSE`. Trademarks belong to their respective owners. Marcellus and Manrope fonts are self-hosted, with local system fallbacks. Font licenses are bundled in `public/fonts/`.
 
 ## Board-first design revision
 
