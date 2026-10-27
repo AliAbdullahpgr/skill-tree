@@ -17,8 +17,8 @@
     "name": "HTML",
     "branch": "Frontend",
     "region": "Engineering",
-    "x": -210,
-    "y": -160,
+    "x": -3340.0,
+    "y": -1850,
     "icon": "html5",
     "kind": "normal",
     "prerequisites": [
@@ -35,8 +35,8 @@
     "name": "CSS",
     "branch": "Frontend",
     "region": "Engineering",
-    "x": -370,
-    "y": -275,
+    "x": -3070.0,
+    "y": -1850,
     "icon": "css3",
     "kind": "normal",
     "prerequisites": [
@@ -53,8 +53,8 @@
     "name": "JavaScript",
     "branch": "Frontend",
     "region": "Engineering",
-    "x": -170,
-    "y": -330,
+    "x": -2800.0,
+    "y": -1850,
     "icon": "javascript",
     "kind": "normal",
     "prerequisites": [
@@ -71,8 +71,8 @@
     "name": "TypeScript",
     "branch": "Frontend",
     "region": "Engineering",
-    "x": -415,
-    "y": -460,
+    "x": -3000.0,
+    "y": -1650,
     "icon": "typescript",
     "kind": "normal",
     "prerequisites": [
@@ -89,8 +89,8 @@
     "name": "React",
     "branch": "Frontend",
     "region": "Engineering",
-    "x": -170,
-    "y": -510,
+    "x": -2730.0,
+    "y": -1650,
     "icon": "react",
     "kind": "mastery",
     "prerequisites": [
@@ -107,8 +107,8 @@
     "name": "Next.js",
     "branch": "Frontend",
     "region": "Engineering",
-    "x": 40,
-    "y": -480,
+    "x": -3070.0,
+    "y": -1050,
     "icon": "nextjs",
     "kind": "mastery",
     "prerequisites": [
@@ -129,8 +129,8 @@
     "name": "Node.js",
     "branch": "Backend",
     "region": "Engineering",
-    "x": 230,
-    "y": -150,
+    "x": -1890.0,
+    "y": -1850,
     "icon": "nodejs",
     "kind": "normal",
     "prerequisites": [
@@ -147,8 +147,8 @@
     "name": "Express",
     "branch": "Backend",
     "region": "Engineering",
-    "x": 385,
-    "y": -265,
+    "x": -1280.0,
+    "y": -1650,
     "icon": "express",
     "kind": "normal",
     "prerequisites": [
@@ -165,8 +165,8 @@
     "name": "API Design",
     "branch": "Backend",
     "region": "Engineering",
-    "x": 230,
-    "y": -340,
+    "x": -1620.0,
+    "y": -1050,
     "icon": "",
     "kind": "normal",
     "prerequisites": [
@@ -183,8 +183,8 @@
     "name": "Authentication",
     "branch": "Backend",
     "region": "Engineering",
-    "x": 540,
-    "y": -370,
+    "x": -1820.0,
+    "y": -850,
     "icon": "",
     "kind": "normal",
     "prerequisites": [
@@ -201,8 +201,8 @@
     "name": "Microservices",
     "branch": "Backend",
     "region": "Engineering",
-    "x": 400,
-    "y": -505,
+    "x": -1890.0,
+    "y": -650,
     "icon": "",
     "kind": "mastery",
     "prerequisites": [
@@ -219,8 +219,8 @@
     "name": "SQL",
     "branch": "Databases",
     "region": "Engineering",
-    "x": 320,
-    "y": 45,
+    "x": -440.0,
+    "y": -1850,
     "icon": "postgresql",
     "kind": "normal",
     "prerequisites": [
@@ -237,8 +237,8 @@
     "name": "PostgreSQL",
     "branch": "Databases",
     "region": "Engineering",
-    "x": 510,
-    "y": -30,
+    "x": 100.0,
+    "y": -1850,
     "icon": "postgresql",
     "kind": "normal",
     "prerequisites": [
@@ -255,8 +255,8 @@
     "name": "Redis",
     "branch": "Databases",
     "region": "Engineering",
-    "x": 540,
-    "y": 145,
+    "x": 370.0,
+    "y": -1450,
     "icon": "redis",
     "kind": "normal",
     "prerequisites": [
@@ -273,8 +273,8 @@
     "name": "Data Modeling",
     "branch": "Databases",
     "region": "Engineering",
-    "x": 715,
-    "y": 50,
+    "x": -370.0,
+    "y": -850,
     "icon": "",
     "kind": "mastery",
     "prerequisites": [
@@ -291,8 +291,8 @@
     "name": "Networking",
     "branch": "System Design",
     "region": "Engineering",
-    "x": 200,
-    "y": 220,
+    "x": 1010.0,
+    "y": -1850,
     "icon": "",
     "kind": "normal",
     "prerequisites": [
@@ -309,8 +309,8 @@
     "name": "Docker",
     "branch": "System Design",
     "region": "Engineering",
-    "x": 390,
-    "y": 315,
+    "x": 1280.0,
+    "y": -1850,
     "icon": "docker",
     "kind": "normal",
     "prerequisites": [
@@ -327,8 +327,8 @@
     "name": "Distributed Systems",
     "branch": "System Design",
     "region": "Engineering",
-    "x": 205,
-    "y": 425,
+    "x": 1280.0,
+    "y": -1450,
     "icon": "",
     "kind": "normal",
     "prerequisites": [
@@ -345,8 +345,8 @@
     "name": "System Architect",
     "branch": "System Design",
     "region": "Engineering",
-    "x": 395,
-    "y": 510,
+    "x": 1080.0,
+    "y": -1250,
     "icon": "",
     "kind": "legendary",
     "prerequisites": [
@@ -363,8 +363,8 @@
     "name": "Python",
     "branch": "AI",
     "region": "Engineering",
-    "x": -140,
-    "y": 235,
+    "x": 2460.0,
+    "y": -1850,
     "icon": "python",
     "kind": "normal",
     "prerequisites": [
@@ -381,8 +381,8 @@
     "name": "NumPy",
     "branch": "AI",
     "region": "Engineering",
-    "x": -290,
-    "y": 345,
+    "x": 3270.0,
+    "y": -1850,
     "icon": "numpy",
     "kind": "normal",
     "prerequisites": [
@@ -399,8 +399,8 @@
     "name": "Machine Learning",
     "branch": "AI",
     "region": "Engineering",
-    "x": -105,
-    "y": 460,
+    "x": 2460.0,
+    "y": -1450,
     "icon": "",
     "kind": "mastery",
     "prerequisites": [
@@ -417,8 +417,8 @@
     "name": "Neural Networks",
     "branch": "AI",
     "region": "Engineering",
-    "x": -340,
-    "y": 520,
+    "x": 3070.0,
+    "y": -1250,
     "icon": "",
     "kind": "legendary",
     "prerequisites": [
@@ -435,8 +435,8 @@
     "name": "Data Structures",
     "branch": "DSA",
     "region": "Engineering",
-    "x": -335,
-    "y": 45,
+    "x": -3340.0,
+    "y": 650,
     "icon": "",
     "kind": "normal",
     "prerequisites": [
@@ -453,8 +453,8 @@
     "name": "Algorithms",
     "branch": "DSA",
     "region": "Engineering",
-    "x": -510,
-    "y": -20,
+    "x": -3070.0,
+    "y": 650,
     "icon": "",
     "kind": "normal",
     "prerequisites": [
@@ -471,8 +471,8 @@
     "name": "Complexity",
     "branch": "DSA",
     "region": "Engineering",
-    "x": -520,
-    "y": 160,
+    "x": -3340.0,
+    "y": 1050,
     "icon": "",
     "kind": "normal",
     "prerequisites": [
@@ -489,8 +489,8 @@
     "name": "Algorithm Master",
     "branch": "DSA",
     "region": "Engineering",
-    "x": -715,
-    "y": 70,
+    "x": -2530.0,
+    "y": 1450,
     "icon": "",
     "kind": "legendary",
     "prerequisites": [
@@ -507,7 +507,7 @@
     "name": "Logical Thinking",
     "branch": "Problem Solving",
     "region": "Problem Solving",
-    "x": 2200,
+    "x": 6100,
     "y": 0,
     "icon": "",
     "kind": "normal",
@@ -520,7 +520,7 @@
     "name": "Decomposition",
     "branch": "Problem Solving",
     "region": "Problem Solving",
-    "x": 2550,
+    "x": 6450,
     "y": 0,
     "icon": "",
     "kind": "normal",
@@ -538,7 +538,7 @@
     "name": "Pattern Recognition",
     "branch": "Problem Solving",
     "region": "Problem Solving",
-    "x": 2375,
+    "x": 6275,
     "y": 303,
     "icon": "",
     "kind": "normal",
@@ -556,7 +556,7 @@
     "name": "Research",
     "branch": "Problem Solving",
     "region": "Problem Solving",
-    "x": 2025,
+    "x": 5925,
     "y": 303,
     "icon": "",
     "kind": "normal",
@@ -574,7 +574,7 @@
     "name": "Critical Thinking",
     "branch": "Problem Solving",
     "region": "Problem Solving",
-    "x": 1850,
+    "x": 5750,
     "y": 0,
     "icon": "",
     "kind": "normal",
@@ -592,7 +592,7 @@
     "name": "Systems Thinking",
     "branch": "Problem Solving",
     "region": "Problem Solving",
-    "x": 2025,
+    "x": 5925,
     "y": -303,
     "icon": "",
     "kind": "normal",
@@ -610,7 +610,7 @@
     "name": "The Strategist",
     "branch": "Problem Solving",
     "region": "Problem Solving",
-    "x": 2375,
+    "x": 6275,
     "y": -303,
     "icon": "",
     "kind": "legendary",
@@ -628,7 +628,7 @@
     "name": "Communication",
     "branch": "Personal Skills",
     "region": "Personal Skills",
-    "x": -2200,
+    "x": -6100,
     "y": 0,
     "icon": "",
     "kind": "normal",
@@ -641,7 +641,7 @@
     "name": "Writing",
     "branch": "Personal Skills",
     "region": "Personal Skills",
-    "x": -1850,
+    "x": -5750,
     "y": 0,
     "icon": "",
     "kind": "normal",
@@ -659,7 +659,7 @@
     "name": "Public Speaking",
     "branch": "Personal Skills",
     "region": "Personal Skills",
-    "x": -2025,
+    "x": -5925,
     "y": 303,
     "icon": "",
     "kind": "normal",
@@ -677,7 +677,7 @@
     "name": "Deep Work",
     "branch": "Personal Skills",
     "region": "Personal Skills",
-    "x": -2375,
+    "x": -6275,
     "y": 303,
     "icon": "",
     "kind": "normal",
@@ -695,7 +695,7 @@
     "name": "Learning to Learn",
     "branch": "Personal Skills",
     "region": "Personal Skills",
-    "x": -2550,
+    "x": -6450,
     "y": 0,
     "icon": "",
     "kind": "normal",
@@ -713,7 +713,7 @@
     "name": "Leadership",
     "branch": "Personal Skills",
     "region": "Personal Skills",
-    "x": -2375,
+    "x": -6275,
     "y": -303,
     "icon": "",
     "kind": "normal",
@@ -731,7 +731,7 @@
     "name": "The Polymath",
     "branch": "Personal Skills",
     "region": "Personal Skills",
-    "x": -2025,
+    "x": -5925,
     "y": -303,
     "icon": "",
     "kind": "legendary",
@@ -743,5 +743,3389 @@
     ],
     "initialLevel": 0,
     "description": "Develop a deep understanding of The Polymath. Turn knowledge into reliable, real-world practice."
+  },
+  {
+    "id": "semantic-html",
+    "name": "Semantic HTML",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2530.0,
+    "y": -1850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "html",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose meaningful landmarks, headings, and form semantics."
+  },
+  {
+    "id": "responsive",
+    "name": "Responsive Layouts",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2460.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "css",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build fluid layouts that adapt to narrow screens and large displays."
+  },
+  {
+    "id": "flexbox",
+    "name": "Flexbox",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3340.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "css",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Control alignment, wrapping, and distribution along one axis."
+  },
+  {
+    "id": "css-grid",
+    "name": "CSS Grid",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3070.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "css",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Compose responsive two-dimensional layouts with explicit and implicit tracks."
+  },
+  {
+    "id": "accessibility",
+    "name": "Web Accessibility",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3270.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "html",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build keyboard navigation, accessible names, and screen-reader-friendly interfaces."
+  },
+  {
+    "id": "dom",
+    "name": "DOM & Events",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2800.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "javascript",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Update documents safely and reason about event propagation."
+  },
+  {
+    "id": "async-js",
+    "name": "Async JavaScript",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2530.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "javascript",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Coordinate promises, cancellation, concurrency, and error handling."
+  },
+  {
+    "id": "react-hooks",
+    "name": "React Hooks",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2800.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "react",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Manage effect lifecycles and reusable stateful behavior."
+  },
+  {
+    "id": "state-management",
+    "name": "State Management",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2530.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "react",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Separate local, shared, and server state with predictable updates."
+  },
+  {
+    "id": "web-performance",
+    "name": "Web Performance",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3270.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "javascript",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Measure loading and interaction costs and remove bottlenecks."
+  },
+  {
+    "id": "browser-rendering",
+    "name": "Browser Rendering",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3000.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "css",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Understand layout, paint, compositing, and rendering costs."
+  },
+  {
+    "id": "forms",
+    "name": "Forms & Validation",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3270.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "react",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Create accessible forms with reliable validation and error recovery."
+  },
+  {
+    "id": "ssr",
+    "name": "Server Rendering",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2800.0,
+    "y": -650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "nextjs",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose server rendering, static generation, and hydration boundaries."
+  },
+  {
+    "id": "design-systems",
+    "name": "Design Systems",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3000.0,
+    "y": -850,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "react",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build reusable components, tokens, and interaction conventions."
+  },
+  {
+    "id": "web-components",
+    "name": "Web Components",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2730.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "dom",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Package custom elements with explicit browser-native boundaries."
+  },
+  {
+    "id": "vue",
+    "name": "Vue",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2730.0,
+    "y": -1250,
+    "icon": "vuejs",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "javascript",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build reactive interfaces with components and composition."
+  },
+  {
+    "id": "svelte",
+    "name": "Svelte",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2460.0,
+    "y": -1250,
+    "icon": "svelte",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "javascript",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build compiled reactive applications with explicit state boundaries."
+  },
+  {
+    "id": "angular",
+    "name": "Angular",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2460.0,
+    "y": -850,
+    "icon": "angularjs",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "typescript",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Organize applications with typed components and dependency injection."
+  },
+  {
+    "id": "css-animations",
+    "name": "CSS Animation",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3340.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "css",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Animate transforms and opacity while respecting reduced motion."
+  },
+  {
+    "id": "pwa",
+    "name": "Progressive Web Apps",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3340.0,
+    "y": -650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "async-js",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design offline caching, installability, and reliable update flows."
+  },
+  {
+    "id": "i18n",
+    "name": "Internationalization",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -3070.0,
+    "y": -650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "react",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Handle translations, plural forms, locales, and text direction."
+  },
+  {
+    "id": "frontend-mastery",
+    "name": "Frontend Architect",
+    "branch": "Frontend",
+    "region": "Engineering",
+    "x": -2530.0,
+    "y": -650,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "design-systems",
+        "level": 5
+      },
+      {
+        "id": "web-performance",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design maintainable, accessible frontends and explain their tradeoffs."
+  },
+  {
+    "id": "http",
+    "name": "HTTP Fundamentals",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1620.0,
+    "y": -1850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Explain methods, status codes, headers, caching, and request lifecycles."
+  },
+  {
+    "id": "rest",
+    "name": "REST APIs",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1010.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "http",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design resource-oriented APIs with consistent contracts."
+  },
+  {
+    "id": "graphql",
+    "name": "GraphQL",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1550.0,
+    "y": -850,
+    "icon": "graphql",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "api",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design schemas, resolvers, pagination, and query budgets."
+  },
+  {
+    "id": "websockets",
+    "name": "WebSockets",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1890.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "nodejs",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Manage persistent connections, heartbeat detection, and reconnects."
+  },
+  {
+    "id": "node-event-loop",
+    "name": "Node Event Loop",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1620.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "nodejs",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Reason about scheduling, blocking work, and asynchronous I/O."
+  },
+  {
+    "id": "streams",
+    "name": "Streams & Buffers",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1350.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "nodejs",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Process large payloads with backpressure and bounded memory."
+  },
+  {
+    "id": "background-jobs",
+    "name": "Background Jobs",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1080.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "nodejs",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Run retryable jobs with idempotency and clear failure handling."
+  },
+  {
+    "id": "rate-limiting",
+    "name": "Rate Limiting",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1350.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "rest",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Protect APIs using fair quotas and appropriate throttling strategies."
+  },
+  {
+    "id": "pagination",
+    "name": "Pagination",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1080.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "rest",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design stable cursor pagination and ordering guarantees."
+  },
+  {
+    "id": "api-versioning",
+    "name": "API Versioning",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1280.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "api",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Evolve contracts while preserving compatibility for clients."
+  },
+  {
+    "id": "webhooks",
+    "name": "Webhooks",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1820.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "http",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Sign events, retry delivery, and deduplicate incoming callbacks."
+  },
+  {
+    "id": "go",
+    "name": "Go",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1350.0,
+    "y": -1850,
+    "icon": "go",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Write concurrent services with explicit errors and simple interfaces."
+  },
+  {
+    "id": "rust",
+    "name": "Rust",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1080.0,
+    "y": -1850,
+    "icon": "rust",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Use ownership and types to build reliable systems programs."
+  },
+  {
+    "id": "java",
+    "name": "Java",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1820.0,
+    "y": -1650,
+    "icon": "java",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Model services with interfaces, collections, and concurrency primitives."
+  },
+  {
+    "id": "csharp",
+    "name": "C#",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1550.0,
+    "y": -1650,
+    "icon": "csharp",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build typed services with async workflows and structured exceptions."
+  },
+  {
+    "id": "fastapi",
+    "name": "FastAPI",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1550.0,
+    "y": -1250,
+    "icon": "fastapi",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "http",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build typed Python APIs with validation and dependency injection."
+  },
+  {
+    "id": "django",
+    "name": "Django",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1280.0,
+    "y": -1250,
+    "icon": "django",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "http",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Create applications with models, migrations, and access controls."
+  },
+  {
+    "id": "spring",
+    "name": "Spring Boot",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1010.0,
+    "y": -1250,
+    "icon": "spring",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "java",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Configure dependency injection and transactional services."
+  },
+  {
+    "id": "grpc",
+    "name": "gRPC",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1010.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "api",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Define typed service contracts and streaming RPC workflows."
+  },
+  {
+    "id": "serialization",
+    "name": "Serialization",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1890.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "http",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose JSON, binary formats, and schema evolution strategies."
+  },
+  {
+    "id": "backend-mastery",
+    "name": "Backend Architect",
+    "branch": "Backend",
+    "region": "Engineering",
+    "x": -1620.0,
+    "y": -650,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "services",
+        "level": 5
+      },
+      {
+        "id": "background-jobs",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design resilient APIs and services under real production constraints."
+  },
+  {
+    "id": "relational",
+    "name": "Relational Modeling",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 370.0,
+    "y": -1850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "sql",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Model relationships, cardinality, and integrity constraints."
+  },
+  {
+    "id": "normalization",
+    "name": "Normalization",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -370.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "relational",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Identify dependencies and avoid inconsistent duplicated facts."
+  },
+  {
+    "id": "indexes",
+    "name": "Database Indexes",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -370.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "sql",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose indexes by workload, selectivity, and write cost."
+  },
+  {
+    "id": "query-plans",
+    "name": "Query Plans",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -100.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "indexes",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Read execution plans and identify expensive access paths."
+  },
+  {
+    "id": "transactions",
+    "name": "Transactions",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -100.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "sql",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Use atomic transactions and understand isolation anomalies."
+  },
+  {
+    "id": "locking",
+    "name": "Locks & Concurrency",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 170.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "transactions",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Reason about contention, deadlocks, and optimistic concurrency."
+  },
+  {
+    "id": "migrations",
+    "name": "Schema Migrations",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 170.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "sql",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Evolve schemas safely with expand-and-contract changes."
+  },
+  {
+    "id": "backup-restore",
+    "name": "Backup & Recovery",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 440.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "postgres",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Test restores and reason about recovery objectives."
+  },
+  {
+    "id": "replication",
+    "name": "Database Replication",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -440.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "postgres",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Understand replica lag, failover, and read consistency."
+  },
+  {
+    "id": "partitioning",
+    "name": "Partitioning",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -170.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "indexes",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Split large datasets by access patterns and retention needs."
+  },
+  {
+    "id": "mongodb",
+    "name": "MongoDB",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -170.0,
+    "y": -1850,
+    "icon": "mongodb",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Model document data around query patterns and update boundaries."
+  },
+  {
+    "id": "mysql",
+    "name": "MySQL",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 440.0,
+    "y": -1650,
+    "icon": "mysql",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "sql",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Operate relational workloads with indexes and transactions."
+  },
+  {
+    "id": "sqlite",
+    "name": "SQLite",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -440.0,
+    "y": -1450,
+    "icon": "sqlite",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "sql",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build embedded databases with appropriate concurrency assumptions."
+  },
+  {
+    "id": "elasticsearch",
+    "name": "Search Indexing",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 170.0,
+    "y": -850,
+    "icon": "elasticsearch",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "modeling",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design analyzers, relevance, and search index updates."
+  },
+  {
+    "id": "vector-search",
+    "name": "Vector Search",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -170.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "sql",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build approximate similarity search and evaluate retrieval quality."
+  },
+  {
+    "id": "redis-caching",
+    "name": "Redis Caching",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": -100.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "redis",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Set expiration, eviction, and invalidation strategies."
+  },
+  {
+    "id": "connection-pooling",
+    "name": "Connection Pooling",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 100.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "postgres",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Control connection lifetimes and server resource usage."
+  },
+  {
+    "id": "data-warehousing",
+    "name": "Data Warehousing",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 370.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "relational",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design analytical models and separate analytics from transactional workloads."
+  },
+  {
+    "id": "etl",
+    "name": "ETL Pipelines",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 100.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "sql",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Validate, transform, and load data with recoverable checkpoints."
+  },
+  {
+    "id": "data-mastery",
+    "name": "Data Architect",
+    "branch": "Databases",
+    "region": "Engineering",
+    "x": 440.0,
+    "y": -850,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "modeling",
+        "level": 5
+      },
+      {
+        "id": "transactions",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose storage models and operational safeguards from workload requirements."
+  },
+  {
+    "id": "dns",
+    "name": "DNS",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1550.0,
+    "y": -1850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "networks",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Trace name resolution and understand caching and delegation."
+  },
+  {
+    "id": "tcp",
+    "name": "TCP & TLS",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1820.0,
+    "y": -1850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "networks",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Explain transport reliability and secure connection establishment."
+  },
+  {
+    "id": "load-balancing",
+    "name": "Load Balancing",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1080.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "networks",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Distribute traffic with health checks and suitable routing policies."
+  },
+  {
+    "id": "cdn",
+    "name": "CDNs",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1350.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "networks",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Cache content near users and reason about invalidation."
+  },
+  {
+    "id": "caching",
+    "name": "Caching Strategies",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1620.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "networks",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose cache placement, expiration, and consistency policies."
+  },
+  {
+    "id": "message-queues",
+    "name": "Message Queues",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1890.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "networks",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Decouple services with delivery guarantees and backpressure."
+  },
+  {
+    "id": "event-driven",
+    "name": "Event-driven Systems",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1550.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "message-queues",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Model events, ownership, ordering, and consumer recovery."
+  },
+  {
+    "id": "consistency",
+    "name": "Consistency Models",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1350.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "distributed",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Explain what readers can observe under replication and failures."
+  },
+  {
+    "id": "cap",
+    "name": "CAP Tradeoffs",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1620.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "distributed",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Evaluate availability and consistency under network partitions."
+  },
+  {
+    "id": "consensus",
+    "name": "Consensus",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1890.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "distributed",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Understand leader election and agreement under partial failure."
+  },
+  {
+    "id": "sharding",
+    "name": "Sharding",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1010.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "distributed",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Partition workloads while managing hot keys and rebalancing."
+  },
+  {
+    "id": "idempotency",
+    "name": "Idempotency",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1010.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "networks",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Make retried operations safe with durable deduplication."
+  },
+  {
+    "id": "circuit-breakers",
+    "name": "Circuit Breakers",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1280.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "distributed",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Contain cascading failures with timeouts, budgets, and recovery probes."
+  },
+  {
+    "id": "sagas",
+    "name": "Sagas",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1550.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "event-driven",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Coordinate multi-service work with explicit compensation."
+  },
+  {
+    "id": "cqrs",
+    "name": "CQRS",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1820.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "event-driven",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Separate read and write models when complexity is justified."
+  },
+  {
+    "id": "capacity",
+    "name": "Capacity Planning",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1820.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "load-balancing",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Estimate throughput, storage, headroom, and bottlenecks."
+  },
+  {
+    "id": "observability-design",
+    "name": "Observability Design",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1080.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "distributed",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design signals that explain system behavior and failure modes."
+  },
+  {
+    "id": "resilience",
+    "name": "Resilience Engineering",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1350.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "circuit-breakers",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Validate behavior under failures and constrained resources."
+  },
+  {
+    "id": "multi-region",
+    "name": "Multi-region Systems",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1620.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "consistency",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design regional failover and data placement with clear tradeoffs."
+  },
+  {
+    "id": "system-mastery",
+    "name": "Distributed Systems Master",
+    "branch": "System Design",
+    "region": "Engineering",
+    "x": 1890.0,
+    "y": -850,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "consensus",
+        "level": 5
+      },
+      {
+        "id": "resilience",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Reason rigorously about correctness and reliability at scale."
+  },
+  {
+    "id": "linear-algebra",
+    "name": "Linear Algebra",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2730.0,
+    "y": -1850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Work with vectors, matrices, projections, and transformations."
+  },
+  {
+    "id": "probability",
+    "name": "Probability",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3000.0,
+    "y": -1850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Reason about random variables, conditional probability, and uncertainty."
+  },
+  {
+    "id": "statistics",
+    "name": "Statistics",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2530.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "probability",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Estimate effects, quantify uncertainty, and avoid misleading conclusions."
+  },
+  {
+    "id": "pandas",
+    "name": "Pandas",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2800.0,
+    "y": -1650,
+    "icon": "pandas",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "python",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Clean, join, aggregate, and validate tabular datasets."
+  },
+  {
+    "id": "feature-engineering",
+    "name": "Feature Engineering",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2730.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "pandas",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build useful features without leakage across train and test data."
+  },
+  {
+    "id": "model-evaluation",
+    "name": "Model Evaluation",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3340.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "ml",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose metrics, baselines, and evaluation splits for the task."
+  },
+  {
+    "id": "supervised",
+    "name": "Supervised Learning",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2460.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "ml",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Fit regression and classification models and diagnose generalization."
+  },
+  {
+    "id": "unsupervised",
+    "name": "Unsupervised Learning",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2730.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "ml",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Explore structure using clustering and dimensionality reduction."
+  },
+  {
+    "id": "pytorch",
+    "name": "PyTorch",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3000.0,
+    "y": -1450,
+    "icon": "pytorch",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "numpy",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Train differentiable models and understand tensor operations."
+  },
+  {
+    "id": "transformers",
+    "name": "Transformers",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2530.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "neural",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Understand attention, tokenization, and transformer architectures."
+  },
+  {
+    "id": "embeddings",
+    "name": "Embeddings",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3070.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "python",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Represent semantic similarity and evaluate nearest-neighbor behavior."
+  },
+  {
+    "id": "rag",
+    "name": "Retrieval Augmentation",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3270.0,
+    "y": -1450,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "embeddings",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build retrieval pipelines with grounding and measurable answer quality."
+  },
+  {
+    "id": "prompt-design",
+    "name": "Prompt Design",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3340.0,
+    "y": -1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "python",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Specify tasks, constraints, examples, and structured outputs."
+  },
+  {
+    "id": "tool-calling",
+    "name": "Tool Calling",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2530.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "prompt-design",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Validate tool inputs and handle execution errors safely."
+  },
+  {
+    "id": "ai-agents",
+    "name": "AI Agents",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3000.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "tool-calling",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build bounded execution loops with state, budgets, and evaluation."
+  },
+  {
+    "id": "ai-evaluation",
+    "name": "AI Evaluation",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2800.0,
+    "y": -1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "prompt-design",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Maintain task-specific regression sets and failure analysis."
+  },
+  {
+    "id": "fine-tuning",
+    "name": "Fine-tuning",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3340.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "transformers",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Adapt models using representative data and held-out evaluation."
+  },
+  {
+    "id": "mlops",
+    "name": "MLOps",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 2800.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "model-evaluation",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Version datasets and models and monitor production drift."
+  },
+  {
+    "id": "responsible-ai",
+    "name": "Responsible AI",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3070.0,
+    "y": -850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "model-evaluation",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Assess bias, privacy, robustness, and human oversight needs."
+  },
+  {
+    "id": "ai-mastery",
+    "name": "AI Systems Architect",
+    "branch": "AI",
+    "region": "Engineering",
+    "x": 3270.0,
+    "y": -1050,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "rag",
+        "level": 5
+      },
+      {
+        "id": "ai-evaluation",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design reliable AI products with defensible evaluations and operating limits."
+  },
+  {
+    "id": "arrays",
+    "name": "Arrays & Strings",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2800.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "structures",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose representations and reason about indexing and contiguous storage."
+  },
+  {
+    "id": "linked-lists",
+    "name": "Linked Lists",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2530.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "structures",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Manipulate linked structures and understand pointer tradeoffs."
+  },
+  {
+    "id": "hash-tables",
+    "name": "Hash Tables",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -3270.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "structures",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Use hashing, collision handling, and load factors appropriately."
+  },
+  {
+    "id": "stacks-queues",
+    "name": "Stacks & Queues",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -3000.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "structures",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Model ordering constraints with LIFO and FIFO structures."
+  },
+  {
+    "id": "trees",
+    "name": "Trees",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2730.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "structures",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Traverse hierarchical structures and maintain search invariants."
+  },
+  {
+    "id": "heaps",
+    "name": "Heaps",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -3070.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "trees",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Maintain priority queues and derive top-k algorithms."
+  },
+  {
+    "id": "graphs",
+    "name": "Graphs",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2460.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "structures",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Represent connectivity with adjacency structures and edge models."
+  },
+  {
+    "id": "binary-search",
+    "name": "Binary Search",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2800.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "algorithms",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Maintain boundary invariants over sorted or monotonic spaces."
+  },
+  {
+    "id": "sorting",
+    "name": "Sorting",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2530.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "algorithms",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Compare stable, in-place, and comparison-based sorting strategies."
+  },
+  {
+    "id": "recursion",
+    "name": "Recursion",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -3270.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "algorithms",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Define base cases and reason about recursive subproblems."
+  },
+  {
+    "id": "backtracking",
+    "name": "Backtracking",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -3270.0,
+    "y": 1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "recursion",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Explore constrained search spaces with pruning."
+  },
+  {
+    "id": "dynamic-programming",
+    "name": "Dynamic Programming",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -3000.0,
+    "y": 1650,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "recursion",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Identify reusable subproblems, state transitions, and evaluation order."
+  },
+  {
+    "id": "greedy",
+    "name": "Greedy Algorithms",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -3000.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "algorithms",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Justify local choices with exchange arguments or structural properties."
+  },
+  {
+    "id": "bfs-dfs",
+    "name": "BFS & DFS",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2730.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "graphs",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Traverse graphs while tracking visited state and traversal invariants."
+  },
+  {
+    "id": "shortest-paths",
+    "name": "Shortest Paths",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2730.0,
+    "y": 1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "bfs-dfs",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose path algorithms based on edge weights and graph properties."
+  },
+  {
+    "id": "union-find",
+    "name": "Union Find",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2460.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "graphs",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Track disjoint sets with path compression and union heuristics."
+  },
+  {
+    "id": "tries",
+    "name": "Tries",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -3340.0,
+    "y": 1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "trees",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Index prefixes and compare memory and lookup tradeoffs."
+  },
+  {
+    "id": "bit-manipulation",
+    "name": "Bit Manipulation",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -3070.0,
+    "y": 1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "algorithms",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Use masks, shifts, and bitwise invariants correctly."
+  },
+  {
+    "id": "sliding-window",
+    "name": "Sliding Windows",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2800.0,
+    "y": 1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "arrays",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Maintain incremental state over contiguous intervals."
+  },
+  {
+    "id": "proofs",
+    "name": "Algorithm Correctness",
+    "branch": "DSA",
+    "region": "Engineering",
+    "x": -2460.0,
+    "y": 1650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "complexity",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Prove invariants and justify termination and complexity bounds."
+  },
+  {
+    "id": "linux",
+    "name": "Linux",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1890.0,
+    "y": 650,
+    "icon": "linux",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Navigate processes, permissions, filesystems, and networking tools."
+  },
+  {
+    "id": "shell",
+    "name": "Shell Scripting",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1350.0,
+    "y": 650,
+    "icon": "bash",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "linux",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Automate tasks with safe quoting, error handling, and composable commands."
+  },
+  {
+    "id": "git",
+    "name": "Git",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1620.0,
+    "y": 650,
+    "icon": "git",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Use commits, branches, merges, and history to collaborate safely."
+  },
+  {
+    "id": "ci-cd",
+    "name": "CI/CD",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1080.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "git",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Automate validation, releases, and rollback paths."
+  },
+  {
+    "id": "containers",
+    "name": "Container Fundamentals",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1820.0,
+    "y": 850,
+    "icon": "docker",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "linux",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Package workloads with reproducible images and least privilege."
+  },
+  {
+    "id": "kubernetes",
+    "name": "Kubernetes",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1620.0,
+    "y": 1050,
+    "icon": "kubernetes",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "containers",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Operate workloads with deployments, services, and resource limits."
+  },
+  {
+    "id": "terraform",
+    "name": "Infrastructure as Code",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1550.0,
+    "y": 850,
+    "icon": "terraform",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "linux",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Manage declarative infrastructure with reviewable plans and state."
+  },
+  {
+    "id": "cloud",
+    "name": "Cloud Fundamentals",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1280.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "linux",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose compute, networking, storage, and identity primitives."
+  },
+  {
+    "id": "aws",
+    "name": "AWS",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1350.0,
+    "y": 1050,
+    "icon": "amazonwebservices",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "cloud",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build services using cloud resources with explicit security and cost controls."
+  },
+  {
+    "id": "monitoring",
+    "name": "Monitoring",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1010.0,
+    "y": 850,
+    "icon": "prometheus",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "linux",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Collect useful metrics and actionable alerts."
+  },
+  {
+    "id": "logging",
+    "name": "Structured Logging",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1890.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "linux",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Produce searchable events with useful context and safe data handling."
+  },
+  {
+    "id": "tracing",
+    "name": "Distributed Tracing",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1080.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "monitoring",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Follow requests across service boundaries using spans and trace context."
+  },
+  {
+    "id": "slo",
+    "name": "Service Objectives",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1820.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "monitoring",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Define user-centered reliability measures and error budgets."
+  },
+  {
+    "id": "incident-response",
+    "name": "Incident Response",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1890.0,
+    "y": 1450,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "slo",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Triage outages, communicate status, and learn from failures."
+  },
+  {
+    "id": "release-strategies",
+    "name": "Release Strategies",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1550.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "ci-cd",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Use canaries, blue-green releases, and safe rollback procedures."
+  },
+  {
+    "id": "secrets",
+    "name": "Secrets Management",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1280.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "cloud",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Rotate and scope credentials without embedding them in artifacts."
+  },
+  {
+    "id": "cloud-costs",
+    "name": "Cloud Cost Control",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1010.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "cloud",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Attribute usage and optimize cost without sacrificing reliability."
+  },
+  {
+    "id": "sre-mastery",
+    "name": "Reliability Engineer",
+    "branch": "DevOps",
+    "region": "Engineering",
+    "x": -1620.0,
+    "y": 1450,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "incident-response",
+        "level": 5
+      },
+      {
+        "id": "kubernetes",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Operate reliable systems with disciplined automation and incident practice."
+  },
+  {
+    "id": "security-basics",
+    "name": "Security Foundations",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": -440.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Identify trust boundaries, least privilege, and common attack surfaces."
+  },
+  {
+    "id": "threat-modeling",
+    "name": "Threat Modeling",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": -170.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "security-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Identify assets, adversaries, abuse cases, and mitigations."
+  },
+  {
+    "id": "input-validation",
+    "name": "Input Validation",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": 100.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "security-basics",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Validate untrusted data at the correct boundaries."
+  },
+  {
+    "id": "owasp",
+    "name": "Web Security",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": 370.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "security-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Recognize common web vulnerabilities and defensive controls."
+  },
+  {
+    "id": "xss",
+    "name": "XSS Prevention",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": 440.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "owasp",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Use contextual output encoding and safe document APIs."
+  },
+  {
+    "id": "injection",
+    "name": "Injection Prevention",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": -440.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "input-validation",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Separate data from commands and parameterize database queries."
+  },
+  {
+    "id": "csrf",
+    "name": "CSRF Protection",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": -170.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "owasp",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Protect state-changing requests with appropriate origin and token checks."
+  },
+  {
+    "id": "oauth",
+    "name": "OAuth & OIDC",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": -370.0,
+    "y": 850,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "security-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Implement delegated access and identity flows with correct validation."
+  },
+  {
+    "id": "access-control",
+    "name": "Access Control",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": -100.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "security-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Enforce authorization on resources and actions at the server."
+  },
+  {
+    "id": "cryptography",
+    "name": "Applied Cryptography",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": 170.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "security-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Use established primitives and manage keys appropriately."
+  },
+  {
+    "id": "supply-chain",
+    "name": "Supply Chain Security",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": 100.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "threat-modeling",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Verify dependencies and protect build and release pipelines."
+  },
+  {
+    "id": "security-headers",
+    "name": "Security Headers",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": 370.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "owasp",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Configure browser protections and understand their limitations."
+  },
+  {
+    "id": "audit-logging",
+    "name": "Audit Logging",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": -370.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "access-control",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Record security-relevant actions with integrity and appropriate retention."
+  },
+  {
+    "id": "secure-design",
+    "name": "Secure Design",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": -100.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "threat-modeling",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Reduce attack surface through safe architecture and defaults."
+  },
+  {
+    "id": "security-mastery",
+    "name": "Security Architect",
+    "branch": "Security",
+    "region": "Engineering",
+    "x": 170.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "secure-design",
+        "level": 5
+      },
+      {
+        "id": "access-control",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design layered defenses and validate security assumptions."
+  },
+  {
+    "id": "testing-basics",
+    "name": "Testing Foundations",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1010.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Choose meaningful checks around behavior and risk."
+  },
+  {
+    "id": "unit-testing",
+    "name": "Unit Testing",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1280.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "testing-basics",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Test isolated behavior using clear assertions and stable fixtures."
+  },
+  {
+    "id": "integration-testing",
+    "name": "Integration Testing",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1550.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "testing-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Verify contracts between components and external boundaries."
+  },
+  {
+    "id": "e2e",
+    "name": "End-to-end Testing",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1350.0,
+    "y": 850,
+    "icon": "",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "integration-testing",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Validate representative user flows through the deployed system."
+  },
+  {
+    "id": "playwright",
+    "name": "Playwright",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1820.0,
+    "y": 1050,
+    "icon": "playwright",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "e2e",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Create robust browser checks using accessible locators and web assertions."
+  },
+  {
+    "id": "vitest",
+    "name": "Vitest",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1620.0,
+    "y": 850,
+    "icon": "vitest",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "unit-testing",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Test JavaScript and TypeScript behavior with focused fixtures."
+  },
+  {
+    "id": "property-testing",
+    "name": "Property-based Testing",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1890.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "unit-testing",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Generate inputs to validate invariants and discover edge cases."
+  },
+  {
+    "id": "contract-testing",
+    "name": "Contract Testing",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1010.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "integration-testing",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Verify provider and consumer expectations independently."
+  },
+  {
+    "id": "load-testing",
+    "name": "Load Testing",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1820.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "testing-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Measure latency and saturation under representative workloads."
+  },
+  {
+    "id": "profiling",
+    "name": "Performance Profiling",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1080.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "testing-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Identify CPU, allocation, and rendering costs with measurement."
+  },
+  {
+    "id": "accessibility-testing",
+    "name": "Accessibility Testing",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1080.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "e2e",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Combine automated checks with keyboard and assistive-technology review."
+  },
+  {
+    "id": "visual-testing",
+    "name": "Visual Regression",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1350.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "e2e",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Compare intentional visual output while controlling rendering noise."
+  },
+  {
+    "id": "test-data",
+    "name": "Test Data Design",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1280.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "unit-testing",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Create representative boundary cases without leaking sensitive data."
+  },
+  {
+    "id": "chaos-testing",
+    "name": "Failure Testing",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1550.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "load-testing",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Validate recovery behavior under controlled faults."
+  },
+  {
+    "id": "quality-mastery",
+    "name": "Quality Engineer",
+    "branch": "Testing",
+    "region": "Engineering",
+    "x": 1620.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "e2e",
+        "level": 5
+      },
+      {
+        "id": "property-testing",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design a focused verification strategy that catches meaningful regressions."
+  },
+  {
+    "id": "mobile-basics",
+    "name": "Mobile Foundations",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 2460.0,
+    "y": 650,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "engineering",
+        "level": 1
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design for touch, constrained resources, and interrupted connectivity."
+  },
+  {
+    "id": "react-native",
+    "name": "React Native",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 2730.0,
+    "y": 650,
+    "icon": "react",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Build native mobile interfaces with reusable React components."
+  },
+  {
+    "id": "flutter",
+    "name": "Flutter",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 3000.0,
+    "y": 650,
+    "icon": "flutter",
+    "kind": "mastery",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Compose adaptive interfaces with widgets and explicit state."
+  },
+  {
+    "id": "swift",
+    "name": "Swift",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 3270.0,
+    "y": 650,
+    "icon": "swift",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Model native applications with safe types and concurrency."
+  },
+  {
+    "id": "kotlin",
+    "name": "Kotlin",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 2530.0,
+    "y": 850,
+    "icon": "kotlin",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 2
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Write Android applications with null safety and structured concurrency."
+  },
+  {
+    "id": "mobile-navigation",
+    "name": "Mobile Navigation",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 2800.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Model screens, deep links, and back navigation predictably."
+  },
+  {
+    "id": "offline-sync",
+    "name": "Offline Sync",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 3070.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Reconcile local changes and server state under intermittent connectivity."
+  },
+  {
+    "id": "mobile-storage",
+    "name": "Device Storage",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 3340.0,
+    "y": 850,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Persist local data securely with clear retention rules."
+  },
+  {
+    "id": "push-notifications",
+    "name": "Push Notifications",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 2460.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Handle permission, delivery, and meaningful notification routing."
+  },
+  {
+    "id": "mobile-performance",
+    "name": "Mobile Performance",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 2730.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Profile startup, frame timing, memory, and battery impact."
+  },
+  {
+    "id": "mobile-accessibility",
+    "name": "Mobile Accessibility",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 3000.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Support assistive technology and scalable text on small screens."
+  },
+  {
+    "id": "app-releases",
+    "name": "App Releases",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 3270.0,
+    "y": 1050,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Manage signing, release tracks, and staged distribution."
+  },
+  {
+    "id": "mobile-testing",
+    "name": "Mobile Testing",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 2530.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "mobile-basics",
+        "level": 3
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Verify device behavior across lifecycles and form factors."
+  },
+  {
+    "id": "native-bridges",
+    "name": "Native Bridges",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 2800.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "normal",
+    "prerequisites": [
+      {
+        "id": "react-native",
+        "level": 4
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Integrate platform capabilities across managed and native boundaries."
+  },
+  {
+    "id": "mobile-mastery",
+    "name": "Mobile Architect",
+    "branch": "Mobile",
+    "region": "Engineering",
+    "x": 3070.0,
+    "y": 1250,
+    "icon": "",
+    "kind": "legendary",
+    "prerequisites": [
+      {
+        "id": "offline-sync",
+        "level": 5
+      },
+      {
+        "id": "mobile-performance",
+        "level": 5
+      }
+    ],
+    "initialLevel": 0,
+    "description": "Design reliable cross-device experiences with explicit platform tradeoffs."
   }
 ]

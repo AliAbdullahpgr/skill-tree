@@ -1,6 +1,6 @@
 # Arcana — Skill Tree RPG
 
-A personal skill atlas inspired by ancient sigil trees and dark fantasy MMORPGs. Explore 42 interconnected skills across Engineering, Problem Solving, and Personal Skills. The six engineering branches cover Frontend, Backend, Databases, System Design, AI, and DSA.
+A personal skill atlas inspired by ancient sigil trees and dark fantasy MMORPGs. Explore 228 interconnected skills across Engineering, Problem Solving, and Personal Skills. Engineering includes 214 skills across Frontend, Backend, Databases, System Design, AI, DSA, DevOps, Security, Testing, and Mobile.
 
 ## Run locally
 
@@ -19,7 +19,7 @@ Open http://localhost:3000. For a production static export, run `npm run build`;
 - Normal, Mastery, and Legendary nodes with real, locally bundled Devicon technology logos.
 - Self-assessed levels from 1–10; level 0 represents untrained skills. Roots start open. All prerequisites must reach their configured levels before descendants unlock.
 - Recursive prerequisite checks: reducing a prerequisite reseals descendants while preserving their recorded levels.
-- Animated connections, rotating runes, ambient canvas particles, GSAP level flashes, Framer Motion unlock cinematics, and optional synthesized sound.
+- Highlighted prerequisite connections, selected-node runes, capped ambient canvas particles, native browser level flashes and unlock cinematics, and optional synthesized sound.
 - Browser-local autosave, JSON backup/export/import, progress chronicle, searchable codex, and skill-gap highlighting.
 - Midnight and Moonstone themes, responsive mobile layout with a readable initial zoom, keyboard-focus indicators, dialog focus trapping, and reduced-motion support.
 
@@ -49,7 +49,7 @@ Identifiers must be unique, prerequisite references must exist, and the prerequi
 
 ## Stack and structure
 
-Next.js App Router + TypeScript, React 19, Tailwind CSS 4 with bespoke fantasy CSS, XYFlow, GSAP, Framer Motion, and the Canvas API. Static export hosting is configured in `next.config.ts` and `.openai/hosting.json`.
+Next.js App Router + TypeScript, React 19, Tailwind CSS 4 with bespoke fantasy CSS, XYFlow, native Web Animations/CSS, and the Canvas API. Static export hosting is configured in `next.config.ts` and `.openai/hosting.json`.
 
 - `src/components/SkillAtlas.tsx`: canvas, interactions, progression editor, accessibility, and application shell.
 - `src/lib/progression.ts`: pure progression rules and save validation.
@@ -78,10 +78,38 @@ node scripts/browser-check.mjs
 
 ## Artwork and attribution
 
-The celestial atlas and Wayfarer portrait were generated with the built-in image generation tool and optimized as WebP. These original assets remain available for future themes; the current board uses a quiet procedural backdrop for readability. See `ARTWORK.md` for exact prompts. Technology logos are bundled from Devicon v2.16.0; their license is in `public/icons/LICENSE`. Trademarks belong to their respective owners. Marcellus and Manrope fonts are loaded through Google Fonts, with local system fallbacks.
+The celestial atlas and Wayfarer portrait were generated with the built-in image generation tool and optimized as WebP. These original assets remain available for future themes; the current board uses a quiet procedural backdrop for readability. See `ARTWORK.md` for exact prompts. Technology logos are bundled from Devicon; their license is in `public/icons/LICENSE`. Trademarks belong to their respective owners. Marcellus and Manrope fonts are self-hosted, with local system fallbacks. Font licenses are bundled in `public/fonts/`.
 
 ## Board-first design revision
 
 Reviewed [PoE 2 Planner](https://poe2planner.app/) for canvas-first interaction and [roadmap.sh](https://roadmap.sh/frontend) for clear skill hierarchy. The revised interface removes persistent character, navigation, headline, and inspector columns. A 52px header (48px on phones) is the only reserved layout space. Search, realm travel, and camera controls float on the board; skill details appear only after selection. Keyboard Enter/Space opens a focused node, `/` focuses search, and Escape dismisses overlays.
 
 The midnight palette uses `#090c12` for the board, `#141923` for floating surfaces, `#eef1f8` for primary text, and `#9faec5` for secondary text. Nodes encode progression as silver (0–2), cyan (3–4), blue (5–7), violet (8–9), and gold (10); zero-level available skills have dashed borders. Mastery and Legendary nodes retain distinct silhouettes.
+
+## Expanded engineering and rendering performance
+
+| Branch | Skills |
+| --- | ---: |
+| Frontend | 28 |
+| Backend | 26 |
+| Databases | 24 |
+| System Design | 24 |
+| AI | 24 |
+| DSA | 24 |
+| DevOps | 18 |
+| Security | 15 |
+| Testing | 15 |
+| Mobile | 15 |
+
+Engineering also has its central foundation node, for 214 engineering skills and 228 skills overall. Existing IDs, prerequisites, and local-storage keys are preserved. New skills start at level zero when loading an older save. All skills remain reachable and searchable; branch labels and the realm menu provide direct travel. The board opens on Frontend at a useful scale instead of shrinking all 228 nodes into the screen.
+
+Performance changes:
+
+- XYFlow viewport culling mounts only visible nodes and edges; the entire graph remains available for navigation.
+- Prerequisite results use an indexed, memoized traversal per immutable level snapshot. A WeakMap avoids retaining old snapshots.
+- Zoom readouts subscribe separately; dragging no longer updates application React state. Overview appearance changes only when crossing a zoom threshold.
+- Node memoization compares actual skill state. Ambient particles are capped at 24 FPS and pause in hidden tabs and while moving the board.
+- Idle edge/rune animations and expensive moving-camera glow are reduced. Labels simplify at overview zoom while branch names remain readable.
+- Native browser animations replace GSAP and Framer Motion for the small effects used here. Fonts and logos are local assets.
+
+To reproduce the browser comparison, serve `out/`, then run `node scripts/performance-check.mjs current`. It runs three cold browser pages, performs the same 80-step drag, and writes per-run and median metrics to `.artifacts/`. Measurements are specific to this machine/browser and are not universal speed guarantees. The initial comparison measured 851 KB versus 714 KB decoded JavaScript (16% less) with the larger graph. A focused 22,800-check prerequisite benchmark measured 68.72 ms for the former recursive lookup versus 4.11 ms for cached evaluation.

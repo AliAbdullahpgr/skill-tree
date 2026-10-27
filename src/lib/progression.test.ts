@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { skills, initialLevels, isUnlocked, normalizeLevels, updateLevel } from './progression';
+import { skills, getUnlockState, initialLevels, isUnlocked, normalizeLevels, updateLevel } from './progression';
 test('all identifiers and prerequisites form a valid acyclic graph', () => {
  const ids = new Set(skills.map(s => s.id)); assert.equal(ids.size, skills.length);
  function visit(id: string, path: Set<string>) { assert.ok(!path.has(id), 'cycle'); const skill = skills.find(s=>s.id===id)!; for(const p of skill.prerequisites){ assert.ok(ids.has(p.id)); assert.ok(p.level>=1 && p.level<=10); visit(p.id,new Set(path).add(id)); } }
@@ -26,4 +26,21 @@ test('level updates respect lock state, valid numbers and bounds', () => {
 test('untrusted imports discard unknown keys and invalid values', () => {
  const result=normalizeLevels({html:100,css:-3,javascript:'8',react:NaN,unknown:10});
  assert.equal(result.html,10);assert.equal(result.css,0);assert.equal(result.javascript,0);assert.equal(result.react,0);assert.equal(result.unknown,undefined);assert.equal(Object.keys(result).length,skills.length);
+});
+
+test('expanded engineering graph preserves old save levels and starts new skills untrained', () => {
+ const saved=normalizeLevels({engineering:1,html:7,css:6,javascript:5,react:4});
+ assert.equal(saved.react,4);assert.equal(saved.kubernetes,0);
+ assert.ok(skills.filter(s=>s.region==='Engineering').length>=200);
+ assert.equal(new Set(skills.filter(s=>s.region==='Engineering'&&s.branch!=='Core').map(s=>s.branch)).size,10);
+ assert.equal(isUnlocked('git',saved),true);assert.equal(isUnlocked('kubernetes',saved),false);
+});
+test('cached prerequisite evaluation is reused and invalidated by a new level snapshot', () => {
+ const a=getUnlockState(initialLevels);assert.equal(a,getUnlockState(initialLevels));
+ const next=updateLevel(initialLevels,'engineering',0);const b=getUnlockState(next);
+ assert.notEqual(a,b);assert.equal(b.get('git'),false);assert.equal(a.get('git'),true);
+});
+test('all skills are reachable with fully trained prerequisites', () => {
+ const levels=Object.fromEntries(skills.map(s=>[s.id,10]));
+ for(const skill of skills)assert.equal(isUnlocked(skill.id,levels),true,skill.id);
 });

@@ -1,6 +1,7 @@
 import { chromium } from '@playwright/test';
 import assert from 'node:assert/strict';
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync } from 'node:fs';
+const definitions=JSON.parse(readFileSync(new URL('../src/lib/skills.json',import.meta.url)));
 mkdirSync('.artifacts', {recursive: true});
 const localChrome='/root/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome';
 const browser = await chromium.launch({ headless:true, ...(process.env.CHROMIUM_PATH ? {executablePath:process.env.CHROMIUM_PATH} : existsSync(localChrome) ? {executablePath:localChrome} : {}), args:['--no-sandbox'] });
@@ -10,7 +11,8 @@ const errors=[]; page.on('pageerror',e=>errors.push(e.message));
 const find=async(name)=>{await page.getByRole('textbox',{name:'Find a skill'}).fill(name);await page.locator('.search-results button').filter({hasText:name}).first().click();await page.locator('.inspector-hero h2').filter({hasText:name}).waitFor();console.log('Selected',name);};
 try {
  await page.goto(base);await page.waitForSelector('.react-flow__node');await page.waitForTimeout(1200);
- assert.equal(await page.locator('.react-flow__node').count(),42);
+ assert.ok(await page.locator('.react-flow__node').count()>0);
+ assert.ok(await page.locator('.react-flow__node').count()<definitions.length/2);
  assert.deepEqual(await page.locator('img').evaluateAll(imgs=>imgs.filter(i=>!i.complete||i.naturalWidth===0).map(i=>i.src)),[]);
  assert.equal(await page.locator('.inspector').count(),0);
  const board=await page.locator('.atlas-area').boundingBox(); assert.ok(board.height / 960 >= .9);
@@ -27,7 +29,7 @@ try {
  await page.getByRole('button',{name:'Continue your journey'}).click();
  await find('Next.js');assert.equal(await page.getByRole('button',{name:'Increase skill level'}).isEnabled(),true);
  await page.getByRole('button',{name:'Chronicle',exact:true}).click();assert.equal(await page.locator('.chronicle-list h3').count(),3);
- await page.getByRole('button',{name:'The codex',exact:true}).click();assert.equal(await page.locator('.codex-grid>button').count(),42);
+ await page.getByRole('button',{name:'The codex',exact:true}).click();assert.equal(await page.locator('.codex-grid>button').count(),definitions.length);
  await page.locator('.codex-grid>button').filter({hasText:'Logical Thinking'}).click();assert.equal(await page.locator('.inspector-hero h2').innerText(),'Logical Thinking');
  await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('button',{name:'Moonstone',exact:false}).click();assert.equal(await page.locator('.theme-moonstone').count(),1);
  const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup'}).click();const download=await downloadPromise;assert.equal(download.suggestedFilename(),'arcana-progress.json');
@@ -47,5 +49,5 @@ try {
  await mobile.getByRole('button',{name:'Open skill search'}).click();await mobile.getByRole('textbox',{name:'Find a skill'}).fill('Writing');await mobile.locator('.search-results button').first().click();assert.equal(await mobile.locator('.inspector-hero h2').innerText(),'Writing');await mobile.getByRole('button',{name:'Close skill details'}).click();
  await mobile.getByRole('button',{name:'Choose realm or branch'}).click();await mobile.locator('.realm-menu').getByRole('button',{name:'Engineering',exact:true}).click();
  await mobile.reload();await mobile.waitForTimeout(800);await mobile.screenshot({path:'.artifacts/mobile.png',fullPage:true});
- assert.deepEqual(errors,[]);console.log('PASS: 42 nodes, images, progression, cinematic unlock, persistence, codex, chronicle, region navigation, theme, export/import, zoom and mobile. No browser errors.');
+ assert.deepEqual(errors,[]);console.log('PASS: expanded graph with viewport culling, images, progression, cinematic unlock, persistence, codex, chronicle, region navigation, theme, export/import, zoom and mobile. No browser errors.');
 } finally {await browser.close();}
