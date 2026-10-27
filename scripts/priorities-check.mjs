@@ -16,6 +16,11 @@ try {
  await page.waitForFunction(()=>document.querySelector('.atlas-area').dataset.detail==='detail');
  assert.equal(await page.locator('[data-id="react"] .node-caption').isVisible(),true);
  assert.ok(await page.locator('.connection-focus').count()>0);
+ await page.getByRole('region',{name:'React level guide'}).waitFor();
+ await page.getByRole('button',{name:'Increase skill level'}).click();await page.getByRole('button',{name:'Increase skill level'}).click();
+ assert.match(await page.locator('.milestone-eyebrow').innerText(),/Level 5/);
+ assert.match(await page.locator('.practice-task').innerText(),/hooks.*error states/);
+ await page.getByText('Compare all 10 levels',{exact:true}).click();assert.equal(await page.locator('.milestone-guide li').count(),10);
  await page.keyboard.press('Escape');
  await page.getByRole('button',{name:'Choose learning goal'}).click();
  await page.getByRole('button',{name:'Frontend Engineer Build accessible'}).click();
