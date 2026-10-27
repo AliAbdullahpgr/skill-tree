@@ -1,9 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState, memo } from 'react';
-import { ReactFlow, ReactFlowProvider, Handle, Position, useReactFlow, ViewportPortal, type NodeProps, type Node, type Edge } from '@xyflow/react';
+import { ReactFlow, ReactFlowProvider, useReactFlow, ViewportPortal, type NodeProps, type Node, type Edge } from '@xyflow/react';
 import { useReducedMotion } from '@/lib/useReducedMotion';
 import CameraControls from './CameraControls';
+import Connections from './Connections';
 import boardLabels from '@/lib/board-labels.json';
 import { Sparkles, Compass, Code2, Network, Brain, Gem, LockKeyhole, ChevronRight, ChevronDown, Check, X, Plus, Minus, Maximize, Volume2, VolumeX, Settings2, Search, ScrollText, Crosshair, Download, Upload, RotateCcw, Shield, Flame, BookOpen, HelpCircle, Map, Layers } from 'lucide-react';
 import { skills, skillById, initialLevels, isUnlocked, normalizeLevels, updateLevel, rank, STORAGE_KEY, type Skill, type Levels } from '@/lib/progression';
@@ -26,7 +27,6 @@ function Sigil({ skill, size = 24 }: { skill: Skill; size?: number }) {
 const RuneNode = memo(function RuneNode({ data }: NodeProps<SkillNode>) {
   const { skill, level, unlocked, selected, gaps } = data;
   return <div className={`rune-node ${skill.kind} ${unlocked ? level > 0 ? 'awakened' : 'available' : 'locked'} ${selected ? 'chosen' : ''} ${level >= 8 ? 'high-level' : ''} ${gaps && level >= 5 && unlocked ? 'dimmed' : ''}`} style={{ '--branch': levelColor(level), '--power': .15 + level * .045 } as React.CSSProperties}>
-    <Handle type="target" position={Position.Top} /><Handle type="source" position={Position.Bottom} />
     <div className="rune-orbit" /><div className="rune-ring"><div className="rune-inner"><Sigil skill={skill} size={skill.id === 'engineering' ? 38 : 29} /></div></div>
     {skill.kind !== 'normal' && <span className="rune-crown">{skill.kind === 'legendary' ? '✧' : '◆'}</span>}
     <span className="node-level">{unlocked ? `${level} / 10` : <LockKeyhole size={10} />}</span>
@@ -35,6 +35,7 @@ const RuneNode = memo(function RuneNode({ data }: NodeProps<SkillNode>) {
   </div>;
 }, (previous, next) => previous.data.skill === next.data.skill && previous.data.level === next.data.level && previous.data.unlocked === next.data.unlocked && previous.data.selected === next.data.selected && previous.data.gaps === next.data.gaps);
 const nodeTypes = { skill: RuneNode };
+const EMPTY_EDGES: Edge[] = [];
 
 const Particles = memo(function Particles() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -42,21 +43,19 @@ const Particles = memo(function Particles() {
   useEffect(() => {
     if (reduced) return;
     const canvas = ref.current; const ctx = canvas?.getContext('2d'); if (!canvas || !ctx) return;
-    let frame = 0; let last = 0; let tick = 0;
+    // Paint once on resize. CSS moves the bitmap on the compositor, so ambient
+    // effects no longer wake JavaScript or repaint the full board every frame.
     const motes = Array.from({ length: 24 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() + .3 }));
-    const resize = () => { canvas.width = Math.min(1280, canvas.clientWidth); canvas.height = Math.min(800, canvas.clientHeight); };
-    const observer = new ResizeObserver(resize); observer.observe(canvas); resize();
-    const draw = (time: number) => {
-      frame = requestAnimationFrame(draw);
-      if (time - last < 42 || canvas.closest('[data-moving="true"]')) return;
-      last = time; tick++;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const draw = () => {
+      canvas.width = Math.min(1280, canvas.clientWidth);
+      canvas.height = Math.min(800, canvas.clientHeight);
       ctx.fillStyle = 'rgba(168,192,241,.22)';
-      for (const p of motes) { p.y -= .0003; if (p.y < 0) p.y = 1; ctx.beginPath(); ctx.arc(p.x * canvas.width + Math.sin(tick / 100) * 5, p.y * canvas.height, p.r, 0, Math.PI * 2); ctx.fill(); }
+      for (const p of motes) {
+        ctx.beginPath(); ctx.arc(p.x * canvas.width, p.y * canvas.height, p.r, 0, Math.PI * 2); ctx.fill();
+      }
     };
-    const visibility = () => { cancelAnimationFrame(frame); if (!document.hidden) frame = requestAnimationFrame(draw); };
-    document.addEventListener('visibilitychange', visibility); visibility();
-    return () => { cancelAnimationFrame(frame); observer.disconnect(); document.removeEventListener('visibilitychange', visibility); };
+    const observer = new ResizeObserver(draw); observer.observe(canvas);
+    return () => observer.disconnect();
   }, [reduced]);
   return <canvas ref={ref} className="particles" aria-hidden="true" />;
 });
@@ -92,6 +91,7 @@ function Atlas() {
   const unlocked = isUnlocked(selectedId, levels);
   const learned = useMemo(() => skills.filter(s => levels[s.id] > 0 && isUnlocked(s.id, levels)), [levels]);
   const boardRef = useRef<HTMLElement>(null);
+  const labelsRef = useRef<HTMLDivElement>(null);
   const navigate = useCallback((targetRegion: string, targetBranch = 'All branches') => {
     setInspectorOpen(false); setRegion(targetRegion); setBranch(targetBranch); setRealmMenu(false);
     const ids = skills.filter(s => s.region === targetRegion && (targetBranch === 'All branches' || s.branch === targetBranch)).map(s => ({ id: s.id }));
@@ -166,7 +166,7 @@ function Atlas() {
       if (skill) { event.preventDefault(); select(skill); }
     }}>
       <div className="world-background" /><div className="celestial-orbit" aria-hidden="true" /><Particles />
-      <ReactFlow<SkillNode> nodes={nodes} edges={edges} nodeTypes={nodeTypes} onlyRenderVisibleElements nodesConnectable={false} nodesDraggable={false} minZoom={.025} maxZoom={2.5} onNodeClick={(_, node) => select(node.data.skill)} onPaneClick={() => { setInspectorOpen(false); setRealmMenu(false); }} onInit={instance => { requestAnimationFrame(() => {
+      <ReactFlow<SkillNode> nodes={nodes} edges={EMPTY_EDGES} nodeTypes={nodeTypes} onlyRenderVisibleElements edgesFocusable={false} elementsSelectable={false} nodesConnectable={false} nodesDraggable={false} minZoom={.025} maxZoom={2.5} onNodeClick={(_, node) => select(node.data.skill)} onPaneClick={() => { setInspectorOpen(false); setRealmMenu(false); }} onInit={instance => { requestAnimationFrame(() => {
         if (window.innerWidth <= 700) { const start = skillById.get('html')!; instance.setCenter(start.x + 170, start.y + 180, { zoom: .65 }); }
         else instance.fitBounds({ x: -3500, y: -2160, width: 1250, height: 1580 }, { padding: .04 });
       }); }} onMoveStart={() => { if (boardRef.current) boardRef.current.dataset.moving = 'true'; }} onMove={(_, viewport) => {
@@ -174,9 +174,10 @@ function Atlas() {
         const overview = String(viewport.zoom < .3);
         if (board.dataset.overview !== overview) board.dataset.overview = overview;
         const scale = (1 / viewport.zoom).toFixed(2);
-        if (overview === 'true' && board.style.getPropertyValue('--overview-scale') !== scale) board.style.setProperty('--overview-scale', scale);
+        const labels = labelsRef.current;
+        if (overview === 'true' && labels && labels.style.getPropertyValue('--overview-scale') !== scale) labels.style.setProperty('--overview-scale', scale);
       }} onMoveEnd={() => { if (boardRef.current) boardRef.current.dataset.moving = 'false'; }} proOptions={{ hideAttribution: true }}>
-        <ViewportPortal><div className="board-labels">{boardLabels.map(([name, x, y]) => <button key={name} className="constellation-label" style={{ left: Number(x) + 35, top: Number(y), '--label-color': branchColors[String(name)] } as React.CSSProperties} onClick={() => navigate(regions.includes(String(name)) ? String(name) : 'Engineering', regions.includes(String(name)) ? 'All branches' : String(name))}>{name}<span>{skills.filter(s => s.branch === name && levels[s.id] > 0 && isUnlocked(s.id, levels)).length} / {skills.filter(s => s.branch === name).length} learned</span></button>)}</div></ViewportPortal>
+        <ViewportPortal><Connections edges={edges} /><div ref={labelsRef} className="board-labels">{boardLabels.map(([name, x, y]) => <button key={name} className="constellation-label" style={{ left: Number(x) + 35, top: Number(y), '--label-color': branchColors[String(name)] } as React.CSSProperties} onClick={() => navigate(regions.includes(String(name)) ? String(name) : 'Engineering', regions.includes(String(name)) ? 'All branches' : String(name))}>{name}<span>{skills.filter(s => s.branch === name && levels[s.id] > 0 && isUnlocked(s.id, levels)).length} / {skills.filter(s => s.branch === name).length} learned</span></button>)}</div></ViewportPortal>
       </ReactFlow>
       <div className="board-navigation">
         <button className={`realm-trigger ${realmMenu ? 'active' : ''}`} aria-label="Choose realm or branch" aria-expanded={realmMenu} onClick={() => setRealmMenu(!realmMenu)}><Layers size={17} /><span>{region}<small>{branch === 'All branches' ? 'All branches' : branch}</small></span><ChevronDown size={15} /></button>

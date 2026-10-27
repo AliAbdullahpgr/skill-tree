@@ -105,11 +105,13 @@ Engineering also has its central foundation node, for 214 engineering skills and
 
 Performance changes:
 
-- XYFlow viewport culling mounts only visible nodes and edges; the entire graph remains available for navigation.
+- XYFlow viewport culling mounts only visible nodes. Decorative connections share one memoized SVG, without per-edge store subscriptions, hit targets, or handle measurements; the entire graph remains available for navigation.
 - Prerequisite results use an indexed, memoized traversal per immutable level snapshot. A WeakMap avoids retaining old snapshots.
-- Zoom readouts subscribe separately; dragging no longer updates application React state. Overview appearance changes only when crossing a zoom threshold.
-- Node memoization compares actual skill state. Ambient particles are capped at 24 FPS and pause in hidden tabs and while moving the board.
+- Zoom readouts subscribe separately; dragging no longer updates application React state. Overview appearance changes only when crossing a zoom threshold; zoom-dependent label sizing is scoped to the labels instead of invalidating styles across every node.
+- Node memoization compares actual skill state. Ambient particles paint only on resize; a compositor animation moves the bitmap without a JavaScript frame loop and pauses while moving the board.
 - Idle edge/rune animations and expensive moving-camera glow are reduced. Labels simplify at overview zoom while branch names remain readable.
-- Native browser animations replace GSAP and Framer Motion for the small effects used here. Fonts and logos are local assets.
+- Native browser animations replace GSAP and Framer Motion for the small effects used here. Fonts and logos are local assets. Fonts use real WOFF2 compression (140 KB total versus 423 KB), preserving all glyphs and weights.
 
 To reproduce the browser comparison, serve `out/`, then run `node scripts/performance-check.mjs current`. It runs three cold browser pages, performs the same 80-step drag, and writes per-run and median metrics to `.artifacts/`. Measurements are specific to this machine/browser and are not universal speed guarantees. The initial comparison measured 851 KB versus 714 KB decoded JavaScript (16% less) with the larger graph. A focused 22,800-check prerequisite benchmark measured 68.72 ms for the former recursive lookup versus 4.11 ms for cached evaluation.
+
+A second optimization pass removes backdrop blurring behind persistent controls and limits continuous rune animation to the selected node. On the same 228-node graph, an isolated three-run Chromium comparison measured median node-ready time of 882 → 677 ms, pan JavaScript of 124 → 61 ms, total pan CPU of 954 → 672 ms, and sampled JS heap of 15 → 9 MB. These local headless measurements are indicative, not guarantees for every device or network; font transfer is measured separately from decoded JavaScript.

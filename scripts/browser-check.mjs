@@ -15,6 +15,15 @@ try {
  assert.ok(await page.locator('.react-flow__node').count()<definitions.length/2);
  assert.deepEqual(await page.locator('img').evaluateAll(imgs=>imgs.filter(i=>!i.complete||i.naturalWidth===0).map(i=>i.src)),[]);
  assert.equal(await page.locator('.inspector').count(),0);
+ const expectedConnections=definitions.reduce((count,skill)=>count+skill.prerequisites.length,2);
+ assert.equal(await page.locator('.skill-connections path').count(),expectedConnections);
+ const connection=await page.locator('[data-edge-id="engineering-html"]').getAttribute('d');
+ const engineering=definitions.find(skill=>skill.id==='engineering'),html=definitions.find(skill=>skill.id==='html');
+ assert.equal(connection,`M${engineering.x+35},${engineering.y+35}L${html.x+35},${html.y+35}`);
+ assert.equal(await page.locator('.react-flow__handle').count(),0);
+ await page.locator('.react-flow__node').first().focus();await page.keyboard.press('Enter');
+ await page.locator('.inspector').waitFor();await page.keyboard.press('Escape');
+
  const board=await page.locator('.atlas-area').boundingBox(); assert.ok(board.height / 960 >= .9);
  await find('React');
  await page.getByRole('button',{name:'Increase skill level'}).click();
