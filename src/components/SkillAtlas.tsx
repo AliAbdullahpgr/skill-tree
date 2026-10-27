@@ -7,6 +7,7 @@ import CameraControls from './CameraControls';
 import Connections from './Connections';
 import GoalControl from './GoalControl';
 import { goalTargets, normalizeGoal } from '@/lib/goals';
+import { recommendSkills } from '@/lib/recommendations';
 import boardLabels from '@/lib/board-labels.json';
 import { Sparkles, Compass, Code2, Network, Brain, Gem, LockKeyhole, ChevronRight, ChevronDown, Check, X, Plus, Minus, Maximize, Volume2, VolumeX, Settings2, Search, ScrollText, Crosshair, Download, Upload, RotateCcw, Shield, Flame, BookOpen, HelpCircle, Map, Layers } from 'lucide-react';
 import { skills, skillById, initialLevels, isUnlocked, normalizeLevels, updateLevel, rank, STORAGE_KEY, type Skill, type Levels } from '@/lib/progression';
@@ -14,7 +15,7 @@ import '@xyflow/react/dist/style.css';
 
 const MilestoneGuide = lazy(() => import('./MilestoneGuide'));
 
-type SkillData = { skill: Skill; level: number; unlocked: boolean; selected: boolean; gaps: boolean; goal: boolean; offGoal: boolean };
+type SkillData = { skill: Skill; level: number; unlocked: boolean; selected: boolean; gaps: boolean; goal: boolean; offGoal: boolean; recommended: boolean };
 type SkillNode = Node<SkillData, 'skill'>;
 type Entry = { name: string; from: number; to: number; at: string };
 const levelColor = (level: number) => level >= 10 ? '#ffcd73' : level >= 8 ? '#c5a1ff' : level >= 5 ? '#76b3ff' : level >= 3 ? '#67dcf3' : '#b4c7e6';
@@ -29,15 +30,15 @@ function Sigil({ skill, size = 24 }: { skill: Skill; size?: number }) {
   return <Icon size={size} strokeWidth={1.3} />;
 }
 const RuneNode = memo(function RuneNode({ data }: NodeProps<SkillNode>) {
-  const { skill, level, unlocked, selected, gaps, goal, offGoal } = data;
-  return <div className={`rune-node ${goal ? 'on-goal' : ''} ${offGoal ? 'off-goal' : ''} ${skill.kind} ${unlocked ? level > 0 ? 'awakened' : 'available' : 'locked'} ${selected ? 'chosen' : ''} ${level >= 8 ? 'high-level' : ''} ${gaps && level >= 5 && unlocked ? 'dimmed' : ''}`} style={{ '--branch': levelColor(level), '--power': .15 + level * .045 } as React.CSSProperties}>
+  const { skill, level, unlocked, selected, gaps, goal, offGoal, recommended } = data;
+  return <div className={`rune-node ${recommended ? 'recommended' : ''} ${goal ? 'on-goal' : ''} ${offGoal ? 'off-goal' : ''} ${skill.kind} ${unlocked ? level > 0 ? 'awakened' : 'available' : 'locked'} ${selected ? 'chosen' : ''} ${level >= 8 ? 'high-level' : ''} ${gaps && level >= 5 && unlocked ? 'dimmed' : ''}`} style={{ '--branch': levelColor(level), '--power': .15 + level * .045 } as React.CSSProperties}>
     <div className="rune-orbit" /><div className="rune-ring"><div className="rune-inner"><Sigil skill={skill} size={skill.id === 'engineering' ? 38 : 29} /></div></div>
     {skill.kind !== 'normal' && <span className="rune-crown">{skill.kind === 'legendary' ? '✧' : '◆'}</span>}
     <span className="node-level">{unlocked ? `${level} / 10` : <LockKeyhole size={10} />}</span>
     <div className="node-caption">{skill.name}</div>
-    <div className="node-tooltip"><strong>{skill.name}</strong><span>{unlocked ? `${rank(level)} · Level ${level}` : 'Sealed knowledge'}</span>{skill.prerequisites.map(p => <small key={p.id}>{skillById.get(p.id)?.name} · requires Lv. {p.level}</small>)}</div>
+    <div className="node-tooltip">{recommended && <small className="next-label">Suggested next step</small>}<strong>{skill.name}</strong><span>{unlocked ? `${rank(level)} · Level ${level}` : 'Sealed knowledge'}</span>{skill.prerequisites.map(p => <small key={p.id}>{skillById.get(p.id)?.name} · requires Lv. {p.level}</small>)}</div>
   </div>;
-}, (previous, next) => previous.data.skill === next.data.skill && previous.data.level === next.data.level && previous.data.unlocked === next.data.unlocked && previous.data.selected === next.data.selected && previous.data.gaps === next.data.gaps && previous.data.goal === next.data.goal && previous.data.offGoal === next.data.offGoal);
+}, (previous, next) => previous.data.skill === next.data.skill && previous.data.level === next.data.level && previous.data.unlocked === next.data.unlocked && previous.data.selected === next.data.selected && previous.data.gaps === next.data.gaps && previous.data.goal === next.data.goal && previous.data.offGoal === next.data.offGoal && previous.data.recommended === next.data.recommended);
 const nodeTypes = { skill: RuneNode };
 const EMPTY_EDGES: Edge[] = [];
 
@@ -81,6 +82,8 @@ function Atlas() {
   const [gaps, setGaps] = useState(false);
   const [goalId, setGoalId] = useState('');
   const route = goalTargets(goalId);
+  const recommendations = useMemo(() => recommendSkills(levels, goalId), [levels, goalId]);
+  const recommendedIds = useMemo(() => new Set(recommendations.map(item => item.id)), [recommendations]);
   const [query, setQuery] = useState('');
   const [history, setHistory] = useState<Entry[]>([]);
   const [notice, setNotice] = useState('');
@@ -127,7 +130,7 @@ function Atlas() {
     return () => { document.removeEventListener('keydown', trap); previous?.focus(); };
   }, [modal]);
   const playChime = () => { if (!sound) return; try { const ctx = audio.current || new AudioContext(); audio.current = ctx; void ctx.resume(); [261.63, 392, 523.25, 783.99].forEach((freq, i) => { const o = ctx.createOscillator(); const g = ctx.createGain(); o.type = 'sine'; o.frequency.value = freq; g.gain.setValueAtTime(0, ctx.currentTime + i * .12); g.gain.linearRampToValueAtTime(.055, ctx.currentTime + i * .12 + .03); g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + i * .12 + 1.2); o.connect(g); g.connect(ctx.destination); o.start(ctx.currentTime + i * .12); o.stop(ctx.currentTime + i * .12 + 1.3); }); } catch { setNotice('Audio is unavailable in this browser.'); } };
-  const nodes: SkillNode[] = useMemo(() => skills.map(skill => ({ id: skill.id, type: 'skill', width: 70, height: 70, position: { x: skill.x, y: skill.y }, data: { skill, level: levels[skill.id] || 0, unlocked: isUnlocked(skill.id, levels), selected: inspectorOpen && selectedId === skill.id, gaps, goal: route.has(skill.id), offGoal: !!goalId && !route.has(skill.id) }, ariaLabel: `${skill.name}, level ${levels[skill.id] || 0}, ${isUnlocked(skill.id, levels) ? 'unlocked' : 'locked'}`, draggable: false })), [levels, selectedId, gaps, inspectorOpen, route, goalId]);
+  const nodes: SkillNode[] = useMemo(() => skills.map(skill => ({ id: skill.id, type: 'skill', width: 70, height: 70, position: { x: skill.x, y: skill.y }, data: { skill, level: levels[skill.id] || 0, unlocked: isUnlocked(skill.id, levels), selected: inspectorOpen && selectedId === skill.id, gaps, goal: route.has(skill.id), offGoal: !!goalId && !route.has(skill.id), recommended: recommendedIds.has(skill.id) }, ariaLabel: `${skill.name}, level ${levels[skill.id] || 0}, ${isUnlocked(skill.id, levels) ? 'unlocked' : 'locked'}`, draggable: false })), [levels, selectedId, gaps, inspectorOpen, route, goalId, recommendedIds]);
   const edges: Edge[] = useMemo(() => skills.flatMap(s => s.prerequisites.map(p => ({ id: `${p.id}-${s.id}`, source: p.id, target: s.id, type: 'straight', animated: false, className: inspectorOpen && (s.id === selectedId || p.id === selectedId) ? 'connection-focus' : route.has(s.id) && route.has(p.id) ? 'connection-goal' : 'connection-detail', style: { stroke: isUnlocked(s.id, levels) ? levelColor(levels[p.id] || 0) : '#6e7890', strokeWidth: isUnlocked(s.id, levels) ? 1.8 : 1.2, opacity: inspectorOpen && (s.id === selectedId || p.id === selectedId) ? .95 : isUnlocked(s.id, levels) ? .4 : .19 } }))).concat([{ id: 'bridge-problem', source: 'engineering', target: 'logic', type: 'straight', animated: false, className: 'connection-bridge', style: { stroke: '#a6b585', strokeWidth: 1, opacity: .17 } }, { id: 'bridge-personal', source: 'engineering', target: 'communication', type: 'straight', animated: false, className: 'connection-bridge', style: { stroke: '#bd9dcb', strokeWidth: 1, opacity: .17 } }]), [levels, inspectorOpen, selectedId, route]);
   const select = (skill: Skill, center = false) => {
     setSelectedId(skill.id); setInspectorOpen(true); setQuery(''); setRealmMenu(false);
@@ -193,7 +196,7 @@ function Atlas() {
         {sample && <button className="sample-note" onClick={() => setModal('settings')}>Example build <span>Start your own</span></button>}
       </div>
       <div className={`board-search ${searchOpen ? 'expanded' : ''}`}><button className={`icon-button gap-toggle ${gaps ? 'active' : ''}`} title="Highlight skill gaps" aria-label="Skill gaps" aria-pressed={gaps} onClick={() => { setGaps(!gaps); setNotice(gaps ? 'Showing all skills.' : 'Highlighting locked skills and skills below level 5.'); }}><Crosshair size={18} /></button><div className="search-wrap"><button className="search-toggle" aria-label="Open skill search" onClick={() => setSearchOpen(!searchOpen)}><Search size={18} /></button><input aria-label="Find a skill" placeholder="Find a skill…" value={query} onFocus={() => setSearchOpen(true)} onChange={e => setQuery(e.target.value)} />{query ? <button className="icon-button" aria-label="Clear search" onClick={() => setQuery('')}><X size={14} /></button> : <kbd>/</kbd>}{query && <div className="search-results">{results.length ? results.map(s => <button key={s.id} onClick={() => { setTab('atlas'); select(s, true); setSearchOpen(false); }}><Sigil skill={s} size={20} /><span>{s.name}<small>{s.branch}</small></span><span>{levels[s.id]}/10</span></button>) : <p>No skills found.</p>}</div>}</div></div>
-      <GoalControl goalId={goalId} levels={levels} onChange={id => { setGoalId(id); setInspectorOpen(false); if (id) flow.fitView({ nodes: [...goalTargets(id).keys()].map(id => ({ id })), padding: .18, duration: reduced ? 0 : 700 }); }} onFit={() => flow.fitView({ nodes: [...route.keys()].map(id => ({ id })), padding: .18, duration: reduced ? 0 : 700 })} />
+      <GoalControl goalId={goalId} levels={levels} recommendations={recommendations} onSelect={id => { setTab('atlas'); select(skillById.get(id)!, true); }} onChange={id => { setGoalId(id); setInspectorOpen(false); if (id) flow.fitView({ nodes: [...goalTargets(id).keys()].map(id => ({ id })), padding: .18, duration: reduced ? 0 : 700 }); }} onFit={() => flow.fitView({ nodes: [...route.keys()].map(id => ({ id })), padding: .18, duration: reduced ? 0 : 700 })} />
       <CameraControls onFit={() => navigate(region, branch)} onOverview={() => { setInspectorOpen(false); setBranch('All branches'); flow.fitView({ duration: reduced ? 0 : 700, padding: .12 }); }} />
       <div className="board-key"><span><i className="key-learned" />Learned</span><span><i className="key-open" />Available</span><span><LockKeyhole size={11} />Locked</span><button className="icon-button" title="Board guide" aria-label="Board guide" onClick={() => setModal('help')}><HelpCircle size={17} /></button></div>
       <div ref={flash} className="level-flash" />

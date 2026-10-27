@@ -28,6 +28,13 @@ try {
  assert.ok(await page.locator('.rune-node.off-goal').count()>0);
  assert.ok(await page.locator('.connection-goal').count()>0);
  await page.reload();await page.getByRole('button',{name:'Choose learning goal'}).filter({hasText:'Frontend Engineer'}).waitFor();
+ await page.getByRole('button',{name:'Suggested next skills',exact:true}).click();
+ assert.equal(await page.locator('.next-steps .goal-option').count(),3);
+ const suggested=await page.locator('.next-steps .goal-option strong').first().evaluate(e=>e.firstChild.textContent);
+ await page.locator('.next-steps .goal-option').first().click();
+ assert.equal(await page.locator('.inspector-hero h2').innerText(),suggested);
+ assert.equal(await page.getByRole('button',{name:'Increase skill level'}).isEnabled(),true);
+ await page.keyboard.press('Escape');
  await page.getByRole('button',{name:'Choose learning goal'}).click();await page.getByRole('button',{name:'Clear goal · explore freely'}).click();
  assert.equal(await page.locator('.rune-node.on-goal').count(),0);
  assert.deepEqual(errors,[]);console.log('PASS: semantic zoom, overview summaries, connection decluttering, readable focused skill, goal routes, persistence, and clear goal.');
