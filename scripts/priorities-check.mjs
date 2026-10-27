@@ -17,5 +17,13 @@ try {
  assert.equal(await page.locator('[data-id="react"] .node-caption').isVisible(),true);
  assert.ok(await page.locator('.connection-focus').count()>0);
  await page.keyboard.press('Escape');
- assert.deepEqual(errors,[]);console.log('PASS: semantic zoom, overview summaries, connection decluttering, readable focused skill.');
+ await page.getByRole('button',{name:'Choose learning goal'}).click();
+ await page.getByRole('button',{name:'Frontend Engineer Build accessible'}).click();
+ assert.ok(await page.locator('.rune-node.on-goal').count()>0);
+ assert.ok(await page.locator('.rune-node.off-goal').count()>0);
+ assert.ok(await page.locator('.connection-goal').count()>0);
+ await page.reload();await page.getByRole('button',{name:'Choose learning goal'}).filter({hasText:'Frontend Engineer'}).waitFor();
+ await page.getByRole('button',{name:'Choose learning goal'}).click();await page.getByRole('button',{name:'Clear goal · explore freely'}).click();
+ assert.equal(await page.locator('.rune-node.on-goal').count(),0);
+ assert.deepEqual(errors,[]);console.log('PASS: semantic zoom, overview summaries, connection decluttering, readable focused skill, goal routes, persistence, and clear goal.');
 } finally {await browser.close();}

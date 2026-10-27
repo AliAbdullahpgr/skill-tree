@@ -100,3 +100,11 @@
 .atlas-area[data-detail="detail"] .node-caption{font-size:20px;max-width:185px;text-align:center;white-space:normal;line-height:1.2;width:max-content}
 .atlas-area[data-moving="true"] .node-tooltip{display:none}
 @media(max-width:700px){.atlas-area[data-overview="true"] .constellation-label small{display:none}}
+
+.goal-control{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:12;max-width:calc(100% - 28px)}
+.goal-pill{display:flex;border:1px solid #82c9be55;border-radius:8px;background:#132125;box-shadow:0 3px 18px #0004;white-space:nowrap}
+.goal-pill button{display:flex;align-items:center;gap:9px;padding:11px 13px;font-size:12px;color:#b7e8dc}.goal-pill small{color:#8badad;font-size:10px}
+.goal-menu{position:absolute;bottom:54px;left:50%;transform:translateX(-50%);width:320px;max-width:calc(100vw - 28px);background:#131b25;border:1px solid #759f9c55;border-radius:12px;padding:15px;box-shadow:var(--shadow);max-height:65dvh;overflow:auto}
+.goal-heading{display:flex;align-items:center;justify-content:space-between;font-family:var(--serif);font-size:20px}.goal-menu>p{font-size:11px;color:var(--muted);line-height:1.7;margin:5px 0 12px}.goal-option{display:flex;width:100%;text-align:left;padding:12px 9px;border-top:1px solid var(--line);gap:12px;align-items:center}.goal-option span{flex:1}.goal-option strong{display:block;font-size:13px}.goal-option small{display:block;color:var(--muted);font-size:11px;line-height:1.6;margin-top:5px}.goal-option[aria-pressed=true]{color:#a6e5ce;background:#7acfb00b}.clear-goal{padding:14px 9px 4px;font-size:11px;color:var(--muted)}
+.rune-node.off-goal:not(.chosen):not(:hover){opacity:.4}.rune-node.on-goal .rune-ring{outline:2px solid #8ae0bd;outline-offset:6px}.skill-connections .connection-goal{stroke:#86dcbc!important;opacity:.65!important}.goal-target{color:#a6e5ce;font-size:12px;border-left:2px solid #84cdb2;padding-left:10px}
+@media(max-width:1000px){.goal-control{bottom:78px}}

@@ -1,0 +1,23 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { goals, goalTargets, goalProgress, normalizeGoal } from './goals';
+import { skillById, normalizeLevels } from './progression';
+
+test('goal routes contain valid targets and all ancestor requirements', () => {
+  for (const goal of goals) {
+    const route = goalTargets(goal.id);
+    assert.ok(route.size > 10);
+    for (const [id, level] of route) {
+      assert.ok(skillById.has(id)); assert.ok(level >= 1 && level <= 10);
+      for (const requirement of skillById.get(id)!.prerequisites) assert.ok(route.get(requirement.id)! >= requirement.level);
+    }
+    const levels = normalizeLevels(Object.fromEntries(route));
+    assert.equal(goalProgress(goal.id, levels).completed, route.size);
+    assert.equal(goalProgress(goal.id, normalizeLevels({})).completed, 0);
+  }
+});
+test('invalid goals fall back to free exploration', () => {
+  for (const input of [null, {}, 'unknown', 5]) assert.equal(normalizeGoal(input), '');
+  assert.equal(normalizeGoal('frontend'), 'frontend');
+  assert.equal(goalTargets('unknown').size, 0);
+});
