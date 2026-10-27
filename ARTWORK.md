@@ -4,7 +4,7 @@ Mode: built-in `image_gen.imagegen` tool. Both images are original generations, 
 
 ## Celestial atlas
 
-Saved asset: `public/art/atlas.webp`
+Saved asset: `design/art/atlas.webp` (source art, not deployed)
 
 Exact prompt:
 
@@ -12,7 +12,7 @@ Exact prompt:
 
 ## The Wayfarer
 
-Saved asset: `public/art/scholar.webp`
+Saved asset: `design/art/scholar.webp` (source art, not deployed)
 
 Exact prompt:
 
