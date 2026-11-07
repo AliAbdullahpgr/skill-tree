@@ -1,12 +1,14 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { Stars } from './Stars';
+import { proficiencyLabels } from '@/lib/proficiency';
 import { BookOpen, CircleHelp, Diamond, LockKeyhole, Star, X } from 'lucide-react';
 
 export function SkillLegend() {
   return <div className="skill-legend">
-    <h3>Levels and ranks</h3>
+    <h3>Proficiency stars</h3>
     <ul className="level-legend">
-      {[['#b4c7e6', '0–2', 'Untrained at 0 · Initiate at 1–2'], ['#67dcf3', '3–4', 'Apprentice'], ['#76b3ff', '5–7', 'Adept'], ['#c5a1ff', '8–9', 'Master'], ['#ffcd73', '10', 'Transcendent']].map(([color, range, label]) => <li key={range}><i style={{ borderColor: color }} aria-hidden="true"/><strong>{range}</strong><span>{label}</span></li>)}
+      {proficiencyLabels.slice(1).map((label, index) => <li key={label}><i style={{ borderColor: ['#b4c7e6', '#67dcf3', '#76b3ff', '#c5a1ff', '#ffcd73'][index] }} aria-hidden="true"/><Stars value={index + 1}/><span>{label}</span></li>)}
     </ul>
     <h3>Markers</h3>
     <ul className="marker-legend">
@@ -15,9 +17,16 @@ export function SkillLegend() {
       <li><i className="legend-suggested" aria-hidden="true"/><span>Gold dot · suggested next skill</span></li>
       <li><Diamond size={14}/><span>Diamond · Mastery milestone skill</span></li>
       <li><Star size={14}/><span>Star · Legendary milestone skill</span></li>
-      <li><BookOpen size={14}/><span>Book · linked learning guide</span></li>
+      <li><BookOpen size={14}/><span>Book · linked learning guide (Skills list)</span></li>
     </ul>
-    <p>Standard skills build foundations. Mastery and Legendary mark broader milestones, independent of your current level.</p>
+    <h3>Highlights</h3>
+    <ul className="marker-legend">
+      <li><i className="legend-goal" aria-hidden="true"/><span>Green outline · part of your goal</span></li>
+      <li><i className="legend-path" aria-hidden="true"/><span>Gold outline and line · prerequisite path</span></li>
+      <li><i className="legend-gap" aria-hidden="true"/><span>Amber dashed outline · skill gap (Gaps on)</span></li>
+      <li><i className="legend-faded" aria-hidden="true"/><span>Faded · outside your goal, path, or the branch on screen</span></li>
+    </ul>
+    <p>Standard skills build foundations. Mastery and Legendary mark broader milestones, independent of your proficiency. No filled stars means not rated.</p>
   </div>;
 }
 

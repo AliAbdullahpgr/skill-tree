@@ -23,7 +23,7 @@ test('recommendations are reachable, actionable, deterministic, and goal-specifi
 test('fresh journeys begin with reachable roots; completed goals have no suggestions', () => {
   assert.ok(recommendSkills(normalizeLevels({})).every(item => isUnlocked(item.id, normalizeLevels({}))));
   for (const goal of goals) assert.deepEqual(recommendSkills(normalizeLevels(Object.fromEntries(goalTargets(goal.id))), goal.id), []);
-  assert.deepEqual(recommendSkills(Object.fromEntries(skills.map(skill => [skill.id, 10]))), []);
+  assert.deepEqual(recommendSkills(Object.fromEntries(skills.map(skill => [skill.id, 5]))), []);
 });
 test('saving a suggestion removes its completed step from the result', () => {
   const first = recommendSkills(initialLevels, 'frontend')[0];

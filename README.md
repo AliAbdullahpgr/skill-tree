@@ -17,13 +17,13 @@ Open http://localhost:3000. For a production static export, run `npm run build`;
 
 - A continuous XYFlow board occupying 93–95% of the viewport, with pan, wheel/pinch zoom, search, realm travel, and clickable branch labels. No permanent sidebar or inspector.
 - Normal, Mastery, and Legendary nodes with real, locally bundled Devicon technology logos.
-- Self-assessed levels from 1–10; level 0 represents untrained skills. Roots start open. All prerequisites must reach their configured levels before descendants unlock.
-- Recursive prerequisite checks: reducing a prerequisite reseals descendants while preserving their recorded levels.
-- Highlighted prerequisite connections, selected-node runes, capped ambient canvas particles, native browser level flashes and unlock cinematics, and optional synthesized sound.
+- Five fillable proficiency stars with immediate saving, hover previews, keyboard selection, and Clear to return to unrated. Prerequisites and goals use the same five-star scale.
+- Recursive prerequisite checks: reducing a prerequisite reseals descendants while preserving their recorded ratings.
+- Highlighted prerequisite connections, selected-node runes, capped ambient canvas particles, native browser rating flashes and unlock cinematics, and optional synthesized sound.
 - Browser-local autosave, JSON backup/export/import, progress chronicle, searchable codex, and skill-gap highlighting.
 - Midnight and Moonstone themes, responsive mobile layout with a readable initial zoom, keyboard-focus indicators, dialog focus trapping, and reduced-motion support.
 
-The first visit loads a clearly labeled **example build** to demonstrate progression. Use **Settings → Start a fresh journey** to begin tracking your own skills. Saves stay in the current browser and origin; export before switching devices or clearing site data. There is no cloud sync.
+The first visit loads a clearly labeled **example build** to demonstrate progression. Use **Settings → Reset progress** to begin tracking your own skills. Saves stay in the current browser and origin; export before switching devices or clearing site data. There is no cloud sync.
 
 ## Configuration
 
@@ -44,6 +44,8 @@ Edit `src/lib/skills.json` to add or rearrange skills:
   "description": "What this skill represents."
 }
 ```
+
+Source skill and goal definitions retain their historical ten-level numbers; the app converts them into five-star bands at the data boundary. For example, a source requirement of 4 becomes two stars.
 
 Identifiers must be unique, prerequisite references must exist, and the prerequisite graph must remain acyclic. Every skill names an icon file in `public/icons/`: a technology logo, or a `lucide-<name>` concept glyph for skills with no logo. Regions and their UI labels are defined in `src/components/SkillAtlas.tsx`. Theme variables live in `src/app/globals.css`.
 
@@ -87,7 +89,7 @@ npx playwright install chromium
 node scripts/browser-check.mjs
 ```
 
-`TEST_URL` overrides the test origin and `CHROMIUM_PATH` optionally supplies a browser executable. The test exercises level changes, automatic Mastery unlocking, persistence after reload, codex, chronicle, region navigation, themes, backup import/export, zoom, and mobile behavior.
+`TEST_URL` overrides the test origin and `CHROMIUM_PATH` optionally supplies a browser executable. The test exercises star ratings, automatic Mastery unlocking, persistence after reload, codex, chronicle, region navigation, themes, backup import/export, zoom, and mobile behavior.
 
 ## Artwork and attribution
 
@@ -97,7 +99,7 @@ The celestial atlas and Wayfarer portrait were generated with the built-in image
 
 Reviewed [PoE 2 Planner](https://poe2planner.app/) for canvas-first interaction and [roadmap.sh](https://roadmap.sh/frontend) for clear skill hierarchy. The revised interface removes persistent character, navigation, headline, and inspector columns. A 52px header (48px on phones) is the only reserved layout space. Search, realm travel, and camera controls float on the board; skill details appear only after selection. Keyboard Enter/Space opens a focused node, `/` focuses search, and Escape dismisses overlays.
 
-The midnight palette uses `#090c12` for the board, `#141923` for floating surfaces, `#eef1f8` for primary text, and `#9faec5` for secondary text. Nodes encode progression as silver (0–2), cyan (3–4), blue (5–7), violet (8–9), and gold (10); zero-level available skills have dashed borders. Mastery and Legendary nodes retain distinct silhouettes.
+The midnight palette uses `#090c12` for the board, `#141923` for floating surfaces, `#eef1f8` for primary text, and `#9faec5` for secondary text. Nodes encode proficiency as silver (0–1 stars), cyan (2), blue (3), violet (4), and gold (5); unrated available skills have dashed borders. Mastery and Legendary nodes retain distinct silhouettes.
 
 ## Expanded engineering and rendering performance
 
@@ -114,7 +116,7 @@ The midnight palette uses `#090c12` for the board, `#141923` for floating surfac
 | Testing | 15 |
 | Mobile | 15 |
 
-Engineering also has its central foundation node, for 214 engineering skills and 228 skills overall. Existing IDs, prerequisites, and local-storage keys are preserved. New skills start at level zero when loading an older save. All skills remain reachable and searchable; branch labels and the realm menu provide direct travel. The board opens on Frontend at a useful scale instead of shrinking all 228 nodes into the screen.
+The data also keeps a structural Engineering root (228 definitions). It is always satisfied, cannot be rated, and is never drawn, listed, searched, or shown on a prerequisite path, so the board and every count show 227 skills. Existing skill IDs are preserved. Previous ten-level saves migrate automatically to five stars; new skills start unrated, and saves that cleared the root are repaired on load. All skills remain reachable and searchable; branch labels and the realm menu provide direct travel. The board opens on the whole Frontend branch instead of shrinking every node into the screen.
 
 Performance changes:
 
@@ -132,10 +134,10 @@ A second optimization pass removes backdrop blurring behind persistent controls 
 ## Guided progression (priorities 6 → 5 → 1 → 2 → 3)
 
 - **Zoom readability:** semantic zoom progressively reveals labels and node detail; overview connections fade so branch summaries stay readable. At the widest phone zoom, tap the Engineering summary to enter the branches.
-- **Goal paths:** the floating goal control offers Frontend, Backend, and AI Engineer routes. Each includes explicit target levels and the full prerequisite closure. Other skills remain visible. Goals persist locally and in version-1 backup exports; older backups safely load without a goal.
-- **Level milestones:** every skill has a distinct practice task plus a cumulative 1–10 assessment rubric. The guide follows the level editor and loads on demand. Level 10 asks for sustained, peer-reviewed impact rather than completion of one exercise. These are suggested self-assessment standards, not credentials.
-- **Next skills:** the Next control lists three reachable suggestions with a reason and a target level. Gold dots mark them on the board. Recommendations favor concrete unlocks and respect the active goal; saving levels recomputes them. Completed goals display an explicit completion message.
-- **Prerequisite tracing:** selecting a locked skill highlights all ancestors and dims unrelated paths. The inspector lists the strongest required level for each ancestor, exact deficits, and blocked saved levels. Inspecting ancestors retains the original target. Fit the entire path or clear it using the floating chip; Escape also clears it.
+- **Goal paths:** the floating goal control offers Frontend, Backend, and AI Engineer routes. Each includes explicit target ratings and the full prerequisite closure. Other skills remain visible. Goals persist locally and in version-2 five-star backup exports; older backups safely load without a goal.
+- **Proficiency guidance:** each skill has a distinct practice task and five proficiency descriptions, from learning the basics to teaching and guiding others. The guide is secondary to the complete roadmap.sh description and resource links. These are self-assessment standards, not credentials.
+- **Next skills:** the Next control lists three reachable suggestions with a reason and a target proficiency. Gold dots mark them on the board. Recommendations favor concrete unlocks and respect the active goal; choosing a star rating recomputes them. Completed goals display an explicit completion message.
+- **Prerequisite tracing:** selecting a locked skill highlights all ancestors and dims unrelated paths. The inspector lists the strongest required rating for each ancestor, exact deficits, and blocked saved ratings. Inspecting ancestors retains the original target. Fit the entire path or clear it using the floating chip; Escape also clears it.
 
 Configuration: `src/lib/goals.ts` defines role targets; `src/lib/milestone-tasks.json` defines skill-specific practice tasks; `src/lib/milestones.ts` defines the shared assessment rubric. `src/lib/recommendations.ts` and `src/lib/dependencies.ts` contain deterministic, tested graph logic. No external AI service or account is needed.
 
@@ -143,8 +145,31 @@ Run `node scripts/priorities-check.mjs` against the production preview to exerci
 
 ## SkillWeave identity
 
-The custom tree-and-stars logo was generated with the built-in imagegen tool. The original is `public/brand/skillweave-original.png`; the optimized header logo is `public/brand/skillweave-logo.webp` and the browser/touch icon is `public/brand/skillweave-icon.png`. The existing storage key is retained so the rename preserves saved progress. See `BRAND.md` for the generation prompt.
+The custom tree-and-stars logo was generated with the built-in imagegen tool. The original is `public/brand/skillweave-original.png`; the optimized header logo is `public/brand/skillweave-logo.webp` and the browser/touch icon is `public/brand/skillweave-icon.png`. Both the older SkillWeave and Arcana save keys are recognized and migrated without deleting the original legacy save. See `BRAND.md` for the generation prompt.
 
 ## UX audit follow-up
 
 See [UX-AUDIT.md](UX-AUDIT.md) for the 29-finding resolution checklist and production browser verification. The board now labels demo data and local storage, exposes rating and prerequisite actions directly, and provides readable goal, search, legend, settings, and history controls on mobile and desktop.
+
+## Five-star proficiency
+
+- ★ — Learning the basics
+- ★★ — Can complete simple tasks
+- ★★★ — Can work independently
+- ★★★★ — Can handle complex work
+- ★★★★★ — Can teach and guide others
+
+No filled stars means not rated. Selecting a star saves immediately; Clear removes
+that rating without erasing descendant ratings. Click prerequisites to work on them.
+
+Legacy progress, history, prerequisite thresholds, and goal targets use the same
+conversion: 0 → 0; 1–2 → 1 star; 3–4 → 2; 5–6 → 3; 7–8 → 4; 9–10 → 5. This keeps
+previously unlocked skills unlocked. New saves use `skillweave-progress-v2` and
+backups declare `version: 2` and `ratingScale: 5`. Version-1 backups and the older
+SkillWeave/Arcana browser saves migrate automatically; current backups are never
+converted twice. Original browser save keys are retained as legacy copies.
+
+`node scripts/stars-check.mjs` verifies star previews, autosave, keyboard controls,
+clearing, persistence, prerequisite locks, preserved roadmap content, legacy-save
+migration, and the new backup format at desktop, 390px, and 320px widths. It accepts
+the same `TEST_URL` and `CHROMIUM_PATH` settings as the other browser checks.

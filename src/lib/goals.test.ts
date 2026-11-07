@@ -1,15 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { goals, goalTargets, goalProgress, normalizeGoal, suggestGoal } from './goals';
-import { skillById, normalizeLevels } from './progression';
+import { skillById, normalizeLevels, isStructural } from './progression';
 
 test('goal routes contain valid targets and all ancestor requirements', () => {
   for (const goal of goals) {
     const route = goalTargets(goal.id);
     assert.ok(route.size > 10);
     for (const [id, level] of route) {
-      assert.ok(skillById.has(id)); assert.ok(level >= 1 && level <= 10);
-      for (const requirement of skillById.get(id)!.prerequisites) assert.ok(route.get(requirement.id)! >= requirement.level);
+      assert.ok(skillById.has(id)); assert.ok(level >= 1 && level <= 5);
+      assert.ok(!isStructural(id));
+      for (const requirement of skillById.get(id)!.prerequisites) if (!isStructural(requirement.id)) assert.ok(route.get(requirement.id)! >= requirement.level);
     }
     const levels = normalizeLevels(Object.fromEntries(route));
     assert.equal(goalProgress(goal.id, levels).completed, route.size);

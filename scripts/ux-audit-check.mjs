@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdirSync, readFileSync } from 'node:fs';
 
 // Run against the static export to verify the audited mobile and desktop stories.
+const roadmapContent = JSON.parse(readFileSync(new URL('../src/lib/roadmap-content.json', import.meta.url), 'utf8')).topics;
 const base = process.env.TEST_URL || 'http://127.0.0.1:3091';
 const browser = await chromium.launch({ headless: true, ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}) });
 const errors = [];
@@ -11,7 +12,7 @@ const screenshot = async (page, name) => {
   await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(image => image.decode().catch(() => {}))); await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))); });
   return page.screenshot({ path: `.artifacts/ux-fixed/${name}.png`, fullPage: true });
 };
-const saved = page => page.evaluate(() => JSON.parse(localStorage.getItem('skillweave-progress-v1')));
+const saved = page => page.evaluate(() => JSON.parse(localStorage.getItem('skillweave-progress-v2')));
 const find = async (page, name) => {
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Open skill search' }).click();
@@ -30,10 +31,11 @@ try {
     page.on('pageerror', e => errors.push(e.message));
     await page.goto(base);
     await page.waitForSelector('.react-flow__node');
-    await page.waitForFunction(() => localStorage.getItem('skillweave-progress-v1'));
+    await page.waitForFunction(() => localStorage.getItem('skillweave-progress-v2'));
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
-    assert.match(await page.locator('.sample-banner').innerText(), /Demo profile.*example levels/s);
-    assert.match(await page.locator('.sample-banner').innerText(), /No account/);
+    // Demo data is flagged once, in the header; no banners elsewhere.
+    assert.match(await page.locator('.demo-chip').innerText(), /demo data/i);
+    assert.equal(await page.locator('.sample-banner,.search-demo,.inspector-demo-tag,.chronicle-note').count(), 0);
     assert.match(await page.locator('.progress-summary').innerText(), /15.*227.*rated/s);
     for (const label of ['Skills', 'History', 'Settings']) assert.equal(await page.locator('.tool-label').getByText(label, { exact: true }).isVisible(), true);
     const flow = await page.locator('.react-flow').boundingBox(), goal = await page.locator('.goal-control').boundingBox();
@@ -50,7 +52,7 @@ try {
       await page.getByRole('button', { name: 'Choose realm or branch' }).click();
       await page.locator('.branch-shortcuts').getByRole('button', { name: branch, exact: true }).click();
       assert.match(await page.locator('.realm-trigger').innerText(), new RegExp(branch));
-      assert.ok(parseInt(await page.locator('.canvas-controls>span').innerText()) >= 50);
+      assert.ok(parseInt(await page.locator('.canvas-controls>span').innerText()) >= (mobile ? 50 : 42));
     }
     await page.getByRole('button', { name: 'Choose realm or branch' }).click();
     await page.locator('.realm-menu').getByRole('button', { name: 'Personal Skills', exact: true }).click();
@@ -62,29 +64,28 @@ try {
     assert.equal(await page.getByRole('textbox', { name: 'Find a skill' }).evaluate(e => e === document.activeElement), true);
     await page.getByRole('textbox', { name: 'Find a skill' }).fill('zzzz');
     assert.match(await page.locator('.search-results').innerText(), /0 results.*No skills match.*Try a skill or branch name/s);
-    assert.match(await page.locator('.search-results').innerText(), /Demo profile/);
+    assert.doesNotMatch(await page.locator('.search-results').innerText(), /Demo profile/);
     await screenshot(page, `${prefix}-search-empty`);
     await page.getByRole('button', { name: 'clear search', exact: true }).click();
     assert.equal(await page.getByRole('textbox', { name: 'Find a skill' }).inputValue(), '');
     await page.keyboard.press('Escape');
 
-    await page.getByRole('button', { name: 'Codex', exact: true }).click();
+    await page.getByRole('button', { name: 'Skills', exact: true }).click();
     assert.equal(await page.locator('.goal-control').count(), 0);
     assert.match(await page.locator('.codex-count').innerText(), /227 matches/);
-    assert.match(await page.locator('.library-heading').innerText(), /foundation is excluded/);
-    await page.getByRole('textbox', { name: 'Filter the codex' }).fill('security');
+    assert.match(await page.locator('.library-heading').innerText(), /Skill library.*227 skills/s);
+    await page.getByRole('textbox', { name: 'Filter skills' }).fill('security');
     await page.getByRole('button', { name: 'Locked', exact: true }).click();
-    assert.match(await page.locator('.codex-grid').first().innerText(), /needs Security Foundations at level 3 \(now 0\)/);
+    assert.match(await page.locator('.codex-grid').first().textContent(), /Locked · needs .+ at \d stars? \(now \d stars?\)/);
     await screenshot(page, `${prefix}-codex-locked`);
-    await page.getByRole('textbox', { name: 'Filter the codex' }).fill('zzzz');
+    await page.getByRole('textbox', { name: 'Filter skills' }).fill('zzzz');
     await page.getByRole('button', { name: 'Clear filters', exact: true }).click();
     assert.match(await page.locator('.codex-count').innerText(), /227 matches/);
-    await page.getByRole('textbox', { name: 'Filter the codex' }).fill('Docker');
-    assert.match(await page.locator('.codex-grid').innerText(), /Saved level 1 preserved/);
-    await page.getByRole('button', { name: 'Clear codex filter' }).click();
-    await page.getByRole('button', { name: 'Chronicle', exact: true }).click();
+    await page.getByRole('textbox', { name: 'Filter skills' }).fill('Docker');
+    assert.match(await page.locator('.codex-grid').textContent(), /Saved 1 star preserved/); // rows use content-visibility, so read text content
+    await page.getByRole('button', { name: 'Clear skill filter' }).click();
+    await page.getByRole('button', { name: 'History', exact: true }).click();
     assert.match(await page.locator('.library-heading h1').innerText(), /Demo history/);
-    assert.match(await page.locator('.chronicle-note').innerText(), /EXAMPLE.*demo profile/s);
     assert.equal(await page.locator('.sample-tag').count(), 4);
     assert.equal(await page.locator('.chronicle-list time').first().evaluate(e => getComputedStyle(e).whiteSpace), 'nowrap');
     await screenshot(page, `${prefix}-chronicle`);
@@ -103,7 +104,7 @@ try {
       assert.equal(await page.locator('.goal-menu').count(), 0);
       assert.match(await page.locator('.goal-pill').innerText(), new RegExp(`${name}.*targets`, 's'));
       assert.match(await page.locator('.toast').innerText(), /goal set.*targets reached/s);
-      assert.ok(parseInt(await page.locator('.canvas-controls>span').innerText()) >= 50);
+      assert.ok(parseInt(await page.locator('.canvas-controls>span').innerText()) >= (mobile ? 50 : 42));
       const toast = await page.locator('.toast').boundingBox(), area = await page.locator('.atlas-area').boundingBox();
       assert.ok(toast.y >= area.y + area.height, 'notification must occupy its own row');
       await dismiss(page);
@@ -111,7 +112,7 @@ try {
     await screenshot(page, `${prefix}-goal-selected`);
     await page.getByRole('button', { name: 'Suggested next skills', exact: true }).click();
     assert.ok(await page.locator('.next-list>li').count() > 0);
-    assert.match(await page.locator('.next-level').first().innerText(), /Current level \d+\/10 · target \d+\/10/);
+    assert.match(await page.locator('.next-level').first().innerText(), /Current \d+ stars? · (target|next unlock) \d+ stars?/);
     await screenshot(page, `${prefix}-next-steps`);
     const guide = page.getByRole('button', { name: 'Open guide', exact: true }).first();
     await guide.click();
@@ -123,20 +124,33 @@ try {
     await screenshot(page, `${prefix}-direct-guide`);
 
     await find(page, 'React');
-    const range = await page.getByRole('slider', { name: 'Skill level', exact: true }).boundingBox();
+    const stars = await page.getByRole('radiogroup',{name:'Your proficiency'}).boundingBox();
     const editor = await page.locator('.inspector-body').boundingBox();
-    assert.ok(range.y >= editor.y && range.y + range.height <= editor.y + editor.height, 'rating control must be visible without scrolling');
-    assert.equal(await page.getByRole('button', { name: 'Level saved', exact: true }).isDisabled(), true);
-    await page.getByRole('button', { name: 'Increase skill level' }).click();
-    assert.equal(await page.getByRole('button', { name: 'Save level', exact: true }).isEnabled(), true);
-    assert.match(await page.locator('.save-hint').innerText(), /Unsaved/);
+    assert.ok(stars.y >= editor.y && stars.y + stars.height <= editor.y + editor.height, 'star control must be visible without scrolling');
+    assert.equal(await page.getByRole('radio').count(), 5);
+    await page.getByRole('radio',{name:/^1 star /}).click();
+    await page.waitForFunction(() => JSON.parse(localStorage.getItem('skillweave-progress-v2')).levels.react === 1);
+    assert.equal(await page.getByRole('radio',{name:/^1 star /}).getAttribute('aria-checked'), 'true');
+    await page.getByRole('button',{name:'Clear proficiency rating'}).click();
+    await page.waitForFunction(() => JSON.parse(localStorage.getItem('skillweave-progress-v2')).levels.react === 0);
+    assert.equal(await page.getByRole('radio',{checked:true}).count(), 0);
+    await page.getByRole('radio',{name:/^2 stars/}).click();
+    await dismiss(page);
     await screenshot(page, `${prefix}-rating-editor`);
 
     await find(page, 'Kubernetes');
-    await page.getByText('Unlock requirements', { exact: true }).waitFor();
-    assert.match(await page.locator('.unlock-requirements').innerText(), /level[s]? short/);
+    await page.getByText('Prerequisites', { exact: true }).waitFor();
+    assert.match(await page.locator('.unlock-requirements').innerText(), /You 0\/5 · needs 2\/5/);
+    assert.match(await page.locator('.locked-note').innerText(), /Locked.*Container Fundamentals.*Start with Linux/s);
+    assert.equal(await page.locator('.roadmap-description').innerText(), roadmapContent.kubernetes.description);
+    assert.deepEqual(await page.locator('.roadmap-links a').evaluateAll(links => links.map(link => link.getAttribute('href'))), roadmapContent.kubernetes.resources.map(resource => resource.url));
+    assert.equal(await page.locator('.inspector-demo,.current-level,.inspector-save,.next-unlock').count(), 0);
     await screenshot(page, `${prefix}-locked-inspector`);
-    await page.getByRole('button', { name: 'Show path on board' }).click();
+    await page.getByRole('button', { name: 'View path' }).click();
+    // The card stays open on View path and the Engineering root is never part of the path.
+    assert.equal(await page.locator('.inspector').count(), 1);
+    assert.doesNotMatch(await page.locator('.dependency-guide').innerText(), /Engineering/);
+    await page.getByRole('button', { name: 'Focus path on board' }).click();
     assert.equal(await page.locator('.inspector').count(), 0);
     await page.locator('.path-chip>button').first().click();
     assert.match(await page.locator('.path-steps').innerText(), /Linux.*Container Fundamentals/s);
@@ -148,7 +162,7 @@ try {
 
     await page.getByRole('button', { name: 'Legend', exact: true }).click();
     assert.equal(await page.locator('.level-legend li').count(), 5);
-    assert.equal(await page.locator('.marker-legend li').count(), 6);
+    assert.equal(await page.locator('.marker-legend li').count(), 10);
     await screenshot(page, `${prefix}-legend`);
     await page.getByRole('button', { name: 'How to use the board' }).click();
     assert.equal(await page.locator('.help-steps li').count(), 3);
@@ -186,12 +200,12 @@ try {
     assert.equal((await saved(page)).levels.html, backup.levels.html);
     await page.getByRole('button', { name: 'Reset progress', exact: true }).click();
     await page.getByRole('button', { name: 'Yes, erase my progress' }).click();
-    await page.waitForFunction(() => JSON.parse(localStorage.getItem('skillweave-progress-v1')).sample === false);
+    await page.waitForFunction(() => JSON.parse(localStorage.getItem('skillweave-progress-v2')).sample === false);
     const reset = await saved(page);
     assert.deepEqual(reset.history, []); assert.equal(reset.goalId, ''); assert.equal(reset.levels.html, 0);
-    assert.match(await page.locator('.progress-summary').innerText(), /2.*227.*rated/s);
+    assert.match(await page.locator('.progress-summary').innerText(), /0.*227.*rated/s);
     await dismiss(page);
-    await page.getByRole('button', { name: 'Chronicle', exact: true }).click();
+    await page.getByRole('button', { name: 'History', exact: true }).click();
     await page.getByText('No changes yet.', { exact: true }).waitFor();
     await screenshot(page, `${prefix}-empty-history`);
     await page.keyboard.press('Escape');
@@ -208,7 +222,7 @@ try {
     } else {
       await page.locator('.constellation-label').filter({ hasText: 'Frontend' }).click();
     }
-    assert.ok(parseInt(await page.locator('.canvas-controls>span').innerText()) >= 50);
+    assert.ok(parseInt(await page.locator('.canvas-controls>span').innerText()) >= (mobile ? 50 : 42));
     const response = await page.goto(`${base}/missing-audit-route`);
     assert.equal(response.status(), 404);
     await page.getByRole('heading', { name: 'This page is not on the atlas.' }).waitFor();

@@ -10,8 +10,8 @@ test('every skill has a distinct practical assessment task', () => {
   for (const skill of skills) assert.ok(practiceTask(skill).length > 50);
   assert.match(practiceTask(skills.find(s => s.id === 'react')!), /hooks.*error states.*tests/);
 });
-test('the full rubric covers untrained through exceptional mastery', () => {
-  assert.equal(levelStandards.length, 11);
-  assert.match(levelStandards[5].criterion, /independently.*edge cases/);
-  assert.match(levelStandards[10].criterion, /sustained.*independently reviewed/);
+test('the full rubric covers unrated through teaching others', () => {
+  assert.equal(levelStandards.length, 6);
+  assert.match(levelStandards[3].criterion, /independently.*edge cases/);
+  assert.match(levelStandards[5].criterion, /Review.*teach/);
 });

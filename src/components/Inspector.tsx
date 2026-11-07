@@ -1,56 +1,69 @@
 'use client';
-import { lazy, Suspense, type RefObject } from 'react';
-import { ChevronRight, Flame, Map, Minus, Network, Plus, Sparkles, X } from 'lucide-react';
+import { lazy, Suspense, useState, type RefObject } from 'react';
+import { Check, ChevronRight, LockKeyhole, Map, Network, X } from 'lucide-react';
 import Sigil from './Sigil';
+import StarRating from './Stars';
+import { starCount } from '@/lib/proficiency';
 import DependencyGuide from './DependencyGuide';
-import type { DependencyPath } from '@/lib/dependencies';
-import { skills, skillById, rank, isUnlocked, type Levels, type Skill } from '@/lib/progression';
+import { lockReason, type DependencyPath } from '@/lib/dependencies';
+import { skillById, isUnlocked, isStructural, raisePrerequisites, type Levels, type Skill } from '@/lib/progression';
+import { hasRoadmapGuide } from '@/lib/roadmap';
 
 const MilestoneGuide = lazy(() => import('./MilestoneGuide'));
 const RoadmapResources = lazy(() => import('./RoadmapResources'));
 
 type Props = {
-  skill: Skill; levels: Levels; unlocked: boolean; draft: number; onDraft: (level: number) => void; onSave: () => void; onClose: () => void;
+  skill: Skill; levels: Levels; unlocked: boolean; onSave: (rating: number) => void; onClose: () => void;
   color: string; goalTarget?: number; path: DependencyPath | null; bodyRef: RefObject<HTMLDivElement | null>;
-  onTrace: () => void; onShowPath: () => void; onClearPath: () => void; onSelect: (id: string) => void;
-  sample?: boolean; recommended?: boolean; guideRequest?: number;
+  onTrace: () => void; onShowPath: () => void; onFocusPath: () => void; onClearPath: () => void; onSelect: (id: string) => void;
+  onRaisePrerequisites: () => void; guideRequest?: number;
 };
 
-const kindLabel = (kind: Skill['kind']) => kind === 'normal' ? 'Standard' : kind === 'mastery' ? 'Mastery' : 'Legendary';
-const rankHint = (level: number) => level === 10 ? 'Exceptional mastery' : level >= 8 ? 'Master, levels 8–9' : level >= 5 ? 'Adept, levels 5–7' : level >= 3 ? 'Apprentice, levels 3–4' : level > 0 ? 'Initiate, levels 1–2' : 'Untrained';
+const nameOf = (id: string) => skillById.get(id)?.name ?? id;
 
-export default function Inspector({ skill, levels, unlocked, draft, onDraft, onSave, onClose, color, goalTarget, path, bodyRef, onTrace, onShowPath, onClearPath, onSelect, sample, recommended, guideRequest }: Props) {
+export default function Inspector({ skill, levels, unlocked, onSave, onClose, color, goalTarget, path, bodyRef, onTrace, onShowPath, onFocusPath, onClearPath, onSelect, onRaisePrerequisites, guideRequest }: Props) {
   const level = levels[skill.id] || 0;
-  const unlocks = skills.filter(s => s.prerequisites.some(p => p.id === skill.id)).map(s => s.name);
-  return <section className="inspector" aria-label="Skill details">
-    <div className="inspector-top"><span>{skill.branch}</span><button className="icon-button" onClick={onClose} aria-label="Close skill details"><X size={16} /></button></div>
-    <div className="inspector-hero"><div className={`detail-sigil ${skill.kind} ${unlocked ? '' : 'sealed'}`} style={{ '--branch': color } as React.CSSProperties}><span className="detail-orbit" /><Sigil skill={skill} size={48} /></div><span className={`type-badge ${skill.kind}`} title="Standard skills form the atlas baseline. Mastery and Legendary skills are major milestones.">{kindLabel(skill.kind)} skill</span><h2>{skill.name}</h2><p>{skill.region}{skill.branch !== skill.region && <><ChevronRight size={10} /> {skill.branch}</>}</p></div>
-    <div ref={bodyRef} className="inspector-body">
-      {sample && <p className="inspector-demo">Demo profile · these are example levels</p>}
-      {recommended && <p className="suggested-label">Gold dot · suggested next skill</p>}
-      <div className="current-level"><span>{sample ? 'Demo level' : 'Saved level'}</span><strong>{level}<small> / 10</small></strong><em title={rankHint(level)}>{unlocked ? rank(level) : 'Locked'}</em></div>
-      {unlocked ? <div className="inspector-section level-editor level-editor-first"><h3>Set your level</h3><p>An honest reflection of what you can do. Changes save to this browser.</p><div className="level-stepper"><button aria-label="Decrease skill level" disabled={draft <= 0} onClick={() => onDraft(Math.max(0, draft - 1))}><Minus size={16} /></button><span><strong>{draft}</strong><small>{rank(draft)}</small></span><button aria-label="Increase skill level" disabled={draft >= 10} onClick={() => onDraft(Math.min(10, draft + 1))}><Plus size={16} /></button></div><input type="range" aria-label="Skill level" min="0" max="10" value={draft} onChange={e => onDraft(Number(e.target.value))} /><div className="range-labels"><span>Untrained</span><span>Exceptional mastery</span></div><Suspense fallback={<p className="quiet-note">Loading level guide…</p>}><MilestoneGuide key={skill.id} skill={skill} level={draft} /></Suspense></div>
-        : <div className="inspector-section unlock-requirements"><h3>Unlock requirements</h3><p className="quiet-note">Reach these levels to rate {skill.name}. Open a requirement to work on it now.</p>{skill.prerequisites.length ? skill.prerequisites.map(requirement => {
-          const required = skillById.get(requirement.id);
-          const current = levels[requirement.id] || 0;
-          const missing = Math.max(0, requirement.level - current);
-          const blocked = !isUnlocked(requirement.id, levels);
-          return <button key={requirement.id} className={`prerequisite ${missing || blocked ? 'requirement-missing' : 'requirement-met'}`} onClick={() => onSelect(requirement.id)}>
-            <span><strong>{required?.name ?? requirement.id}</strong><small>Level {current} / {requirement.level} required</small></span>
-            <em>{missing ? `${missing} level${missing === 1 ? '' : 's'} short` : blocked ? 'Earlier step locked' : 'Met'}</em>
-            <ChevronRight size={15} />
-          </button>;
-        }) : <p className="quiet-note">This skill is gated by the realm foundation. Select its prerequisite on the board.</p>}<p className="quiet-note">Lowering a prerequisite later reseals this skill but keeps its saved level.</p></div>}
-      <p className="skill-description">{skill.description}</p>
-      <Suspense fallback={null}><RoadmapResources skillId={skill.id} focusRequest={guideRequest} /></Suspense>
-      {goalTarget !== undefined && <p className="goal-target">Goal target · Level {goalTarget} {level >= goalTarget && unlocked ? '✓ Reached' : ''}</p>}
-      {skill.prerequisites.length > 0 && <div className="inspector-section"><h3>Full prerequisite path</h3>{path
-        ? <DependencyGuide path={path} onSelect={onSelect} onFit={onShowPath} onClear={onClearPath} />
-        : <><p className="quiet-note">{skill.prerequisites.length} direct {skill.prerequisites.length === 1 ? 'prerequisite' : 'prerequisites'}. Trace every step and the level it needs.</p><button className="trace-button" onClick={onTrace}>Trace all prerequisites <Network size={15} /></button></>}</div>}
-      <div className="next-unlock"><Flame size={18} /><div><h4>What lies beyond</h4><p>{unlocks.join(' · ') || 'The pursuit of exceptional mastery.'}</p></div></div>
+  const requirements = skill.prerequisites.filter(requirement => !isStructural(requirement.id));
+  const lock = unlocked ? null : lockReason(skill.id, levels);
+  const raise = unlocked ? [] : raisePrerequisites(levels, skill.id).changes;
+  const [confirmRaise, setConfirmRaise] = useState<string | null>(null);
+  return <section className="inspector inspector-focused" aria-label="Skill details">
+    <div className="inspector-hero">
+      <div className={`detail-sigil ${unlocked ? '' : 'sealed'}`} style={{ '--branch': color } as React.CSSProperties}><Sigil skill={skill} size={36}/></div>
+      <p className="inspector-context">{skill.branch}</p>
+      <h2>{skill.name}</h2>
+      <button className="icon-button inspector-close" onClick={onClose} aria-label="Close skill details"><X size={18}/></button>
     </div>
-    <div className="inspector-save">{unlocked
-      ? <><span className={`save-hint ${draft === level ? 'saved' : ''}`}>{draft === level ? `Saved at level ${level}.` : `Unsaved: level ${level} → ${draft}.`}</span><button className="gold-button" onClick={onSave} disabled={draft === level}><Sparkles size={15} />{draft === level ? 'Level saved' : 'Save level'}</button></>
-      : <button className="gold-button" onClick={onShowPath}><Map size={15} />Show path on board</button>}</div>
+    <div ref={bodyRef} className="inspector-body">
+      {lock && <section className="locked-note" aria-label="Locked">
+        <p><LockKeyhole size={14} aria-hidden="true"/><span><strong>Locked.</strong> Raise {nameOf(lock.blocker.id)} to {starCount(lock.blocker.required)} to rate {skill.name}.{lock.start.id !== lock.blocker.id && <> Start with {nameOf(lock.start.id)} ({starCount(lock.start.current)} now, needs {starCount(lock.start.required)}).</>}</span></p>
+        {raise.length > 0 && (confirmRaise !== skill.id
+          ? <button className="link-button" onClick={() => setConfirmRaise(skill.id)}>I already know {skill.name}</button>
+          : <div className="raise-confirm" role="alert">
+            <p>This sets {raise.length === 1 ? 'one prerequisite' : `${raise.length} prerequisites`} to the minimum needed: {raise.map(change => `${nameOf(change.id)} ${starCount(change.to)}`).join(', ')}. You can adjust them later.</p>
+            <div><button className="gold-button" onClick={() => { setConfirmRaise(null); onRaisePrerequisites(); }}>Set and rate {skill.name}</button><button className="link-button" onClick={() => setConfirmRaise(null)}>Cancel</button></div>
+          </div>)}
+      </section>}
+      {requirements.length > 0 && <section className="unlock-requirements" aria-label="Skill prerequisites">
+        <div className="prerequisite-heading"><h3>Prerequisites</h3><button onClick={onShowPath} className="prerequisite-path"><Map size={13}/>View path</button></div>
+        {requirements.map(requirement => {
+          const current = levels[requirement.id] || 0;
+          const met = current >= requirement.level && isUnlocked(requirement.id, levels);
+          return <button key={requirement.id} className={`prerequisite ${met ? 'requirement-met' : 'requirement-missing'}`} onClick={() => onSelect(requirement.id)}>
+            <span><strong>{nameOf(requirement.id)}</strong><small>You {current}/5 · needs {requirement.level}/5{met ? ' · met' : ''}</small></span>
+            {met ? <Check size={16} aria-hidden="true"/> : <ChevronRight size={16} aria-hidden="true"/>}
+          </button>;
+        })}
+      </section>}
+      {unlocked && <StarRating value={level} onChange={onSave} goalTarget={goalTarget}/>}
+      {hasRoadmapGuide(skill.id)
+        ? <Suspense fallback={<p className="quiet-note">Loading roadmap guide…</p>}><RoadmapResources skillId={skill.id} focusRequest={guideRequest}/></Suspense>
+        : <><p className="skill-description">{skill.description}</p><p className="quiet-note">No roadmap.sh guide is linked for this skill yet. The proficiency guide below has a practice task.</p></>}
+      {unlocked && <details key={skill.id} className="assessment-details"><summary>Proficiency guide and practice task</summary><Suspense fallback={<p className="quiet-note">Loading proficiency guide…</p>}><MilestoneGuide key={skill.id} skill={skill} level={level}/></Suspense></details>}
+      {(requirements.length > 0 || (path && path.target !== skill.id)) && <details key={`${skill.id}-${path?.target ?? ''}`} className="all-prerequisites" open={!!path}>
+        <summary onClick={event => { const details = event.currentTarget.parentElement as HTMLDetailsElement; if (!details.open) requestAnimationFrame(() => details.scrollIntoView({ block: 'nearest', behavior: 'smooth' })); }}>Full prerequisite path</summary>
+        {path ? <DependencyGuide path={path} onSelect={onSelect} onFit={onFocusPath} onClear={onClearPath}/> : <button className="trace-button" onClick={onTrace}>Trace all prerequisites <Network size={15}/></button>}
+      </details>}
+    </div>
   </section>;
 }
