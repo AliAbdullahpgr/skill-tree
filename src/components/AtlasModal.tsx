@@ -1,6 +1,6 @@
 'use client';
-import type { RefObject } from 'react';
-import { Check, ChevronRight, Download, RotateCcw, Upload, Volume2, VolumeX, X } from 'lucide-react';
+import { useState, type RefObject } from 'react';
+import { AlertTriangle, Check, ChevronRight, Download, RotateCcw, Upload, Volume2, VolumeX, X } from 'lucide-react';
 
 type Props = {
   modal: 'settings' | 'help'; modalRef: RefObject<HTMLElement | null>; onClose: () => void;
@@ -10,6 +10,7 @@ type Props = {
 
 export default function AtlasModal({ modal, modalRef, onClose, theme, onTheme, sound, onSound, sample, onExport, onImport, onReset }: Props) {
   const settings = modal === 'settings';
+  const [resetArmed, setResetArmed] = useState(false);
   return <div className="modal-backdrop" onClick={onClose}><section ref={modalRef} className="modal" role="dialog" aria-modal="true" aria-label={settings ? 'Atlas settings' : 'A guide to your atlas'} onClick={e => e.stopPropagation()}>
     <button className="modal-close icon-button" autoFocus onClick={onClose} aria-label="Close dialog"><X size={20} /></button>
     <h2>{settings ? 'Atlas settings' : 'Explore your skill board'}</h2>
@@ -18,9 +19,9 @@ export default function AtlasModal({ modal, modalRef, onClose, theme, onTheme, s
       <div className="theme-options">{['obsidian', 'moonstone'].map(t => <button key={t} className={theme === t ? 'active' : ''} onClick={() => onTheme(t)}>{t === 'obsidian' ? 'Midnight' : 'Moonstone'}{theme === t && <Check size={14} />}</button>)}</div>
       <div className="theme-options sound-option"><button className={sound ? 'active' : ''} aria-pressed={sound} onClick={onSound}>{sound ? <Volume2 size={15} /> : <VolumeX size={15} />}Unlock sounds {sound ? 'on' : 'off'}</button></div>
       <h3>Your progress</h3>
-      <p>Progress lives in this browser. Keep a backup before changing devices or clearing browser data.</p>
+      <p><strong>No account.</strong> Progress lives in this browser only. Keep a backup before changing devices or clearing browser data.</p>
       <div className="backup-actions"><button onClick={onExport}><Download size={16} />Export backup</button><button onClick={onImport}><Upload size={16} />Import backup</button></div>
-      <div className="reset-area"><h3>Begin your own legend</h3><p>{sample ? 'You are exploring an example build. Start fresh to track your own skills.' : 'Reset all levels and your chronicle. Export a backup first if you want to keep them.'}</p><button onClick={onReset}><RotateCcw size={14} />Start a fresh journey</button></div>
+      <div className={`reset-area ${resetArmed ? 'armed' : ''}`}><h3>Begin your own legend</h3><p>{sample ? 'You are exploring an example profile. Starting fresh clears its demo levels and chronicle, then opens only the foundation skills.' : 'Reset all levels and your chronicle in this browser. Export a backup first if you want to keep them.'}</p>{!resetArmed ? <button className="danger-button" onClick={() => setResetArmed(true)}><RotateCcw size={14} />Start a fresh journey</button> : <div className="reset-confirm" role="alert"><div className="reset-confirm-heading"><AlertTriangle size={15} /><strong>Erase all progress?</strong></div><p>This clears every saved level and your chronicle in this browser. It cannot be undone without a backup.</p><div className="reset-confirm-actions"><button className="danger-button" onClick={() => { setResetArmed(false); onReset(); }}>Yes, erase my progress</button><button onClick={() => setResetArmed(false)}>Cancel</button></div></div>}</div>
     </> : <>
       <p>The board maps real-world skills and how they build on each other. Drag to move, scroll or pinch to zoom, and use the realm menu to jump between areas.</p>
       <h3>Rate your skills</h3>
