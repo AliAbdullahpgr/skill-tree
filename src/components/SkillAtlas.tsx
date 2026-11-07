@@ -11,7 +11,7 @@ import Inspector from './Inspector';
 import LibraryOverlay, { type Entry } from './LibraryOverlay';
 import AtlasModal from './AtlasModal';
 import { dependencyPath } from '@/lib/dependencies';
-import { goalTargets, normalizeGoal } from '@/lib/goals';
+import { goals, goalTargets, normalizeGoal } from '@/lib/goals';
 import { recommendSkills } from '@/lib/recommendations';
 import boardLabels from '@/lib/board-labels.json';
 import { Sparkles, Code2, Brain, LockKeyhole, ChevronRight, ChevronDown, Check, X, Volume2, VolumeX, Settings2, Search, ScrollText, Crosshair, Download, BookOpen, HelpCircle, Layers } from 'lucide-react';
@@ -112,19 +112,37 @@ function Atlas() {
   const learned = useMemo(() => skills.filter(s => levels[s.id] > 0 && isUnlocked(s.id, levels)), [levels]);
   const boardRef = useRef<HTMLElement>(null);
   const labelsRef = useRef<HTMLDivElement>(null);
-  // Below .3 zoom, branch labels scale up and grow upward from their anchors (see globals.css),
-  // so a fit at that zoom reserves room above the nodes for about 70px of label.
-  const fitSkills = useCallback((list: Skill[], padding: number, duration: number, maxZoom: number) => {
+  // Prefer a label-readable zoom over fitting every node into a dot field. The
+  // inset reserves room above the nodes for branch labels at overview/nav fits.
+  const fitSkills = useCallback((list: Skill[], padding: number, duration: number, maxZoom: number, minZoom = 0, topInset = 0) => {
+    if (!list.length) return;
     const box = flow.getNodesBounds(list.map(s => s.id));
     const rect = document.querySelector('.atlas-area')?.getBoundingClientRect();
-    const zoom = rect ? Math.min(rect.width / box.width, rect.height / box.height) * (1 - padding * 2) : 1;
+    const fit = rect ? Math.min(rect.width / box.width, rect.height / box.height) * (1 - padding * 2) : 1;
+    const zoom = Math.max(minZoom, Math.min(fit, maxZoom));
+    if (topInset > 0 || zoom > fit + .001) {
+      flow.setCenter(box.x + box.width / 2, box.y + box.height / 2 - topInset / zoom, { zoom, duration });
+      return;
+    }
     if (zoom >= .3) { flow.fitView({ nodes: list.map(s => ({ id: s.id })), padding, duration, maxZoom }); return; }
     const lift = 70 / zoom;
     flow.fitBounds({ x: box.x, y: box.y - lift, width: box.width, height: box.height + lift }, { padding, duration });
   }, [flow]);
+  const fitIds = useCallback((ids: Iterable<string>, padding: number, duration: number, maxZoom: number, minZoom = 0, topInset = 0) => {
+    const list = [...ids].map(id => skillById.get(id)).filter((skill): skill is Skill => Boolean(skill));
+    fitSkills(list, padding, duration, maxZoom, minZoom, topInset);
+  }, [fitSkills]);
+  const labelMinZoom = () => window.innerWidth <= 700 ? .5 : .55;
+  // Fit the goal's targets in the branch on screen when possible; the full route stays highlighted.
+  const goalFocusIds = (goal: typeof goals[number]) => {
+    const ids = Object.keys(goal.targets);
+    if (branch === 'All branches') return ids;
+    const focused = ids.filter(id => skillById.get(id)?.branch === branch);
+    return focused.length ? focused : ids;
+  };
   const navigate = useCallback((targetRegion: string, targetBranch = 'All branches') => {
     setInspectorOpen(false); setPathTarget(null); setRegion(targetRegion); setBranch(targetBranch); setRealmMenu(false);
-    fitSkills(skills.filter(s => s.region === targetRegion && (targetBranch === 'All branches' || s.branch === targetBranch)), .2, reduced ? 0 : 1000, 1.25);
+    fitSkills(skills.filter(s => s.region === targetRegion && (targetBranch === 'All branches' || s.branch === targetBranch)), .2, reduced ? 0 : 1000, 1.25, labelMinZoom(), 60);
   }, [fitSkills, reduced]);
   useEffect(() => {
     try {
@@ -177,7 +195,7 @@ function Atlas() {
     }
   };
   // Fits the path for `target`, computed directly so it works before path state catches up.
-  const fitPath = (target = pathTarget) => { if (!target) return; setPathTarget(target); setInspectorOpen(false); flow.fitView({ nodes: [...dependencyPath(target, levels).ids].map(id => ({ id })), padding: .25, duration: reduced ? 0 : 700, maxZoom: 1.1 }); };
+  const fitPath = (target = pathTarget) => { if (!target) return; setPathTarget(target); setInspectorOpen(false); fitIds(dependencyPath(target, levels).ids, .22, reduced ? 0 : 700, 1.1, labelMinZoom(), 80); };
   const save = () => {
     const next = updateLevel(levels, selectedId, draft);
     if (next === levels || draft === levels[selectedId]) return;
@@ -213,7 +231,7 @@ function Atlas() {
       <div className="world-background" /><div className="celestial-orbit" aria-hidden="true" /><Particles />
       <ReactFlow<SkillNode> nodes={nodes} edges={EMPTY_EDGES} nodeTypes={nodeTypes} onlyRenderVisibleElements edgesFocusable={false} elementsSelectable={false} nodesConnectable={false} nodesDraggable={false} minZoom={.025} maxZoom={2.5} onNodeClick={(_, node) => select(node.data.skill)} onPaneClick={() => { setPathTarget(null); setInspectorOpen(false); setRealmMenu(false); }} onInit={instance => { requestAnimationFrame(() => {
         if (window.innerWidth <= 700) { const start = skillById.get('html')!; instance.setCenter(start.x + 170, start.y + 180, { zoom: .65 }); }
-        else instance.fitBounds({ x: -3500, y: -2160, width: 1250, height: 1180 }, { padding: .04 });
+        else instance.fitBounds({ x: -3500, y: -2160, width: 1250, height: 1180 }, { padding: .08 });
       }); }} onMoveStart={() => { if (boardRef.current) boardRef.current.dataset.moving = 'true'; }} onMove={(_, viewport) => {
         const board = boardRef.current; if (!board) return;
         const overview = String(viewport.zoom < .3);
@@ -232,9 +250,10 @@ function Atlas() {
         {sample && <div className="sample-banner"><div><strong>Example profile</strong><span>These levels are demo data. Progress saves only in this browser.</span></div><button onClick={() => setModal('settings')}>Rate my own skills</button></div>}
       </div>
       <div className={`board-search ${searchOpen ? 'expanded' : ''}`}><button className={`icon-button gap-toggle ${gaps ? 'active' : ''}`} title="Highlight skill gaps" aria-label="Skill gaps" aria-pressed={gaps} onClick={() => { setGaps(!gaps); setNotice(gaps ? 'Showing all skills.' : 'Highlighting locked skills and skills below level 5.'); }}><Crosshair size={18} /></button><div className="search-wrap"><button className="search-toggle" aria-label="Open skill search" onClick={() => setSearchOpen(!searchOpen)}><Search size={18} /></button><input aria-label="Find a skill" placeholder="Find a skill…" value={query} onFocus={() => setSearchOpen(true)} onChange={e => setQuery(e.target.value)} />{query ? <button className="icon-button" aria-label="Clear search" onClick={() => setQuery('')}><X size={14} /></button> : <kbd>/</kbd>}{query && <div className="search-results">{results.length ? results.map(s => <button key={s.id} onClick={() => { setTab('atlas'); select(s, true); setSearchOpen(false); }}><Sigil skill={s} size={20} /><span>{s.name}<small>{s.branch}</small></span><span>{levels[s.id]}/10</span></button>) : <p>No skills found.</p>}</div>}</div></div>
-      <GoalControl goalId={goalId} levels={levels} focus={focus} recommendations={recommendations} onSelect={id => { setTab('atlas'); select(skillById.get(id)!, true); }} onChange={id => { setGoalId(id); setPathTarget(null); setInspectorOpen(false); if (id) flow.fitView({ nodes: [...goalTargets(id).keys()].map(id => ({ id })), padding: .18, duration: reduced ? 0 : 700 }); }} onFit={() => { setPathTarget(null); setInspectorOpen(false); flow.fitView({ nodes: [...route.keys()].map(id => ({ id })), padding: .18, duration: reduced ? 0 : 700 }); }} />
-      <CameraControls onFit={() => navigate(region, branch)} onOverview={() => { setPathTarget(null); setInspectorOpen(false); setBranch('All branches'); fitSkills(skills, .12, reduced ? 0 : 700, 2.5); }} />
-      {path && <div className="path-chip"><button onClick={() => fitPath()} aria-label="Fit prerequisite path">Path to {skillById.get(path.target)!.name}<small>{path.gaps.length ? `${path.gaps.length} ${path.gaps.length === 1 ? 'gap' : 'gaps'}` : 'Requirements met'}</small></button><button className="icon-button" aria-label="Clear prerequisite path" onClick={() => setPathTarget(null)}><X size={14}/></button></div>}
+      <GoalControl goalId={goalId} levels={levels} focus={focus} recommendations={recommendations} onSelect={id => { setTab('atlas'); select(skillById.get(id)!, true); }} onChange={id => { setGoalId(id); setPathTarget(null); setInspectorOpen(false); const goal = goals.find(item => item.id === id); if (goal) fitIds(goalFocusIds(goal), .16, reduced ? 0 : 700, 1.2, labelMinZoom(), 80); }} onFit={() => { setPathTarget(null); setInspectorOpen(false); const goal = goals.find(item => item.id === goalId); if (goal) fitIds(goalFocusIds(goal), .16, reduced ? 0 : 700, 1.2, labelMinZoom(), 80); }} />
+      <CameraControls onFit={() => navigate(region, branch)} onOverview={() => { setPathTarget(null); setInspectorOpen(false); setBranch('All branches'); fitSkills(skills, .12, reduced ? 0 : 700, 2.5, 0, 90); }} />
+      <div className="overview-hint">Whole atlas · choose a branch to read skills</div>
+      {path && <div className="path-chip"><button onClick={() => fitPath()} aria-label="Fit prerequisite path">Path to {skillById.get(path.target)!.name}<small>{path.gaps.length ? `${path.gaps.length} ${path.gaps.length === 1 ? 'gap' : 'gaps'} · ${path.gaps.slice(0, 2).map(gap => skillById.get(gap.id)?.name).filter(Boolean).join(', ')}${path.gaps.length > 2 ? '…' : ''}` : 'Requirements met'}</small></button><button className="icon-button" aria-label="Clear prerequisite path" onClick={() => setPathTarget(null)}><X size={14}/></button></div>}
       <div className="board-key"><span><i className="key-learned" />Learned</span><span><i className="key-open" />Available</span><span><LockKeyhole size={11} />Locked</span><button className="icon-button" title="Board guide" aria-label="Board guide" onClick={() => setModal('help')}><HelpCircle size={17} /></button></div>
       <div ref={flash} className="level-flash" />
       {inspectorOpen && tab === 'atlas' && <Inspector skill={selected} levels={levels} unlocked={unlocked} draft={draft} onDraft={setDraft} onSave={save} onClose={() => { setInspectorOpen(false); setPathTarget(null); }} color={branchColors[selected.branch]} goalTarget={route.get(selectedId)} path={path} bodyRef={inspectorBody} onTrace={() => setPathTarget(selectedId)} onShowPath={() => fitPath(pathTarget ?? selectedId)} onClearPath={() => setPathTarget(null)} onSelect={id => select(skillById.get(id)!, true, true)} />}

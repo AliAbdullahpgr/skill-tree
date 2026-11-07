@@ -157,3 +157,20 @@
 .goal-source:hover{border-color:#a5caff99;background:#a5caff0d;color:#e8f2ff}
 .goal-source small{display:block;font-size:10px;color:var(--muted);margin-top:3px}
 .goal-source>svg{flex-shrink:0}
+
+/* Camera legibility, mobile labels, and readable locked nodes (UX audit H03/M07/M15). */
+.overview-hint{display:none;position:absolute;left:50%;bottom:96px;transform:translateX(-50%);z-index:6;padding:8px 12px;border:1px solid #8a9ebc33;border-radius:6px;background:#0e1622d9;color:#b9c8dd;font-size:11px;pointer-events:none;white-space:nowrap}
+.atlas-area[data-overview="true"] .overview-hint{display:block}
+@media(max-width:700px){
+  .overview-hint{bottom:190px;font-size:10px}
+  .atlas-area[data-detail="detail"] .constellation-label{display:none}
+  .atlas-area[data-detail="region"] .node-caption{display:block;font-size:13px;max-width:110px;white-space:normal;line-height:1.15;top:94px;font-weight:500}
+  .atlas-area[data-detail="region"] .node-level{display:flex;font-size:10px;min-width:42px;height:20px;bottom:-17px;left:14px}
+}
+.path-chip{max-width:360px}
+.path-chip small{white-space:normal;line-height:1.4}
+.rune-node.locked{color:#a7b4c9}
+.rune-node.locked .rune-ring{border-color:#5d6b84}
+.rune-node.locked .rune-inner{opacity:.7}
+.rune-node.locked .node-caption{color:#b6c2d6}
+.rune-node.locked .node-level{color:#c0cada;border-color:#4b5870}
