@@ -1,6 +1,5 @@
 import { skills, isUnlocked, type Levels } from './progression';
 import { goals, goalTargets } from './goals';
-import { hasRoadmapGuide } from './roadmap';
 export type Recommendation = { id: string; target: number; reason: string; unlocks: string[] };
 const dependents = new Map(skills.map(skill => [skill.id, skills.filter(next => next.prerequisites.some(p => p.id === skill.id))]));
 
@@ -22,11 +21,10 @@ export function recommendSkills(levels: Levels, goalId = '', limit = 3, focus?: 
       : goal ? `Advance your ${goal.name} path toward level ${target}.`
       : current === 0 ? `An open starting point. Work toward independent practice at level ${target}.`
       : `Build on your level ${current} experience toward level ${target}.`;
-    const guide = hasRoadmapGuide(skill.id) ? ' A curated guide is available.' : '';
     // Prefer concrete unlocks, then smaller gaps and existing foundations.
     const focused = !goal && focus && (focus.branch ? skill.branch === focus.branch : skill.region === focus.region);
     const score = (focused ? 1000 : 0) + opens.length * 100 + (current > 0 ? 12 : 0) - (nextThreshold - current) * 3 - current;
-    return [{ id: skill.id, target: nextThreshold, reason: reason + guide, unlocks: opens.map(s => s.id), score }];
+    return [{ id: skill.id, target: nextThreshold, reason, unlocks: opens.map(s => s.id), score }];
   });
   return candidates.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, Math.max(0, limit)).map(({ score: _score, ...recommendation }) => recommendation);
 }

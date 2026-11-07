@@ -4,6 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState, memo } from 'react';
 import { ReactFlow, ReactFlowProvider, useReactFlow, ViewportPortal, type NodeProps, type Node, type Edge } from '@xyflow/react';
 import { useReducedMotion } from '@/lib/useReducedMotion';
 import CameraControls from './CameraControls';
+import BoardLegend from './BoardLegend';
+import PathControl from './PathControl';
+import CaptionBounds from './CaptionBounds';
 import Connections from './Connections';
 import GoalControl from './GoalControl';
 import Sigil from './Sigil';
@@ -11,7 +14,7 @@ import Inspector from './Inspector';
 import LibraryOverlay, { type Entry } from './LibraryOverlay';
 import AtlasModal from './AtlasModal';
 import { dependencyPath } from '@/lib/dependencies';
-import { goals, goalTargets, normalizeGoal } from '@/lib/goals';
+import { goals, goalTargets, goalProgress, normalizeGoal } from '@/lib/goals';
 import { recommendSkills } from '@/lib/recommendations';
 import boardLabels from '@/lib/board-labels.json';
 import { AlertTriangle, Info, Sparkles, Code2, Brain, LockKeyhole, ChevronRight, ChevronDown, Check, X, Volume2, VolumeX, Settings2, Search, ScrollText, Crosshair, Download, BookOpen, HelpCircle, Layers } from 'lucide-react';
@@ -27,7 +30,7 @@ const branches = [...new Set(skills.filter(s => s.region === 'Engineering' && s.
 const icons: Record<string, typeof Code2> = { Engineering: Code2, 'Problem Solving': Brain, 'Personal Skills': Sparkles };
 // Edges longer than this cross whole branches; they stay faint unless a skill or path is in focus.
 const LONG_EDGE = 1000;
-const validEntries = (value: unknown): Entry[] => Array.isArray(value) ? value.filter((e: Entry) => typeof e.name === 'string' && typeof e.at === 'string' && Number.isFinite(e.from) && Number.isFinite(e.to)).map((e: Entry) => ({ name: e.name, from: e.from, to: e.to, at: e.at, ...(e.sample === true && { sample: true }) })).slice(0, 100) : [];
+const validEntries = (value: unknown): Entry[] => Array.isArray(value) ? value.filter((e: Entry | null) => e && typeof e.name === 'string' && typeof e.at === 'string' && Number.isFinite(Date.parse(e.at)) && Number.isFinite(e.from) && Number.isFinite(e.to)).map((e: Entry) => ({ name: e.name, from: e.from, to: e.to, at: e.at, ...(e.sample === true && { sample: true }) })).slice(0, 100) : [];
 // The example build ships a short, labeled history so the chronicle shows what it records.
 const sampleHistory = (): Entry[] => ([['react', 2, 3, 1], ['javascript', 4, 5, 3], ['css', 5, 6, 6], ['html', 6, 7, 9]] as const).map(([id, from, to, days]) => ({ name: skillById.get(id)!.name, from, to, at: new Date(Date.now() - days * 864e5).toISOString(), sample: true }));
 
@@ -90,7 +93,7 @@ function Atlas() {
   const missingIds = useMemo(() => new Set(path?.gaps.map(item => item.id) || []), [path]);
   const route = goalTargets(goalId);
   const focus = branch === 'All branches' ? region : branch;
-  const activeSkills = useMemo(() => skills.filter(s => s.region === region && (branch === 'All branches' || s.branch === branch)), [region, branch]);
+  const activeSkills = useMemo(() => skills.filter(s => s.branch !== 'Core' && s.region === region && (branch === 'All branches' || s.branch === branch)), [region, branch]);
   const activeRated = useMemo(() => activeSkills.filter(s => (levels[s.id] || 0) > 0 && isUnlocked(s.id, levels)).length, [activeSkills, levels]);
   const recommendations = useMemo(() => recommendSkills(levels, goalId, 3, { region, branch: branch === 'All branches' ? undefined : branch }), [levels, goalId, region, branch]);
   const recommendedIds = useMemo(() => new Set(recommendations.map(item => item.id)), [recommendations]);
@@ -101,6 +104,7 @@ function Atlas() {
   const [cinematic, setCinematic] = useState<Skill | null>(null);
   const [realmMenu, setRealmMenu] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [guideRequest, setGuideRequest] = useState(0);
   const [inspectorOpen, setInspectorOpen] = useState(false);
   const [sample, setSample] = useState(true);
   const flash = useRef<HTMLDivElement>(null);
@@ -110,7 +114,8 @@ function Atlas() {
   const inspectorBody = useRef<HTMLDivElement>(null);
   const selected = skillById.get(selectedId)!;
   const unlocked = isUnlocked(selectedId, levels);
-  const learned = useMemo(() => skills.filter(s => levels[s.id] > 0 && isUnlocked(s.id, levels)), [levels]);
+  const learned = useMemo(() => skills.filter(s => s.branch !== 'Core' && levels[s.id] > 0 && isUnlocked(s.id, levels)), [levels]);
+  const trainableCount = skills.filter(s => s.branch !== 'Core').length;
   const boardRef = useRef<HTMLElement>(null);
   const labelsRef = useRef<HTMLDivElement>(null);
   // Prefer a label-readable zoom over fitting every node into a dot field. The
@@ -118,16 +123,13 @@ function Atlas() {
   const fitSkills = useCallback((list: Skill[], padding: number, duration: number, maxZoom: number, minZoom = 0, topInset = 0) => {
     if (!list.length) return;
     const box = flow.getNodesBounds(list.map(s => s.id));
-    const rect = document.querySelector('.atlas-area')?.getBoundingClientRect();
-    const fit = rect ? Math.min(rect.width / box.width, rect.height / box.height) * (1 - padding * 2) : 1;
+    const rect = document.querySelector('.atlas-area .react-flow')?.getBoundingClientRect();
+    const width = rect?.width ?? 1000, height = rect?.height ?? 700;
+    const safeTop = width <= 700 ? 160 : 140;
+    const safeBottom = 60;
+    const fit = Math.min((width - 100) / (box.width + 180), (height - safeTop - safeBottom) / (box.height + 150)) * (1 - padding);
     const zoom = Math.max(minZoom, Math.min(fit, maxZoom));
-    if (topInset > 0 || zoom > fit + .001) {
-      flow.setCenter(box.x + box.width / 2, box.y + box.height / 2 - topInset / zoom, { zoom, duration });
-      return;
-    }
-    if (zoom >= .3) { flow.fitView({ nodes: list.map(s => ({ id: s.id })), padding, duration, maxZoom }); return; }
-    const lift = 70 / zoom;
-    flow.fitBounds({ x: box.x, y: box.y - lift, width: box.width, height: box.height + lift }, { padding, duration });
+    flow.setCenter(box.x + box.width / 2, box.y + box.height / 2 - (safeTop - safeBottom + topInset) / (2 * zoom), { zoom, duration });
   }, [flow]);
   const fitIds = useCallback((ids: Iterable<string>, padding: number, duration: number, maxZoom: number, minZoom = 0, topInset = 0) => {
     const list = [...ids].map(id => skillById.get(id)).filter((skill): skill is Skill => Boolean(skill));
@@ -135,11 +137,16 @@ function Atlas() {
   }, [fitSkills]);
   const labelMinZoom = () => window.innerWidth <= 700 ? .5 : .55;
   // Fit the goal's targets in the branch on screen when possible; the full route stays highlighted.
-  const goalFocusIds = (goal: typeof goals[number]) => {
-    const ids = Object.keys(goal.targets);
-    if (branch === 'All branches') return ids;
-    const focused = ids.filter(id => skillById.get(id)?.branch === branch);
-    return focused.length ? focused : ids;
+  const focusGoal = (id: string) => {
+    const goal = goals.find(item => item.id === id);
+    if (!goal) return;
+    const targets = Object.keys(goal.targets).map(id => skillById.get(id)!).filter(Boolean);
+    const current = targets.filter(skill => skill.branch === branch);
+    const mainBranch = targets.reduce<Record<string, number>>((counts, skill) => ({ ...counts, [skill.branch]: (counts[skill.branch] || 0) + 1 }), {});
+    const targetBranch = current.length ? branch : Object.keys(mainBranch).sort((a, b) => mainBranch[b] - mainBranch[a])[0];
+    const focused = targets.filter(skill => skill.branch === targetBranch);
+    setRegion(focused[0].region); setBranch(targetBranch);
+    fitSkills(focused, .16, reduced ? 0 : 700, 1.05, labelMinZoom(), 40);
   };
   const navigate = useCallback((targetRegion: string, targetBranch = 'All branches') => {
     setInspectorOpen(false); setPathTarget(null); setRegion(targetRegion); setBranch(targetBranch); setRealmMenu(false);
@@ -157,7 +164,6 @@ function Atlas() {
   useEffect(() => { setDraft(levels[selectedId] || 0); }, [selectedId, levels]);
   useEffect(() => { inspectorBody.current?.scrollTo({ top: 0 }); }, [selectedId]);
   useEffect(() => { if (!notice) return; const t = setTimeout(() => setNotice(null), 6000); return () => clearTimeout(t); }, [notice]);
-  useEffect(() => { if (!cinematic) return; const t = setTimeout(() => setCinematic(null), 3800); return () => clearTimeout(t); }, [cinematic]);
   useEffect(() => { const fn = (e: KeyboardEvent) => { if (e.key === '/' && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLTextAreaElement)) { e.preventDefault(); setSearchOpen(true); requestAnimationFrame(() => document.querySelector<HTMLInputElement>('[aria-label="Find a skill"]')?.focus()); } if (e.key === 'Escape') { setPathTarget(null); setModal(null); setCinematic(null); setQuery(''); setRealmMenu(false); setInspectorOpen(false); setSearchOpen(false); setTab('atlas'); } }; window.addEventListener('keydown', fn); return () => window.removeEventListener('keydown', fn); }, []);
   useEffect(() => () => { audio.current?.close(); }, []);
   useEffect(() => {
@@ -184,7 +190,7 @@ function Atlas() {
   })).concat([{ id: 'bridge-problem', source: 'engineering', target: 'logic', type: 'straight', animated: false, className: path ? 'connection-muted' : 'connection-bridge', style: { stroke: '#a6b585', strokeWidth: 1, opacity: .17 } }, { id: 'bridge-personal', source: 'engineering', target: 'communication', type: 'straight', animated: false, className: path ? 'connection-muted' : 'connection-bridge', style: { stroke: '#bd9dcb', strokeWidth: 1, opacity: .17 } }]), [levels, inspectorOpen, selectedId, route, path]);
   const select = (skill: Skill, center = false, keepPath = false) => {
     if (!keepPath && !path?.ids.has(skill.id)) setPathTarget(isUnlocked(skill.id, levels) ? null : skill.id);
-    setSelectedId(skill.id); setInspectorOpen(true); setQuery(''); setRealmMenu(false);
+    setSelectedId(skill.id); setInspectorOpen(true); setGuideRequest(0); setQuery(''); setRealmMenu(false);
     const mobile = window.innerWidth <= 700;
     const screen = flow.flowToScreenPosition({ x: skill.x + 35, y: skill.y + 35 });
     const covered = mobile || screen.x > window.innerWidth - 390;
@@ -196,7 +202,7 @@ function Atlas() {
     }
   };
   // Fits the path for `target`, computed directly so it works before path state catches up.
-  const fitPath = (target = pathTarget) => { if (!target) return; setPathTarget(target); setInspectorOpen(false); fitIds(dependencyPath(target, levels).ids, .22, reduced ? 0 : 700, 1.1, labelMinZoom(), 80); };
+  const fitPath = (target = pathTarget) => { if (!target) return; const path = dependencyPath(target, levels); const step = path.gaps.find(item => !item.blocked)?.id ?? target; setPathTarget(target); setInspectorOpen(false); fitIds([step], .2, reduced ? 0 : 700, .85, labelMinZoom(), 40); };
   const save = () => {
     const next = updateLevel(levels, selectedId, draft);
     if (next === levels || draft === levels[selectedId]) return;
@@ -209,18 +215,31 @@ function Atlas() {
     if (!reduced) flash.current?.animate([{ opacity: .16 }, { opacity: 0 }], { duration: 1200 });
   };
   const exportProgress = () => { const blob = new Blob([JSON.stringify({ version: 1, levels, history, theme, sample, goalId }, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'skillweave-progress.json'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); notify('Your progress has been exported.', 'success'); };
-  const importProgress = async (file?: File) => { if (!file) return; try { if (file.size > 1000000) throw new Error(); const data = JSON.parse(await file.text()); if (data.version !== 1 || !data.levels || typeof data.levels !== 'object') throw new Error(); setLevels(normalizeLevels(data.levels)); setGoalId(normalizeGoal(data.goalId)); setHistory(validEntries(data.history)); setSample(false); notify('Your atlas has been restored.', 'success'); } catch { notify('Import failed — this file is not a valid SkillWeave progress backup. Nothing was changed.', 'error'); } if (fileInput.current) fileInput.current.value = ''; };
-  const resetJourney = () => { setLevels(normalizeLevels({ engineering: 1, logic: 1, communication: 1 })); setHistory([]); setSample(false); setModal(null); notify('Progress cleared. Your journey begins with the foundation skills.', 'success'); };
-  const results = useMemo(() => query.trim() ? skills.filter(s => `${s.name} ${s.branch}`.toLowerCase().includes(query.toLowerCase())).slice(0, 8) : [], [query]);
+  const importProgress = async (file?: File) => {
+    if (!file) return;
+    try {
+      if (file.size > 1000000) throw new Error();
+      const data = JSON.parse(await file.text());
+      if (!data || data.version !== 1 || !data.levels || typeof data.levels !== 'object' || Array.isArray(data.levels)) throw new Error();
+      const restoredLevels = normalizeLevels(data.levels), restoredHistory = validEntries(data.history);
+      const restoredGoal = normalizeGoal(data.goalId);
+      setLevels(restoredLevels); setHistory(restoredHistory); setGoalId(restoredGoal); setSample(data.sample === true);
+      if (['obsidian', 'moonstone'].includes(data.theme)) setTheme(data.theme);
+      notify('Your atlas has been restored.', 'success');
+    } catch { notify('Import failed — this file is not a valid SkillWeave progress backup. Nothing was changed.', 'error'); }
+    if (fileInput.current) fileInput.current.value = '';
+  };
+  const resetJourney = () => { setLevels(normalizeLevels({ engineering: 1, logic: 1, communication: 1 })); setHistory([]); setSample(false); setGoalId(''); setPathTarget(null); setInspectorOpen(false); setTab('atlas'); setModal(null); navigate('Engineering', 'Frontend'); notify('Progress cleared. Your journey begins with the foundation skills.', 'success'); };
+  const results = useMemo(() => query.trim() ? skills.filter(s => `${s.name} ${s.branch}`.toLowerCase().includes(query.trim().toLowerCase())) : [], [query]);
 
-  return <div className={`app theme-${theme}`}>
+  return <div className={`app theme-${theme} ${tab !== 'atlas' ? 'library-open' : ''} ${inspectorOpen ? 'inspector-open' : ''} ${modal ? 'modal-open' : ''}`}>
     <header className="topbar">
       <a href="#" className="brand" aria-label="SkillWeave home" onClick={e => { e.preventDefault(); setTab('atlas'); navigate('Engineering'); }}><img className="brand-logo" src="/brand/skillweave-logo.webp" width={498} height={72} alt="SkillWeave" fetchPriority="high" /><small>Skill atlas</small></a>
       <div className="header-right">
-        <span className="progress-summary" title={`${learned.length} of ${skills.length} skills rated`}><span className="progress-dot" />{learned.length}<span>/ {skills.length}<span className="progress-word"> rated</span></span></span>
+        <span className="progress-summary" title={`${learned.length} of ${trainableCount} skills rated; shared Engineering foundation excluded`}><span className="progress-dot" />{learned.length}<span>/ {trainableCount}<span className="progress-word"> rated</span></span></span>
         {sample && <button className="demo-chip" onClick={() => setModal('settings')} title="Demo data — open settings to start your own">Demo</button>}
-        <span className="save-status" title={ready && storageOk ? 'Progress saved in this browser' : 'Export a backup to save your progress'}>{storageOk ? <Check size={14} /> : <Download size={14} />}<span>{ready ? storageOk ? 'Saved' : 'Not saved' : 'Loading'}</span></span>
-        <div className="header-tools"><button className={`icon-button ${tab === 'codex' ? 'active' : ''}`} title="Codex — every skill in one list" aria-label="Codex" aria-pressed={tab === 'codex'} onClick={() => { setTab(tab === 'codex' ? 'atlas' : 'codex'); setInspectorOpen(false); }}><BookOpen size={18} /><span className="tool-label">Codex</span></button><button className={`icon-button ${tab === 'chronicle' ? 'active' : ''}`} title="Chronicle — your saved level changes" aria-label="Chronicle" aria-pressed={tab === 'chronicle'} onClick={() => { setTab(tab === 'chronicle' ? 'atlas' : 'chronicle'); setInspectorOpen(false); }}><ScrollText size={18} /><span className="tool-label">Chronicle</span></button><button className="icon-button sound-button" title={sound ? 'Mute sound' : 'Enable sound'} aria-label={sound ? 'Mute sound' : 'Enable sound'} aria-pressed={sound} onClick={toggleSound}>{sound ? <Volume2 size={18} /> : <VolumeX size={18} />}<span className="tool-label">Sound</span></button><button className="icon-button" title="Settings — theme, backup, and reset" aria-label="Settings" onClick={() => setModal('settings')}><Settings2 size={18} /><span className="tool-label">Settings</span></button></div>
+        <span className="save-status" title={ready && storageOk ? 'Progress saved in this browser' : 'Export a backup to save your progress'}>{storageOk ? <Check size={14} /> : <Download size={14} />}<span>{ready ? storageOk ? 'Saved locally' : 'Not saved' : 'Loading'}</span></span>
+        <div className="header-tools"><button className={`icon-button ${tab === 'codex' ? 'active' : ''}`} title="Codex — every skill in one list" aria-label="Codex" aria-pressed={tab === 'codex'} onClick={() => { setTab(tab === 'codex' ? 'atlas' : 'codex'); setInspectorOpen(false); }}><BookOpen size={18} /><span className="tool-label">Skills</span></button><button className={`icon-button ${tab === 'chronicle' ? 'active' : ''}`} title="Chronicle — your saved level changes" aria-label="Chronicle" aria-pressed={tab === 'chronicle'} onClick={() => { setTab(tab === 'chronicle' ? 'atlas' : 'chronicle'); setInspectorOpen(false); }}><ScrollText size={18} /><span className="tool-label">History</span></button><button className="icon-button sound-button" title={sound ? 'Mute sound' : 'Enable sound'} aria-label={sound ? 'Mute sound' : 'Enable sound'} aria-pressed={sound} onClick={toggleSound}>{sound ? <Volume2 size={18} /> : <VolumeX size={18} />}<span className="tool-label">Sound</span></button><button className="icon-button" title="Settings — theme, backup, and reset" aria-label="Settings" onClick={() => setModal('settings')}><Settings2 size={18} /><span className="tool-label">Settings</span></button></div>
       </div>
     </header>
     <main ref={boardRef} className="atlas-area" aria-label="Interactive skill board" onKeyDown={event => {
@@ -232,7 +251,7 @@ function Atlas() {
       <div className="world-background" /><div className="celestial-orbit" aria-hidden="true" /><Particles />
       <ReactFlow<SkillNode> nodes={nodes} edges={EMPTY_EDGES} nodeTypes={nodeTypes} onlyRenderVisibleElements edgesFocusable={false} elementsSelectable={false} nodesConnectable={false} nodesDraggable={false} minZoom={.025} maxZoom={2.5} onNodeClick={(_, node) => select(node.data.skill)} onPaneClick={() => { setPathTarget(null); setInspectorOpen(false); setRealmMenu(false); }} onInit={instance => { requestAnimationFrame(() => {
         if (window.innerWidth <= 700) { const start = skillById.get('html')!; instance.setCenter(start.x + 170, start.y + 180, { zoom: .65 }); }
-        else instance.fitBounds({ x: -3500, y: -2160, width: 1250, height: 1180 }, { padding: .08 });
+        else fitSkills(skills.filter(skill => skill.branch === 'Frontend').slice(0, 16), .12, 0, .85, .55);
       }); }} onMoveStart={() => { if (boardRef.current) boardRef.current.dataset.moving = 'true'; }} onMove={(_, viewport) => {
         const board = boardRef.current; if (!board) return;
         const overview = String(viewport.zoom < .3);
@@ -243,24 +262,25 @@ function Atlas() {
         const labels = labelsRef.current;
         if (overview === 'true' && labels && labels.style.getPropertyValue('--overview-scale') !== scale) labels.style.setProperty('--overview-scale', scale);
       }} onMoveEnd={() => { if (boardRef.current) boardRef.current.dataset.moving = 'false'; }} proOptions={{ hideAttribution: true }}>
+        <CaptionBounds/>
         <ViewportPortal><Connections edges={edges} /><div ref={labelsRef} className="board-labels">{boardLabels.map(([name, x, y]) => <button key={name} className="constellation-label" style={{ left: Number(x) + 35, top: Number(y), '--label-color': branchColors[String(name)] } as React.CSSProperties} onClick={() => navigate(regions.includes(String(name)) ? String(name) : 'Engineering', regions.includes(String(name)) ? 'All branches' : String(name))}>{name}<span>{skills.filter(s => s.branch === name && levels[s.id] > 0 && isUnlocked(s.id, levels)).length} / {skills.filter(s => s.branch === name).length} rated</span><small>{skills.filter(s => s.branch === name && !levels[s.id] && isUnlocked(s.id, levels)).length} ready to start</small></button>)}<button className="world-label" style={{ left: 35, top: -100 }} onClick={() => navigate('Engineering', 'Frontend')}>Engineering<span>Explore 10 branches</span></button></div></ViewportPortal>
       </ReactFlow>
       <div className="board-navigation">
         <button className={`realm-trigger ${realmMenu ? 'active' : ''}`} aria-label="Choose realm or branch" aria-expanded={realmMenu} onClick={() => setRealmMenu(!realmMenu)}><Layers size={17} /><span>{region}<small>{branch === 'All branches' ? 'All branches' : branch} · {activeRated}/{activeSkills.length} rated</small></span><ChevronDown size={15} /></button>
-        {realmMenu && <div className="realm-menu"><span className="menu-label">Jump to a realm</span>{regions.map(r => { const Icon = icons[r]; return <button key={r} className={region === r ? 'active' : ''} onClick={() => { setTab('atlas'); navigate(r); }}><Icon size={17} /><span>{r}</span>{region === r && <Check size={14} />}</button>; })}<div className="branch-shortcuts"><span className="menu-label">Engineering branches</span>{branches.map(b => <button key={b} onClick={() => { setTab('atlas'); navigate('Engineering', b); }}><i style={{ background: branchColors[b] }} />{b}</button>)}</div></div>}
-        {sample && <div className="sample-banner"><div><strong>Example profile</strong><span>These levels are demo data. Progress saves only in this browser.</span></div><button onClick={() => setModal('settings')}>Rate my own skills</button></div>}
+        {realmMenu && <div className="realm-menu"><div className="realm-menu-heading"><span className="menu-label">Choose an area<small>A realm groups related skills</small></span><button className="icon-button" aria-label="Close realm menu" onClick={() => setRealmMenu(false)}><X size={16}/></button></div>{regions.map(r => { const Icon = icons[r]; return <button key={r} className={region === r ? 'active' : ''} onClick={() => { setTab('atlas'); navigate(r); }}><Icon size={17} /><span>{r}</span>{region === r && <Check size={14} />}</button>; })}<div className="branch-shortcuts"><span className="menu-label">Engineering branches</span>{branches.map(b => <button key={b} aria-pressed={region === 'Engineering' && branch === b} onClick={() => { setTab('atlas'); navigate('Engineering', b); }}>{b}{region === 'Engineering' && branch === b && <Check size={13}/>}</button>)}</div></div>}
+        <div className={`sample-banner ${sample ? '' : 'local-banner'}`}><div><strong>{sample ? 'Demo profile · example levels' : 'Your skill profile'}</strong><span>No account · saved only in this browser.</span></div><button onClick={() => setModal('settings')}>{sample ? 'Reset demo' : 'Backup'}</button></div>
       </div>
-      <div className={`board-search ${searchOpen ? 'expanded' : ''}`}><button className={`icon-button gap-toggle ${gaps ? 'active' : ''}`} title="Highlight skill gaps" aria-label="Skill gaps" aria-pressed={gaps} onClick={() => { setGaps(!gaps); notify(gaps ? 'Showing all skills.' : 'Highlighting locked skills and skills below level 5.', 'info'); }}><Crosshair size={18} /></button><div className="search-wrap"><button className="search-toggle" aria-label="Open skill search" onClick={() => setSearchOpen(!searchOpen)}><Search size={18} /></button><input aria-label="Find a skill" placeholder="Find a skill…" value={query} onFocus={() => setSearchOpen(true)} onChange={e => setQuery(e.target.value)} />{query ? <button className="icon-button" aria-label="Clear search" onClick={() => setQuery('')}><X size={14} /></button> : <kbd>/</kbd>}{query && <div className="search-results">{results.length ? results.map(s => <button key={s.id} onClick={() => { setTab('atlas'); select(s, true); setSearchOpen(false); }}><Sigil skill={s} size={20} /><span>{s.name}<small>{s.branch}</small></span><span>{levels[s.id]}/10</span></button>) : <p>No skills found.</p>}</div>}</div></div>
-      <GoalControl goalId={goalId} levels={levels} focus={focus} recommendations={recommendations} onSelect={id => { setTab('atlas'); select(skillById.get(id)!, true); }} onChange={id => { setGoalId(id); setPathTarget(null); setInspectorOpen(false); const goal = goals.find(item => item.id === id); if (goal) fitIds(goalFocusIds(goal), .16, reduced ? 0 : 700, 1.2, labelMinZoom(), 80); }} onFit={() => { setPathTarget(null); setInspectorOpen(false); const goal = goals.find(item => item.id === goalId); if (goal) fitIds(goalFocusIds(goal), .16, reduced ? 0 : 700, 1.2, labelMinZoom(), 80); }} />
+      <div className={`board-search ${searchOpen ? 'expanded' : ''}`}><button className={`icon-button gap-toggle ${gaps ? 'active' : ''}`} title="Highlight skill gaps" aria-label="Skill gaps" aria-pressed={gaps} onClick={() => { setGaps(!gaps); notify(gaps ? 'Showing all skills.' : 'Highlighting locked skills and skills below level 5.', 'info'); }}><Crosshair size={18} /></button><div className="search-wrap"><button className="search-toggle" aria-label="Open skill search" onClick={() => setSearchOpen(!searchOpen)}><Search size={18} /></button><input aria-label="Find a skill" placeholder="Find a skill…" value={query} onFocus={() => setSearchOpen(true)} onChange={e => setQuery(e.target.value)} />{query ? <button className="icon-button" aria-label="Clear search" onClick={() => setQuery('')}><X size={14} /></button> : <kbd>/</kbd>}{query.trim() && <div className="search-results">{sample && <p className="search-demo">Demo profile · example levels</p>}<p className="search-count" role="status">{results.length} results{results.length > 8 ? ' · showing the first 8' : ''}</p>{results.length ? results.slice(0, 8).map(s => <button key={s.id} onClick={() => { setTab('atlas'); select(s, true); setSearchOpen(false); }}><Sigil skill={s} size={20} /><span>{s.name}<small>{s.branch}</small></span><span>{levels[s.id]}/10</span><ChevronRight size={14}/></button>) : <p>No skills match “{query.trim()}”. Try a skill or branch name, or <button className="link-button" onClick={() => setQuery('')}>clear search</button>.</p>}</div>}</div></div>
+      {tab === 'atlas' && !inspectorOpen && !modal && <GoalControl goalId={goalId} levels={levels} focus={focus} recommendations={recommendations} onSelect={(id, guide) => { select(skillById.get(id)!, true); if (guide) setGuideRequest(value => value + 1); }} onChange={id => { setGoalId(id); setPathTarget(null); setInspectorOpen(false); focusGoal(id); const goal = goals.find(item => item.id === id); const progress = goalProgress(id, levels); notify(goal ? `${goal.name} goal set · ${progress.completed} of ${progress.total} targets reached.` : 'Goal cleared. Exploring freely.', 'info'); }} onFit={() => { setPathTarget(null); setInspectorOpen(false); focusGoal(goalId); }} />}
       <CameraControls onFit={() => navigate(region, branch)} onOverview={() => { setPathTarget(null); setInspectorOpen(false); setBranch('All branches'); fitSkills(skills, .12, reduced ? 0 : 700, 2.5, 0, 90); }} />
       <div className="overview-hint">Whole atlas · choose a branch to read skills</div>
-      {path && <div className="path-chip"><button onClick={() => fitPath()} aria-label="Fit prerequisite path">Path to {skillById.get(path.target)!.name}<small>{path.gaps.length ? `${path.gaps.length} ${path.gaps.length === 1 ? 'gap' : 'gaps'} · ${path.gaps.slice(0, 2).map(gap => skillById.get(gap.id)?.name).filter(Boolean).join(', ')}${path.gaps.length > 2 ? '…' : ''}` : 'Requirements met'}</small></button><button className="icon-button" aria-label="Clear prerequisite path" onClick={() => setPathTarget(null)}><X size={14}/></button></div>}
-      <div className="board-key"><span><i className="key-learned" />Learned</span><span><i className="key-open" />Available</span><span><LockKeyhole size={11} />Locked</span><button className="icon-button" title="Board guide" aria-label="Board guide" onClick={() => setModal('help')}><HelpCircle size={17} /></button></div>
+      {path && !inspectorOpen && tab === 'atlas' && <PathControl key={path.target} path={path} onFit={() => fitPath()} onClear={() => setPathTarget(null)} onSelect={id => select(skillById.get(id)!, true, true)} />}
+      <BoardLegend onHelp={() => setModal('help')} />
       <div ref={flash} className="level-flash" />
-      {inspectorOpen && tab === 'atlas' && <Inspector skill={selected} levels={levels} unlocked={unlocked} draft={draft} onDraft={setDraft} onSave={save} onClose={() => { setInspectorOpen(false); setPathTarget(null); }} color={branchColors[selected.branch]} goalTarget={route.get(selectedId)} path={path} bodyRef={inspectorBody} onTrace={() => setPathTarget(selectedId)} onShowPath={() => fitPath(pathTarget ?? selectedId)} onClearPath={() => setPathTarget(null)} onSelect={id => select(skillById.get(id)!, true, true)} />}
+      {inspectorOpen && tab === 'atlas' && <Inspector sample={sample} recommended={recommendedIds.has(selectedId)} guideRequest={guideRequest} skill={selected} levels={levels} unlocked={unlocked} draft={draft} onDraft={setDraft} onSave={save} onClose={() => { setInspectorOpen(false); setPathTarget(null); }} color={branchColors[selected.branch]} goalTarget={route.get(selectedId)} path={path} bodyRef={inspectorBody} onTrace={() => setPathTarget(selectedId)} onShowPath={() => fitPath(pathTarget ?? selectedId)} onClearPath={() => setPathTarget(null)} onSelect={id => select(skillById.get(id)!, true, true)} />}
       {tab !== 'atlas' && <LibraryOverlay tab={tab} levels={levels} history={history} onClose={() => setTab('atlas')} onSelect={id => { setTab('atlas'); select(skillById.get(id)!, true); }} />}
     </main>
-    <>{notice && !cinematic && <div role={notice.tone === 'error' ? 'alert' : 'status'} className={`toast ${notice.tone}`}>{notice.tone === 'error' ? <AlertTriangle size={16} /> : notice.tone === 'info' ? <Info size={16} /> : <Check size={16} />}{notice.text}<button aria-label="Dismiss notification" onClick={() => setNotice(null)}><X size={14} /></button></div>}</>
+    <>{notice && !cinematic && <div role={notice.tone === 'error' ? 'alert' : 'status'} className={`toast ${notice.tone}`}>{notice.tone === 'error' ? <AlertTriangle size={16} /> : notice.tone === 'info' ? <Info size={16} /> : <Check size={16} />}<span className="toast-message">{notice.text}</span>{notice.tone === 'error' && notice.text.startsWith('Import failed') && <button className="toast-retry" onClick={() => fileInput.current?.click()}>Retry import</button>}<button aria-label="Dismiss notification" onClick={() => setNotice(null)}><X size={14} /></button></div>}</>
     <>{cinematic && <div className="cinematic" role="dialog" aria-label="Skill awakening" onClick={() => setCinematic(null)}><div className="cinematic-content"><div className="cinematic-rays" /><span className="eyebrow">A new path opens</span><div className="cinematic-symbol"><Sigil skill={cinematic} size={70} /></div><span className="type-badge">{cinematic.kind.toUpperCase()} AWAKENING</span><h2>{cinematic.name}</h2><p>Knowledge becomes power.</p><button className="gold-button" onClick={() => setCinematic(null)}>Continue your journey <ChevronRight size={16} /></button></div></div>}</>
     <input ref={fileInput} hidden type="file" accept="application/json,.json" onChange={e => importProgress(e.target.files?.[0])} />
     {modal && <AtlasModal modal={modal} modalRef={modalRef} onClose={() => setModal(null)} theme={theme} onTheme={setTheme} sound={sound} onSound={toggleSound} sample={sample} onExport={exportProgress} onImport={() => fileInput.current?.click()} onReset={resetJourney} />}

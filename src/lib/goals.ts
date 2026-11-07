@@ -31,3 +31,13 @@ export function goalProgress(id: string, levels: Levels) {
   const completed = [...targets].filter(([skill, target]) => isUnlocked(skill, levels) && (levels[skill] || 0) >= target).length;
   return { completed, total: targets.size };
 }
+// Compare actual practice on each route, excluding the shared structural root.
+export function suggestGoal(levels: Levels): string {
+  const scored = goals.map(goal => {
+    const targets = [...goalTargets(goal.id)].filter(([id]) => skillById.get(id)?.branch !== 'Core');
+    const progress = targets.reduce((sum, [id, target]) => sum + (isUnlocked(id, levels) ? Math.min((levels[id] || 0) / target, 1) : 0), 0);
+    return { id: goal.id as string, ratio: targets.length ? progress / targets.length : 0 };
+  });
+  scored.sort((a, b) => b.ratio - a.ratio || a.id.localeCompare(b.id));
+  return scored[0]?.ratio > 0 ? scored[0].id : 'frontend';
+}

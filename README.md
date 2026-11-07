@@ -144,3 +144,7 @@ Run `node scripts/priorities-check.mjs` against the production preview to exerci
 ## SkillWeave identity
 
 The custom tree-and-stars logo was generated with the built-in imagegen tool. The original is `public/brand/skillweave-original.png`; the optimized header logo is `public/brand/skillweave-logo.webp` and the browser/touch icon is `public/brand/skillweave-icon.png`. The existing storage key is retained so the rename preserves saved progress. See `BRAND.md` for the generation prompt.
+
+## UX audit follow-up
+
+See [UX-AUDIT.md](UX-AUDIT.md) for the 29-finding resolution checklist and production browser verification. The board now labels demo data and local storage, exposes rating and prerequisite actions directly, and provides readable goal, search, legend, settings, and history controls on mobile and desktop.

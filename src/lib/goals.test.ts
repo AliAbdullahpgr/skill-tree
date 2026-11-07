@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { goals, goalTargets, goalProgress, normalizeGoal } from './goals';
+import { goals, goalTargets, goalProgress, normalizeGoal, suggestGoal } from './goals';
 import { skillById, normalizeLevels } from './progression';
 
 test('goal routes contain valid targets and all ancestor requirements', () => {
@@ -20,4 +20,11 @@ test('invalid goals fall back to free exploration', () => {
   for (const input of [null, {}, 'unknown', 5]) assert.equal(normalizeGoal(input), '');
   assert.equal(normalizeGoal('frontend'), 'frontend');
   assert.equal(goalTargets('unknown').size, 0);
+});
+test('the suggested goal favors existing progress and falls back to frontend', () => {
+  assert.equal(suggestGoal(normalizeLevels({})), 'frontend');
+  assert.equal(suggestGoal(normalizeLevels({ engineering: 1, logic: 1, communication: 1 })), 'frontend');
+  assert.equal(suggestGoal(normalizeLevels({ engineering: 1, python: 2 })), 'ai');
+  const frontend = goals.find(goal => goal.id === 'frontend')!;
+  assert.equal(suggestGoal(normalizeLevels(frontend.targets)), 'frontend');
 });

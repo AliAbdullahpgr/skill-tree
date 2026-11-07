@@ -1,3 +1,5 @@
+'use client';
+import { useEffect, useRef } from 'react';
 import { BookOpen, Code2, Compass, ExternalLink, FileText, Globe, GraduationCap, Podcast, PlayCircle } from 'lucide-react';
 import { roadmapTopics } from '@/lib/roadmap-topics';
 
@@ -12,11 +14,15 @@ const tagIcons = {
   podcast: Podcast,
 } as const;
 
-export default function RoadmapResources({ skillId }: { skillId: string }) {
+export default function RoadmapResources({ skillId, focusRequest = 0 }: { skillId: string; focusRequest?: number }) {
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (focusRequest) { heading.current?.scrollIntoView({ block: 'start' }); heading.current?.focus({ preventScroll: true }); }
+  }, [skillId, focusRequest]);
   const topic = roadmapTopics[skillId];
   if (!topic) return null;
   return <div className="inspector-section roadmap-section">
-    <h3>Learn from <small>roadmap.sh</small></h3>
+    <h3 ref={heading} tabIndex={-1}>Learn from <small>roadmap.sh</small></h3>
     <p className="roadmap-description">{topic.description}</p>
     {topic.resources.length > 0 && <ul className="roadmap-links">{topic.resources.map(resource => {
       const Icon = tagIcons[resource.tag as keyof typeof tagIcons] ?? FileText;

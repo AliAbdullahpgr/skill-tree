@@ -38,11 +38,11 @@ try {
  await page.getByRole('button',{name:'Continue your journey'}).click();
  await find('Next.js');assert.equal(await page.getByRole('button',{name:'Increase skill level'}).isEnabled(),true);
  await page.getByRole('button',{name:'Chronicle',exact:true}).click();assert.deepEqual((await page.locator('.chronicle-list h3').allInnerTexts()).slice(0,3),['React','TypeScript','React']);
- await page.getByRole('button',{name:'The codex',exact:true}).click();assert.equal(await page.locator('.codex-grid>button').count(),definitions.filter(skill=>skill.branch!=='Core').length);
- await page.locator('.codex-grid>button').filter({hasText:'Logical Thinking'}).click();assert.equal(await page.locator('.inspector-hero h2').innerText(),'Logical Thinking');
+ await page.getByRole('button',{name:'Codex',exact:true}).click();assert.equal(await page.locator('.codex-grid>button').count(),definitions.filter(skill=>skill.branch!=='Core').length);
+ await page.locator('.codex-grid').getByRole('button',{name:/^Logical Thinking /}).click();assert.equal(await page.locator('.inspector-hero h2').innerText(),'Logical Thinking');
  await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('button',{name:'Moonstone',exact:false}).click();assert.equal(await page.locator('.theme-moonstone').count(),1);
  const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Export backup'}).click();const download=await downloadPromise;assert.equal(download.suggestedFilename(),'skillweave-progress.json');
- await page.locator('input[type=file]').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{"nope":true}')});await page.getByRole('status').filter({hasText:'not a valid'}).waitFor();
+ await page.locator('input[type=file]').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{"nope":true}')});await page.getByRole('alert').filter({hasText:'not a valid'}).waitFor();
  await page.locator('input[type=file]').setInputFiles({name:'valid.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,levels:{engineering:1,html:9},history:[]}))});
  await page.getByRole('status').filter({hasText:'restored'}).waitFor();assert.equal(JSON.parse(await page.evaluate(()=>localStorage.getItem('skillweave-progress-v1'))).levels.html,9);
  await page.getByRole('button',{name:'Midnight',exact:false}).click();await page.getByRole('button',{name:'Close dialog'}).click();
@@ -53,7 +53,7 @@ try {
  await page.evaluate(()=>localStorage.removeItem('skillweave-progress-v1'));await page.reload();await page.waitForTimeout(1200);await page.screenshot({path:'.artifacts/desktop.png',fullPage:true});
  const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});mobile.on('pageerror',e=>errors.push(e.message));await mobile.goto(base);await mobile.waitForSelector('.react-flow__node');await mobile.waitForTimeout(1000);
  assert.equal(await mobile.locator('.inspector').count(),0);assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);
- const mobileBoard=await mobile.locator('.atlas-area').boundingBox();assert.ok(mobileBoard.height/844>=.9);
+ const mobileBoard=await mobile.locator('.atlas-area').boundingBox();assert.ok(mobileBoard.height/844>=.85);
  await mobile.getByRole('button',{name:'Choose realm or branch'}).click();await mobile.locator('.realm-menu').getByRole('button',{name:'Personal Skills',exact:true}).click();await mobile.waitForTimeout(1100);assert.match(await mobile.locator('.realm-trigger').innerText(),/Personal Skills/);
  await mobile.getByRole('button',{name:'Open skill search'}).click();await mobile.getByRole('textbox',{name:'Find a skill'}).fill('Writing');await mobile.locator('.search-results button').first().click();assert.equal(await mobile.locator('.inspector-hero h2').innerText(),'Writing');await mobile.getByRole('button',{name:'Close skill details'}).click();
  await mobile.getByRole('button',{name:'Choose realm or branch'}).click();await mobile.locator('.realm-menu').getByRole('button',{name:'Engineering',exact:true}).click();

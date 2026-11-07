@@ -1,6 +1,7 @@
 'use client';
 import { useState, type RefObject } from 'react';
-import { AlertTriangle, Check, ChevronRight, Download, RotateCcw, Upload, Volume2, VolumeX, X } from 'lucide-react';
+import { AlertTriangle, Check, ChevronRight, Download, RotateCcw, Upload, Volume2, X } from 'lucide-react';
+import { SkillLegend } from './BoardLegend';
 
 type Props = {
   modal: 'settings' | 'help'; modalRef: RefObject<HTMLElement | null>; onClose: () => void;
@@ -11,30 +12,31 @@ type Props = {
 export default function AtlasModal({ modal, modalRef, onClose, theme, onTheme, sound, onSound, sample, onExport, onImport, onReset }: Props) {
   const settings = modal === 'settings';
   const [resetArmed, setResetArmed] = useState(false);
-  return <div className="modal-backdrop" onClick={onClose}><section ref={modalRef} className="modal" role="dialog" aria-modal="true" aria-label={settings ? 'Atlas settings' : 'A guide to your atlas'} onClick={e => e.stopPropagation()}>
+  return <div className="modal-backdrop" onClick={onClose}><section ref={modalRef} className={`modal ${settings ? '' : 'help-modal'}`} role="dialog" aria-modal="true" aria-label={settings ? 'Atlas settings' : 'A guide to your atlas'} onClick={e => e.stopPropagation()}>
     <button className="modal-close icon-button" autoFocus onClick={onClose} aria-label="Close dialog"><X size={20} /></button>
-    <h2>{settings ? 'Atlas settings' : 'Explore your skill board'}</h2>
+    <h2>{settings ? 'Settings' : 'Explore your skill board'}</h2>
+    <div className="modal-body">
     {settings ? <>
-      <h3>Atmosphere</h3>
-      <div className="theme-options">{['obsidian', 'moonstone'].map(t => <button key={t} className={theme === t ? 'active' : ''} onClick={() => onTheme(t)}>{t === 'obsidian' ? 'Midnight' : 'Moonstone'}{theme === t && <Check size={14} />}</button>)}</div>
-      <div className="theme-options sound-option"><button className={sound ? 'active' : ''} aria-pressed={sound} onClick={onSound}>{sound ? <Volume2 size={15} /> : <VolumeX size={15} />}Unlock sounds {sound ? 'on' : 'off'}</button></div>
+      <h3>Appearance</h3>
+      <div className="theme-options">{['obsidian', 'moonstone'].map(t => <button key={t} aria-pressed={theme === t} className={theme === t ? 'active' : ''} onClick={() => onTheme(t)}><span className={`theme-swatch ${t}`} aria-hidden="true"><i/><i/><i/></span><span>{t === 'obsidian' ? 'Midnight' : 'Moonstone'}<small>{t === 'obsidian' ? 'Deep charcoal, cool blue' : 'Soft slate, brighter contrast'}</small></span>{theme === t && <Check size={14} />}</button>)}</div>
+      <button className="sound-setting" role="switch" aria-checked={sound} aria-label="Sound effects" onClick={onSound}><Volume2 size={17}/><span>Sound effects<small>Play a chime when you save a level.</small></span><span className={`switch-track ${sound ? 'on' : ''}`} aria-hidden="true"><i/></span><strong>{sound ? 'On' : 'Off'}</strong></button>
       <h3>Your progress</h3>
       <p><strong>No account.</strong> Progress lives in this browser only. Keep a backup before changing devices or clearing browser data.</p>
       <div className="backup-actions"><button onClick={onExport}><Download size={16} />Export backup</button><button onClick={onImport}><Upload size={16} />Import backup</button></div>
-      <div className={`reset-area ${resetArmed ? 'armed' : ''}`}><h3>Begin your own legend</h3><p>{sample ? 'You are exploring an example profile. Starting fresh clears its demo levels and chronicle, then opens only the foundation skills.' : 'Reset all levels and your chronicle in this browser. Export a backup first if you want to keep them.'}</p>{!resetArmed ? <button className="danger-button" onClick={() => setResetArmed(true)}><RotateCcw size={14} />Start a fresh journey</button> : <div className="reset-confirm" role="alert"><div className="reset-confirm-heading"><AlertTriangle size={15} /><strong>Erase all progress?</strong></div><p>This clears every saved level and your chronicle in this browser. It cannot be undone without a backup.</p><div className="reset-confirm-actions"><button className="danger-button" onClick={() => { setResetArmed(false); onReset(); }}>Yes, erase my progress</button><button onClick={() => setResetArmed(false)}>Cancel</button></div></div>}</div>
+      <div className={`reset-area ${resetArmed ? 'armed' : ''}`}><h3>Reset progress</h3><p>{sample ? 'Clear the demo levels and all history, including any changes you made. Then rate your own skills from the foundations.' : 'Erase all skill levels and history in this browser. Export a backup first to keep them.'}</p>{!resetArmed ? <button className="danger-button" onClick={() => setResetArmed(true)}><RotateCcw size={14} />Reset progress</button> : <div className="reset-confirm" role="alert"><div className="reset-confirm-heading"><AlertTriangle size={15} /><strong>Erase all levels and history?</strong></div><p>This clears every saved level and your chronicle in this browser. It cannot be undone without a backup.</p><div className="reset-confirm-actions"><button className="danger-button" onClick={() => { setResetArmed(false); onReset(); }}>Yes, erase my progress</button><button onClick={() => setResetArmed(false)}>Cancel</button></div></div>}</div>
     </> : <>
-      <p>The board maps real-world skills and how they build on each other. Drag to move, scroll or pinch to zoom, and use the realm menu to jump between areas.</p>
-      <h3>Rate your skills</h3>
-      <p>Select an unlocked skill and set a level from 0 to 10. Each level has a plain description and a practice task, so you can judge yourself honestly.</p>
-      <h3>Unlock the next step</h3>
-      <p>A locked skill unlocks once every prerequisite reaches its required level. Select a locked skill to trace its whole prerequisite path and see how many levels each step still needs. Lowering a prerequisite locks the skills after it again, but keeps the levels you recorded.</p>
-      <h3>Plan a route</h3>
-      <p>Choose a goal to highlight one role’s skills and target levels. Next suggests up to three skills to work on, from your goal or from the branch you are viewing.</p>
-      <h3>Read the board</h3>
-      <p>Ring color follows level: silver for 0–2, cyan for 3–4, blue for 5–7, violet for 8–9, and gold at 10. A diamond marks a Mastery skill and a star marks a Legendary one. The crosshair button highlights locked and low-level skills.</p>
-      <h3>Find your way</h3>
-      <p>Press / to search. The codex lists every skill with filters, and the chronicle records each level you save. The map button shows the whole board.</p>
-      <button className="gold-button" onClick={onClose}>Enter the atlas <ChevronRight size={15} /></button>
+      <ol className="help-steps">
+        <li><strong>Choose a skill</strong><p>Open Skills (the codex) to search, or choose a branch from the realm menu. A realm is a group of related branches.</p></li>
+        <li><strong>Rate what you can do</strong><p>Use the level control and practice task, then press Save level. Locked skills list the prerequisites you need to raise first.</p></li>
+        <li><strong>Take the next step</strong><p>Choose a goal for role targets. Next suggests reachable skills with a reason, a target level, and learning guides. History (the chronicle) records your saves.</p></li>
+      </ol>
+      <SkillLegend/>
+      <h3>Move around</h3>
+      <p>Drag to pan; scroll or pinch to zoom. Fit returns to your current branch. The map shows all branches; choose one to read its skills. Press / to search, or Escape to close a panel.</p>
+      <p>Lowering a prerequisite locks later skills again, while preserving their saved levels. Goal counts include prerequisite targets; the overall count excludes the shared Engineering foundation.</p>
+      <p><strong>No account — saved in this browser only.</strong> Export a backup in Settings before changing devices.</p>
     </>}
+    </div>
+    {!settings && <div className="modal-footer"><button className="gold-button" onClick={onClose}>Back to the board <ChevronRight size={15} /></button></div>}
   </section></div>;
 }

@@ -7,7 +7,7 @@ export default function DependencyGuide({ path, onSelect, onFit, onClear }: { pa
   return <section className="dependency-guide" aria-label="Full prerequisite path">
     <div className="dependency-heading"><span>Path to</span><strong>{skillById.get(path.target)!.name}</strong></div>
     <p>{path.gaps.length ? `${path.gaps.length} ${path.gaps.length === 1 ? 'prerequisite still needs' : 'prerequisites still need'} work. Follow the chain from foundations upward.` : 'All prerequisite targets are met.'}</p>
-    <div className="path-actions"><button onClick={onFit}>View whole path <ArrowUpRight size={13}/></button><button onClick={onClear}>Clear path</button></div>
+    <div className="path-actions"><button onClick={onFit}>Focus path on board <ArrowUpRight size={13}/></button><button onClick={onClear}>Clear path</button></div>
     <ol>{path.requirements.map(item => <li key={item.id}><button onClick={() => onSelect(item.id)} className={item.met ? 'requirement-met' : 'requirement-missing'}><span><strong>{skillById.get(item.id)!.name}</strong><small>Level {item.current} / {item.required} required</small><small>{item.met ? 'Requirement met' : item.blocked ? `${item.missing ? `+${item.missing} levels; ` : ''}earlier prerequisites must unlock first` : `Raise by ${item.missing} ${item.missing === 1 ? 'level' : 'levels'}`}</small></span>{item.met ? <Check size={15}/> : <span className="missing-badge">{item.missing ? `${item.missing} short` : 'Locked'}</span>}</button></li>)}</ol>
     {!path.requirements.length && <p>This is a starting skill with no prerequisites.</p>}
   </section>;
