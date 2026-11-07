@@ -24,7 +24,7 @@ export function SkillLegend() {
       <li><i className="legend-goal" aria-hidden="true"/><span>Green outline · part of your goal</span></li>
       <li><i className="legend-path" aria-hidden="true"/><span>Gold outline and line · prerequisite path</span></li>
       <li><i className="legend-gap" aria-hidden="true"/><span>Amber dashed outline · skill gap (Gaps on)</span></li>
-      <li><i className="legend-faded" aria-hidden="true"/><span>Faded · outside your goal, path, or the branch on screen</span></li>
+      <li><i className="legend-faded" aria-hidden="true"/><span>Faded · outside your goal (within goal branches), path, or the branch on screen</span></li>
     </ul>
     <p>Standard skills build foundations. Mastery and Legendary mark broader milestones, independent of your proficiency. No filled stars means not rated.</p>
   </div>;

@@ -32,6 +32,25 @@ const branches = [...new Set(trainableSkills.filter(s => s.region === 'Engineeri
 const icons: Record<string, typeof Code2> = { Engineering: Code2, 'Problem Solving': Brain, 'Personal Skills': Sparkles };
 // Edges longer than this cross whole branches; they stay faint unless a skill or path is in focus.
 const LONG_EDGE = 1000;
+// Each branch's area on the board, padded so the gaps between branches still count as nearby.
+const BRANCH_PADDING = 260;
+const branchAreas = Object.entries(trainableSkills.reduce<Record<string, { region: string; minX: number; maxX: number; minY: number; maxY: number }>>((areas, skill) => {
+  const area = areas[skill.branch] ??= { region: skill.region, minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
+  area.minX = Math.min(area.minX, skill.x); area.maxX = Math.max(area.maxX, skill.x + 70);
+  area.minY = Math.min(area.minY, skill.y); area.maxY = Math.max(area.maxY, skill.y + 70);
+  return areas;
+}, {}));
+// The branch whose area is closest to a board point (0 when the point is inside it).
+function branchAt(x: number, y: number) {
+  let best: { branch: string; region: string; distance: number } | null = null;
+  for (const [branch, area] of branchAreas) {
+    const dx = Math.max(area.minX - BRANCH_PADDING - x, 0, x - area.maxX - BRANCH_PADDING);
+    const dy = Math.max(area.minY - BRANCH_PADDING - y, 0, y - area.maxY - BRANCH_PADDING);
+    const distance = Math.hypot(dx, dy);
+    if (!best || distance < best.distance) best = { branch, region: area.region, distance };
+  }
+  return best && best.distance === 0 ? best : null;
+}
 // The example build ships a short, labeled history so the chronicle shows what it records.
 const sampleHistory = (): Entry[] => ([['react', 2, 3, 1], ['javascript', 4, 5, 3], ['css', 4, 6, 6], ['html', 6, 7, 9]] as const).map(([id, from, to, days]) => ({ name: skillById.get(id)!.name, from: fromLegacyLevel(from), to: fromLegacyLevel(to), at: new Date(Date.now() - days * 864e5).toISOString(), sample: true }));
 
@@ -90,8 +109,6 @@ function Atlas() {
   const [sound, setSound] = useState(false);
   const [gaps, setGaps] = useState(false);
   const [goalId, setGoalId] = useState('');
-  // Fading skills outside the goal can be switched off for the session.
-  const [goalFade, setGoalFade] = useState(true);
   const [resetFocus, setResetFocus] = useState(false);
   const [pathTarget, setPathTarget] = useState<string | null>(null);
   const path = useMemo(() => pathTarget ? dependencyPath(pathTarget, levels) : null, [pathTarget, levels]);
@@ -121,8 +138,9 @@ function Atlas() {
   const unlocked = isUnlocked(selectedId, levels);
   const learned = useMemo(() => trainableSkills.filter(s => levels[s.id] > 0 && isUnlocked(s.id, levels)), [levels]);
   const trainableCount = trainableSkills.length;
-  const goalName = goals.find(item => item.id === goalId)?.name;
-  const goalOutsideView = !!goalId && goalFade && !activeSkills.some(s => route.has(s.id));
+  // Goal fading applies only inside branches that hold goal skills, so a branch the user
+  // moves to that has none (Backend for a Frontend goal) stays fully readable.
+  const goalBranches = useMemo(() => new Set([...route.keys()].map(id => skillById.get(id)?.branch)), [route]);
   const boardRef = useRef<HTMLElement>(null);
   const labelsRef = useRef<HTMLDivElement>(null);
   // Prefer a label-readable zoom over fitting every node into a dot field. The
@@ -148,14 +166,15 @@ function Atlas() {
   // Whole branches fit at a slightly smaller zoom on wide screens; captions stay readable.
   const branchMinZoom = () => window.innerWidth <= 700 ? .5 : .42;
   const cardInset = () => window.innerWidth > 700 ? 420 : 0;
-  // Fit the goal's targets in the branch on screen when possible; the full route stays highlighted.
+  // Always go to the branch holding most of the goal's targets. Staying on the branch on screen
+  // whenever it held any target stranded users on one shared skill (Git in DevOps for Frontend).
+  // The full route stays highlighted wherever the user moves next.
   const focusGoal = (id: string) => {
     const goal = goals.find(item => item.id === id);
     if (!goal) return;
     const targets = Object.keys(goal.targets).map(id => skillById.get(id)!).filter(Boolean);
-    const current = targets.filter(skill => skill.branch === branch);
-    const mainBranch = targets.reduce<Record<string, number>>((counts, skill) => ({ ...counts, [skill.branch]: (counts[skill.branch] || 0) + 1 }), {});
-    const targetBranch = current.length ? branch : Object.keys(mainBranch).sort((a, b) => mainBranch[b] - mainBranch[a])[0];
+    const counts = targets.reduce<Record<string, number>>((tally, skill) => ({ ...tally, [skill.branch]: (tally[skill.branch] || 0) + 1 }), {});
+    const targetBranch = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
     const focused = targets.filter(skill => skill.branch === targetBranch);
     setRegion(focused[0].region); setBranch(targetBranch);
     fitSkills(focused, .16, reduced ? 0 : 700, 1.05, branchMinZoom(), 40);
@@ -195,7 +214,7 @@ function Atlas() {
   }, [modal]);
   const playChime = () => { if (!sound) return; try { const ctx = audio.current || new AudioContext(); audio.current = ctx; void ctx.resume(); [261.63, 392, 523.25, 783.99].forEach((freq, i) => { const o = ctx.createOscillator(); const g = ctx.createGain(); o.type = 'sine'; o.frequency.value = freq; g.gain.setValueAtTime(0, ctx.currentTime + i * .12); g.gain.linearRampToValueAtTime(.055, ctx.currentTime + i * .12 + .03); g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + i * .12 + 1.2); o.connect(g); g.connect(ctx.destination); o.start(ctx.currentTime + i * .12); o.stop(ctx.currentTime + i * .12 + 1.3); }); } catch { notify('Audio is unavailable in this browser.', 'error'); } };
   const toggleSound = () => { setSound(!sound); notify(sound ? 'Sound disabled.' : 'Sound effects enabled.', 'info'); };
-  const nodes: SkillNode[] = useMemo(() => trainableSkills.map(skill => ({ id: skill.id, type: 'skill', width: 70, height: 70, position: { x: skill.x, y: skill.y }, data: { skill, level: levels[skill.id] || 0, unlocked: isUnlocked(skill.id, levels), selected: inspectorOpen && selectedId === skill.id, gaps, goal: route.has(skill.id), offGoal: goalFade && !!goalId && !route.has(skill.id), offBranch: branch !== 'All branches' && skill.branch !== branch, recommended: recommendedIds.has(skill.id), pathMember: !!path?.ids.has(skill.id), pathMuted: !!path && !path.ids.has(skill.id), pathMissing: missingIds.has(skill.id) || pathTarget === skill.id && !isUnlocked(skill.id, levels) }, ariaLabel: `${skill.name}, ${starCount(levels[skill.id] || 0)}, ${isUnlocked(skill.id, levels) ? 'unlocked' : 'locked'}`, draggable: false })), [levels, selectedId, gaps, inspectorOpen, route, goalId, goalFade, branch, recommendedIds, path, missingIds, pathTarget]);
+  const nodes: SkillNode[] = useMemo(() => trainableSkills.map(skill => ({ id: skill.id, type: 'skill', width: 70, height: 70, position: { x: skill.x, y: skill.y }, data: { skill, level: levels[skill.id] || 0, unlocked: isUnlocked(skill.id, levels), selected: inspectorOpen && selectedId === skill.id, gaps, goal: route.has(skill.id), offGoal: !!goalId && !route.has(skill.id) && goalBranches.has(skill.branch), offBranch: branch !== 'All branches' && skill.branch !== branch, recommended: recommendedIds.has(skill.id), pathMember: !!path?.ids.has(skill.id), pathMuted: !!path && !path.ids.has(skill.id), pathMissing: missingIds.has(skill.id) || pathTarget === skill.id && !isUnlocked(skill.id, levels) }, ariaLabel: `${skill.name}, ${starCount(levels[skill.id] || 0)}, ${isUnlocked(skill.id, levels) ? 'unlocked' : 'locked'}`, draggable: false })), [levels, selectedId, gaps, inspectorOpen, route, goalId, goalBranches, branch, recommendedIds, path, missingIds, pathTarget]);
   const edges: Edge[] = useMemo(() => trainableSkills.flatMap(s => s.prerequisites.filter(p => !isStructural(p.id)).map(p => {
     const id = `${p.id}-${s.id}`, from = skillById.get(p.id)!;
     const focused = inspectorOpen && (s.id === selectedId || p.id === selectedId);
@@ -292,7 +311,18 @@ function Atlas() {
         const scale = (1 / viewport.zoom).toFixed(2);
         const labels = labelsRef.current;
         if (overview === 'true' && labels && labels.style.getPropertyValue('--overview-scale') !== scale) labels.style.setProperty('--overview-scale', scale);
-      }} onMoveEnd={() => { if (boardRef.current) boardRef.current.dataset.moving = 'false'; }} proOptions={{ hideAttribution: true }}>
+      }} onMoveEnd={(_, viewport) => {
+        if (boardRef.current) boardRef.current.dataset.moving = 'false';
+        // Focus follows the board: when the user stops over another branch, that branch becomes
+        // current (area menu, fading, goal hint). The overview keeps "All branches".
+        if (viewport.zoom < .3) return;
+        const rect = document.querySelector('.atlas-area .react-flow')?.getBoundingClientRect();
+        if (!rect) return;
+        const here = branchAt((rect.width / 2 - viewport.x) / viewport.zoom, (rect.height / 2 - viewport.y) / viewport.zoom);
+        if (!here) return;
+        const nextBranch = here.region === 'Engineering' ? here.branch : 'All branches';
+        if (here.region !== region || nextBranch !== branch) { setRegion(here.region); setBranch(nextBranch); }
+      }} proOptions={{ hideAttribution: true }}>
         <CaptionBounds/>
         <ViewportPortal><Connections edges={edges} /><div ref={labelsRef} className="board-labels">{boardLabels.map(([name, x, y]) => <button key={name} className="constellation-label" style={{ left: Number(x) + 35, top: Number(y), '--label-color': branchColors[String(name)] } as React.CSSProperties} onClick={() => navigate(regions.includes(String(name)) ? String(name) : 'Engineering', regions.includes(String(name)) ? 'All branches' : String(name))}>{name}<span>{skills.filter(s => s.branch === name && levels[s.id] > 0 && isUnlocked(s.id, levels)).length} / {skills.filter(s => s.branch === name).length} rated</span><small>{skills.filter(s => s.branch === name && !levels[s.id] && isUnlocked(s.id, levels)).length} ready to rate</small></button>)}<button className="world-label" style={{ left: 35, top: -100 }} onClick={() => navigate('Engineering', 'Frontend')}>Engineering<span>Explore 10 branches</span></button></div></ViewportPortal>
       </ReactFlow>
@@ -301,10 +331,9 @@ function Atlas() {
         {realmMenu && <div className="realm-menu"><div className="realm-menu-heading"><span className="menu-label">Choose an area<small>A realm groups related skills</small></span><button className="icon-button" aria-label="Close realm menu" onClick={() => setRealmMenu(false)}><X size={16}/></button></div>{regions.map(r => { const Icon = icons[r]; return <button key={r} className={region === r ? 'active' : ''} onClick={() => { setTab('atlas'); navigate(r); }}><Icon size={17} /><span>{r}</span>{region === r && <Check size={14} />}</button>; })}<div className="branch-shortcuts"><span className="menu-label">Engineering branches</span>{branches.map(b => <button key={b} aria-pressed={region === 'Engineering' && branch === b} onClick={() => { setTab('atlas'); navigate('Engineering', b); }}>{b}{region === 'Engineering' && branch === b && <Check size={13}/>}</button>)}</div></div>}
       </div>
       <div className={`board-search ${searchOpen ? 'expanded' : ''}`}><button className={`icon-button gap-toggle ${gaps ? 'active' : ''}`} title="Outline skills that are locked or below 3 stars" aria-pressed={gaps} onClick={() => { const count = activeSkills.filter(s => !isUnlocked(s.id, levels) || (levels[s.id] || 0) < 3).length; setGaps(!gaps); notify(gaps ? 'Skill gaps off. Showing all skills.' : `Skill gaps on: ${plural(count, 'skill')} in ${focus} ${count === 1 ? 'is' : 'are'} locked or below 3 stars (independent work) and outlined in amber. Stronger skills are faded.`, 'info'); }}><Crosshair size={18} /><span className="tool-label">Gaps</span></button><div className="search-wrap"><button className="search-toggle" aria-label="Open skill search" onClick={() => setSearchOpen(!searchOpen)}><Search size={18} /></button><input aria-label="Find a skill" placeholder="Find a skill…" value={query} onFocus={() => setSearchOpen(true)} onChange={e => setQuery(e.target.value)} />{query ? <button className="icon-button" aria-label="Clear search" onClick={() => setQuery('')}><X size={14} /></button> : <kbd>/</kbd>}{query.trim() && <div className="search-results"><p className="search-count" role="status">{plural(results.length, 'result')}{results.length > 8 ? ' · showing the first 8' : ''}</p>{results.length ? results.slice(0, 8).map(s => { const lock = lockReason(s.id, levels); return <button key={s.id} onClick={() => { setTab('atlas'); select(s, true); setSearchOpen(false); }}><Sigil skill={s} size={20} /><span>{s.name}<small>{s.branch}{lock && ` · Locked · needs ${skillById.get(lock.blocker.id)!.name} at ${starCount(lock.blocker.required)}`}</small></span>{lock ? <LockKeyhole size={14} aria-label="Locked" /> : <span>{levels[s.id] || 0}/5 ★</span>}<ChevronRight size={14}/></button>; }) : <p>No skills match “{query.trim()}”. Try a skill or branch name, or <button className="link-button" onClick={() => setQuery('')}>clear search</button>.</p>}</div>}</div></div>
-      {tab === 'atlas' && !inspectorOpen && !modal && <GoalControl goalId={goalId} levels={levels} focus={focus} recommendations={recommendations} onSelect={(id, guide) => { select(skillById.get(id)!, true); if (guide) setGuideRequest(value => value + 1); }} onChange={id => { setGoalId(id); setGoalFade(true); setPathTarget(null); setInspectorOpen(false); focusGoal(id); const goal = goals.find(item => item.id === id); const progress = goalProgress(id, levels); notify(goal ? `${goal.name} goal set · ${progress.completed} of ${progress.total} targets reached.` : 'Goal cleared. Exploring freely.', 'info'); }} onFit={() => { setPathTarget(null); setInspectorOpen(false); focusGoal(goalId); }} />}
+      {tab === 'atlas' && !inspectorOpen && !modal && <GoalControl goalId={goalId} levels={levels} focus={focus} recommendations={recommendations} onSelect={(id, guide) => { select(skillById.get(id)!, true); if (guide) setGuideRequest(value => value + 1); }} onChange={id => { setGoalId(id); setPathTarget(null); setInspectorOpen(false); focusGoal(id); const goal = goals.find(item => item.id === id); const progress = goalProgress(id, levels); notify(goal ? `${goal.name} goal set · ${progress.completed} of ${progress.total} targets reached.` : 'Goal cleared. Exploring freely.', 'info'); }} onFit={() => { setPathTarget(null); setInspectorOpen(false); focusGoal(goalId); }} />}
       <CameraControls onFit={() => navigate(region, branch)} onOverview={() => { setPathTarget(null); setInspectorOpen(false); setBranch('All branches'); fitSkills(trainableSkills, .16, reduced ? 0 : 700, 2.5, 0, 110); }} />
       <div className="overview-hint">Whole atlas · choose a branch to read skills</div>
-      {goalOutsideView && tab === 'atlas' && !inspectorOpen && <div className="goal-fade-hint" role="status">Skills outside your {goalName} goal are faded.<button className="link-button" onClick={() => setGoalFade(false)}>Show all skills</button></div>}
       {path && !inspectorOpen && tab === 'atlas' && <PathControl key={path.target} path={path} onFit={() => fitPath()} onClear={() => setPathTarget(null)} onSelect={id => select(skillById.get(id)!, true, true)} onOpenTarget={() => select(skillById.get(path.target)!, false, true)} />}
       <BoardLegend onHelp={() => setModal('help')} />
       <div ref={flash} className="level-flash" />
