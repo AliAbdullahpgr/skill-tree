@@ -9,3 +9,9 @@ test-results/
 .openai/*.local.*
 
 .artifacts/
+
+# External source-of-truth clone (nested git repo, not part of this project)
+roadmap-sh/
+
+# Local UX audit artifacts
+.ux-audit/

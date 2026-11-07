@@ -7,6 +7,7 @@ import type { DependencyPath } from '@/lib/dependencies';
 import { skills, rank, type Levels, type Skill } from '@/lib/progression';
 
 const MilestoneGuide = lazy(() => import('./MilestoneGuide'));
+const RoadmapResources = lazy(() => import('./RoadmapResources'));
 
 type Props = {
   skill: Skill; levels: Levels; unlocked: boolean; draft: number; onDraft: (level: number) => void; onSave: () => void; onClose: () => void;
@@ -24,6 +25,7 @@ export default function Inspector({ skill, levels, unlocked, draft, onDraft, onS
       <div className="current-level"><span>Current level</span><strong>{level}<small> / 10</small></strong><em>{unlocked ? rank(level) : 'Locked'}</em></div>
       <div className="level-pips">{Array.from({ length: 10 }, (_, i) => <i key={i} className={i < level && unlocked ? 'filled' : ''} />)}</div>
       <p className="skill-description">{skill.description}</p>
+      <Suspense fallback={null}><RoadmapResources skillId={skill.id} /></Suspense>
       {goalTarget !== undefined && <p className="goal-target">Goal target · Level {goalTarget} {level >= goalTarget && unlocked ? '✓ Reached' : ''}</p>}
       {skill.prerequisites.length > 0 && <div className="inspector-section"><h3>Prerequisite path</h3>{path
         ? <DependencyGuide path={path} onSelect={onSelect} onFit={onShowPath} onClear={onClearPath} />

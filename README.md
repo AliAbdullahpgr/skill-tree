@@ -47,6 +47,19 @@ Edit `src/lib/skills.json` to add or rearrange skills:
 
 Identifiers must be unique, prerequisite references must exist, and the prerequisite graph must remain acyclic. Every skill names an icon file in `public/icons/`: a technology logo, or a `lucide-<name>` concept glyph for skills with no logo. Regions and their UI labels are defined in `src/components/SkillAtlas.tsx`. Theme variables live in `src/app/globals.css`.
 
+## Roadmap guides (offline)
+
+Skill details can show a short topic description and curated learning links sourced from the local `developer-roadmap` clone. The clone lives in `roadmap-sh/` and is gitignored; no API calls are made.
+
+```sh
+git clone --depth 1 https://github.com/kamranahmedse/developer-roadmap.git roadmap-sh
+npm run roadmap:index
+```
+
+The generator reads only `roadmap-sh/roadmaps/*/content/*.md` and writes `src/lib/roadmap-content.json` (lazy-loaded guides) plus `src/lib/roadmap-coverage.json` (lightweight presence index). It matches skills to topics by normalized name, with explicit overrides in `scripts/roadmap-aliases.json`; `.artifacts/roadmap-gaps.json` reports unmatched skills and per-branch coverage. Re-run the generator after updating the clone.
+
+roadmap.sh's license limits its content to personal use. Keep the generated guides local and do not republish them publicly without permission; the UI links back to roadmap.sh for attribution.
+
 ## Stack and structure
 
 Next.js App Router + TypeScript, React 19, Tailwind CSS 4 with bespoke fantasy CSS, XYFlow, native Web Animations/CSS, and the Canvas API. Static export hosting is configured in `next.config.ts` and `.openai/hosting.json`.

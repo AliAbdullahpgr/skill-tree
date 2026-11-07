@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/*.test.ts"
+    "test": "tsx --test src/lib/*.test.ts",
+    "roadmap:index": "node scripts/build-roadmap-index.mjs --report"
   },
   "dependencies": {
     "@xyflow/react": "^12.9.0",
@@ -19,11 +20,11 @@
   "devDependencies": {
     "@playwright/test": "^1.56.0",
     "@tailwindcss/postcss": "^4.1.0",
-    "@types/node": "^22.0.0",
+    "@types/node": "22.20.5",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "tailwindcss": "^4.1.0",
     "tsx": "^4.20.0",
-    "typescript": "^5.9.0"
+    "typescript": "5.9.3"
   }
 }
